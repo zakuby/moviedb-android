@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.themoviedb.screens.profile.ProfileViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="24dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_profile_image"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/profile_name_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_image"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@string/roboto_light"
+                android:text="@string/profile_full_name"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_name_header"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@string/roboto_black"
+                android:text="@{viewModel.profile.name}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Muhammad Yaqub" />
+
+            <View
+                android:id="@+id/separator_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/profile_name"
+                android:layout_marginTop="10dp"
+                android:background="@color/athens_gray" />
+
+            <TextView
+                android:id="@+id/profile_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator_profile_name"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:drawableStart="@drawable/ic_gmail"
+                android:drawableLeft="@drawable/ic_gmail"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawablePadding="10dp"
+                android:fontFamily="@string/roboto_black"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@{viewModel.profile.email}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="zakuby@gmail.com" />
+
+            <View
+                android:id="@+id/separator_profile_email"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/profile_email"
+                android:background="@color/athens_gray" />
+
+            <TextView
+                android:id="@+id/profile_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator_profile_email"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:drawableStart="@drawable/ic_whatsapp"
+                android:drawableLeft="@drawable/ic_whatsapp"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawablePadding="10dp"
+                android:fontFamily="@string/roboto_black"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@{viewModel.profile.phone}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="+628123456789" />
+
+            <View
+                android:id="@+id/separator_profile_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/profile_whatsapp"
+                android:background="@color/athens_gray" />
+
+            <TextView
+                android:id="@+id/profile_github"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator_profile_whatsapp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:drawableStart="@drawable/ic_github"
+                android:drawableLeft="@drawable/ic_github"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawablePadding="10dp"
+                android:fontFamily="@string/roboto_black"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@string/profile_github_account"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/separator_profile_github"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/profile_github"
+                android:background="@color/athens_gray" />
+
+            <TextView
+                android:id="@+id/profile_dicoding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator_profile_github"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:drawableStart="@drawable/ic_dicoding"
+                android:drawableLeft="@drawable/ic_dicoding"
+                android:drawableEnd="@drawable/ic_chevron_right"
+                android:drawableRight="@drawable/ic_chevron_right"
+                android:drawablePadding="10dp"
+                android:fontFamily="@string/roboto_black"
+                android:gravity="center|start"
+                android:padding="10dp"
+                android:text="@string/profile_dicoding_account"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/separator_profile_dicoding"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/profile_dicoding"
+                android:background="@color/athens_gray" />
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

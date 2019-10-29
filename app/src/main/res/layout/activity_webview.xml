@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ToolBarTheme">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/menu_profile"
+                app:navigationIcon="@drawable/ic_close_black"
+                app:titleTextColor="@color/black"
+                tools:subtitle="webview url"
+                tools:title="Webview" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_below="@id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="5dp">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:indeterminate="true"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+        </FrameLayout>
+
+
+        <WebView
+            android:layout_below="@id/app_bar"
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            tools:visibility="gone"/>
+
+    </RelativeLayout>
+</layout>
