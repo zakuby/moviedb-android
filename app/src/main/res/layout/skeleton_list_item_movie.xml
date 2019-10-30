@@ -10,14 +10,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_height="225dp"
+        android:clipToPadding="false">
 
         <ImageView
             android:id="@+id/movie_image"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:background="@color/athens_gray"
             tools:ignore="ContentDescription" />
 
@@ -27,30 +26,55 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:layout_toEndOf="@id/movie_image"
             android:layout_toRightOf="@id/movie_image"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <FrameLayout
+                    android:id="@+id/skeleton_rating"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/oval_solid_skeleton"
+                    android:layout_marginEnd="5dp" />
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/skeleton_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_toEndOf="@id/skeleton_rating"
+                    android:layout_toRightOf="@id/skeleton_rating"
+                    app:cardBackgroundColor="@color/athens_gray"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="100dp"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/skeleton_title"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/skeleton_rating"
+                    android:layout_toRightOf="@id/skeleton_rating"
+                    app:cardBackgroundColor="@color/athens_gray"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="0dp" />
+
+            </RelativeLayout>
+
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                app:cardBackgroundColor="@color/athens_gray"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="0dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="5dp"
-                app:cardBackgroundColor="@color/athens_gray"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="0dp" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/athens_gray"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="0dp" />
@@ -73,6 +97,36 @@
                 android:layout_marginRight="15dp"
                 app:cardBackgroundColor="@color/athens_gray"
                 app:cardCornerRadius="5dp"
+                app:cardElevation="0dp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@id/movie_image"
+            android:layout_toRightOf="@id/movie_image"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="-30dp"
+                android:layout_marginRight="-30dp"
+                android:background="@color/athens_gray" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                app:cardBackgroundColor="@color/athens_gray"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="0dp" />
 
         </LinearLayout>

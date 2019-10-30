@@ -8,4 +8,10 @@
     <color name="black">#081c24</color>
     <color name="white">#ffffff</color>
     <color name="athens_gray">#E7E7EB</color>
+    <color name="dark_green">#204629</color>
+    <color name="green">#6AD17C</color>
+    <color name="yellow">#D2D531</color>
+    <color name="dark_yellow">#403B0F</color>
+    <color name="red">#DC3F60</color>
+    <color name="dark_red">#581635</color>
 </resources>

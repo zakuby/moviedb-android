@@ -16,4 +16,5 @@
     <string name="error_no_internet_connection">No internet connection Please try again.</string>
     <string name="button_retry">Retry</string>
     <string name="error_no_whatsapp">Please Install Whatsapp.</string>
+    <string name="movie_list_more_info">More Info</string>
 </resources>
