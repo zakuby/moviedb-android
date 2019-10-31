@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_movies.*
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.models.Movie
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
+import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
 
 class MoviesFragment : DaggerFragment() {
@@ -48,26 +51,26 @@ class MoviesFragment : DaggerFragment() {
 
     private fun subscribeUI() {
 
-        val dummyMovies = listOf(
-            Movie(
-                1,
-                "Spider-Man: Into the Spider-Verse",
-                "December 14, 2018",
-                "Miles Morales is juggling his life between being a high school student and being a spider-man. When Wilson Kingpin Fisk uses a super collider, others from across the Spider-Verse are transported to this dimension.",
-                "9.0"
-            ),
-            Movie(2,
-                "Joker Jared Leto",
-                "October 4, 2019",
-                "During the 1980s, a failed actor is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
-                "5.1"),
-            Movie(3,
-                "Dragonball Evolution",
-                "April 8, 2009",
-                "The young warrior Son Goku sets out on a quest, racing against time and the vengeful King Piccolo, to collect a set of seven magical orbs that will grant their wielder unlimited power.",
-                "2.5")
-        )
+        observe(viewModel.getLoading()) { isLoading ->
+            if (isLoading) {
+                binding.apply {
+                    recyclerView.visibility = View.GONE
+                    shimmerView.visibility = View.VISIBLE
+                    shimmerView.startShimmer()
+                }
+            } else {
+                binding.apply {
+                    shimmerView.stopShimmer()
+                    shimmerView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                }
+            }
 
-        adapter.loadMovies(dummyMovies)
+        }
+
+        observe(viewModel.getMovies()) { movies ->
+            adapter.loadMovies(movies)
+        }
+
     }
 }

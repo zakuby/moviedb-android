@@ -2,20 +2,18 @@ package org.themoviedb.utils
 
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 import org.themoviedb.R
-import android.graphics.drawable.Drawable
-import androidx.core.content.res.ResourcesCompat
 
 
 @BindingAdapter("bind:loadImageUrl")
 fun loadImageUrl(imgView: ImageView, url: String?) {
     if (url.isNullOrBlank()) return
     Picasso.get()
-        .load(url)
+        .load("https://image.tmdb.org/t/p/original/$url")
         .placeholder(R.color.athens_gray)
-        .error(R.drawable.img_dummy)
         .fit()
         .centerCrop()
         .into(imgView)

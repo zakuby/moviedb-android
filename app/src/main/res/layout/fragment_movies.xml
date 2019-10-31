@@ -37,7 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 shimmer:shimmer_auto_start="true"
-                android:visibility="gone"
                 tools:visibility="gone">
 
                 <androidx.core.widget.NestedScrollView
@@ -54,7 +53,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
+                android:visibility="gone"
                 tools:itemCount="5"
                 tools:listitem="@layout/list_item_movie"
                 tools:visibility="visible" />

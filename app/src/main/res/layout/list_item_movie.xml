@@ -37,7 +37,9 @@
                 android:layout_marginRight="10dp"
                 android:contentDescription="@string/list_item_movie_image_desc"
                 android:scaleType="centerCrop"
-                android:src="@drawable/poster_spiderman" />
+                android:src="@color/athens_gray"
+                bind:loadImageUrl="@{movie.posterImage}"
+                tools:src="@drawable/poster_spiderman" />
 
             <RelativeLayout
                 android:id="@+id/movie_header"
@@ -110,7 +112,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@string/roboto_light"
                         android:maxLines="2"
-                        android:text="@{movie.date}"
+                        android:text="@{movie.formattedDate()}"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         tools:text="December 14, 2018" />
