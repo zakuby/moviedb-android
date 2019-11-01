@@ -3,18 +3,21 @@ package org.themoviedb.screens.movie.viewmodel
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.crashlytics.android.Crashlytics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
+import org.themoviedb.core.network.response.ErrorResponseHandler
 import org.themoviedb.core.network.service.MovieServices
 import org.themoviedb.models.Movie
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
-    val service: MovieServices
+    private val service: MovieServices,
+    private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel(){
 
     init {
@@ -42,7 +45,11 @@ class MoviesViewModel @Inject constructor(
                     resp.results?.let { popularMovies ->
                         movies.postValue(popularMovies)
                     }
-                }, onError = { error -> error.printStackTrace() }
+                }, onError = { error ->
+                    val errResp = errorResponseHandler.handleException(error)
+                    errorResponse.postValue(errResp)
+                    Crashlytics.logException(error)
+                }
             ).disposedBy(compositeDisposable)
     }
 }

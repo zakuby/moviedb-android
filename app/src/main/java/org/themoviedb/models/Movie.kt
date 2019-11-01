@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Parcelize
