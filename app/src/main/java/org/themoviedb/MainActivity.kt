@@ -10,6 +10,7 @@ import dagger.android.ContributesAndroidInjector
 import org.themoviedb.core.base.BaseActivity
 import org.themoviedb.core.dagger.FragmentScoped
 import org.themoviedb.databinding.ActivityMainBinding
+import org.themoviedb.screens.movie.view.MovieDetailFragment
 import org.themoviedb.screens.movie.view.MoviesFragment
 import org.themoviedb.screens.profile.ProfileFragment
 
@@ -57,6 +58,11 @@ abstract class MainActivityModule{
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeMoviesFragment(): MoviesFragment
+
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeMovieDetailFragment(): MovieDetailFragment
 
 
     @FragmentScoped

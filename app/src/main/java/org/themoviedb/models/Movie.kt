@@ -8,7 +8,7 @@ import java.util.*
 
 @Parcelize
 data class Movie(
-    val id: Int?,
+    val id: String?,
     val title: String?,
     @SerializedName("release_date") val date: String?,
     @SerializedName("overview") val description: String?,

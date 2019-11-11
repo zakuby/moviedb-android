@@ -17,4 +17,6 @@
     <string name="button_retry">Retry</string>
     <string name="error_no_whatsapp">Please Install Whatsapp.</string>
     <string name="movie_list_more_info">More Info</string>
+    <string name="movie_detail_overview">Overview</string>
+    <string name="movie_detail_top_billed">Top Billed Cast</string>
 </resources>

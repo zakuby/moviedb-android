@@ -77,7 +77,7 @@ android {
 ext {
     //layout
     materialVersion = '1.0.0'
-    constraintLayoutVersion = '1.1.3'
+    constraintLayoutVersion = '2.0.0-beta1'
     shimmerVersion = '0.4.0'
     circleImageVersion = '3.0.1'
 
@@ -116,11 +116,12 @@ dependencies {
 
     //For layouting purpose
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     //Shimmer for loading
     implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
     //Circle ImageView
     implementation "de.hdodenhof:circleimageview:$circleImageVersion"
+    //Motion Layout
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     //Android Architecture Component
     // ViewModel and LiveData
