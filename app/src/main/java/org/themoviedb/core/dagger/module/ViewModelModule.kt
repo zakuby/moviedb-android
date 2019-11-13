@@ -17,12 +17,10 @@ abstract class ViewModelModule {
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-
     @Binds
     @IntoMap
     @ViewModelKey(MoviesViewModel::class)
     internal abstract fun moviesViewModel(viewModel: MoviesViewModel): ViewModel
-
 
     @Binds
     @IntoMap

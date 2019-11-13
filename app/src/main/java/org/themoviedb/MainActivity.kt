@@ -23,13 +23,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setupActivity()
     }
 
-    private fun setupActivity(){
+    private fun setupActivity() {
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
     }
 
-    private fun openProfile(){
+    private fun openProfile() {
         navController.navigate(R.id.action_to_profile)
     }
 
@@ -54,16 +54,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 }
 
 @Module
-abstract class MainActivityModule{
+abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeMoviesFragment(): MoviesFragment
 
-
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeMovieDetailFragment(): MovieDetailFragment
-
 
     @FragmentScoped
     @ContributesAndroidInjector

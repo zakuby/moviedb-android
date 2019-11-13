@@ -22,7 +22,7 @@ class MovieDetailViewModel @Inject constructor(
 
     private val casts = MutableLiveData<List<Cast>>()
 
-    fun getMovieCasts() : LiveData<List<Cast>> = casts
+    fun getMovieCasts(): LiveData<List<Cast>> = casts
 
     val isResponseError = ObservableBoolean(false)
 
@@ -30,14 +30,13 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-
-    fun fetchMovieCasts(id: String){
+    fun fetchMovieCasts(id: String) {
         service.getMovieCredits(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading() }
             .doAfterTerminate { finishLoading() }
-            .subscribeBy (
+            .subscribeBy(
                 onSuccess = { resp ->
                     resp.cast?.let { respCast ->
                         casts.postValue(respCast.take(10))
@@ -49,5 +48,4 @@ class MovieDetailViewModel @Inject constructor(
                 }
             ).disposedBy(compositeDisposable)
     }
-
 }

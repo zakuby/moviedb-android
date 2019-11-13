@@ -7,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 import org.themoviedb.R
 
-
 @BindingAdapter("bind:loadImageUrl")
 fun loadImageUrl(imgView: ImageView, url: String?) {
     if (url.isNullOrBlank()) return
@@ -20,14 +19,14 @@ fun loadImageUrl(imgView: ImageView, url: String?) {
 }
 
 @BindingAdapter("bind:setProgressRating")
-fun setProgressRating(progressBar: ProgressBar, stringRate: String){
+fun setProgressRating(progressBar: ProgressBar, stringRate: String) {
     val rate = (stringRate.toDoubleOrNull() ?: 0.0) * 10
     val res = progressBar.context.resources
     progressBar.apply {
         progress = rate.toInt()
         progressDrawable = when (rate) {
-            in 80.0 .. 100.0 -> ResourcesCompat.getDrawable(res, R.drawable.bg_circular_progress_green, null)
-            in 51.0 .. 79.9 -> ResourcesCompat.getDrawable(res, R.drawable.bg_circular_progress_yellow, null)
+            in 80.0..100.0 -> ResourcesCompat.getDrawable(res, R.drawable.bg_circular_progress_green, null)
+            in 51.0..79.9 -> ResourcesCompat.getDrawable(res, R.drawable.bg_circular_progress_yellow, null)
             else -> ResourcesCompat.getDrawable(res, R.drawable.bg_circular_progress_red, null)
         }
     }

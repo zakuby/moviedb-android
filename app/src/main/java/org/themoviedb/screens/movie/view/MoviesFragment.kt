@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies.*
 import org.themoviedb.MainActivity
-import org.themoviedb.R
 import org.themoviedb.databinding.FragmentMoviesBinding
-import org.themoviedb.models.Movie
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
@@ -29,7 +25,7 @@ class MoviesFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentMoviesBinding
 
-    private val adapter by lazy { MoviesListAdapter{ movie ->
+    private val adapter by lazy { MoviesListAdapter { movie ->
         val action = MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movie)
         val activity = activity as MainActivity
         activity.supportActionBar?.hide()
@@ -74,12 +70,10 @@ class MoviesFragment : DaggerFragment() {
                     recyclerView.visibility = View.VISIBLE
                 }
             }
-
         }
 
         observe(viewModel.getMovies()) { movies ->
             adapter.loadMovies(movies)
         }
-
     }
 }

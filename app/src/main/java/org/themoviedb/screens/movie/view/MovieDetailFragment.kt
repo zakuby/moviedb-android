@@ -14,7 +14,6 @@ import org.themoviedb.databinding.FragmentDetailMovieBinding
 import org.themoviedb.models.Movie
 import org.themoviedb.screens.movie.viewmodel.MovieDetailViewModel
 import org.themoviedb.utils.ext.observe
-import java.lang.Exception
 import javax.inject.Inject
 
 class MovieDetailFragment : DaggerFragment() {
@@ -62,7 +61,6 @@ class MovieDetailFragment : DaggerFragment() {
         activity.supportActionBar?.show()
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subscribeUI()
@@ -71,9 +69,8 @@ class MovieDetailFragment : DaggerFragment() {
     private fun subscribeUI() {
         viewModel.fetchMovieCasts(movie.id ?: "550")
 
-        observe(viewModel.getMovieCasts()){ casts ->
+        observe(viewModel.getMovieCasts()) { casts ->
             adapter.loadCasts(casts)
         }
     }
-
 }

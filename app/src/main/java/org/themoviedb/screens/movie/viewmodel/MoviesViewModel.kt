@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MoviesViewModel @Inject constructor(
     private val service: MovieServices,
     private val errorResponseHandler: ErrorResponseHandler
-) : BaseViewModel(){
+) : BaseViewModel() {
 
     init {
         getPopularMovies()
@@ -34,13 +34,13 @@ class MoviesViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    private fun getPopularMovies(){
+    private fun getPopularMovies() {
         service.getPopularMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading() }
             .doAfterTerminate { finishLoading() }
-            .subscribeBy (
+            .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
                         movies.postValue(popularMovies)
