@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/collapsed"
+        app:constraintSetStart="@id/expanded">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/scroll_view"
+            app:touchAnchorSide="top" />
+
+        <KeyFrameSet>
+            <KeyAttribute
+                app:framePosition="60"
+                app:motionTarget="@id/toolbar_image">
+                <CustomAttribute
+                    app:attributeName="imageAlpha"
+                    app:customIntegerValue="255" />
+            </KeyAttribute>
+            <KeyAttribute
+                app:framePosition="90"
+                app:motionTarget="@id/toolbar_image">
+                <CustomAttribute
+                    app:attributeName="imageAlpha"
+                    app:customIntegerValue="0" />
+            </KeyAttribute>
+
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/expanded">
+        <Constraint
+            android:id="@id/toolbar_image"
+            android:layout_height="200dp"
+            android:paddingTop="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacer">
+            <CustomAttribute
+                app:attributeName="foreground"
+                app:customColorDrawableValue="@android:color/transparent" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/movie_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            app:layout_constraintLeft_toRightOf="@id/movie_poster"
+            app:layout_constraintRight_toLeftOf="@id/progress_rating"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_image" >
+            <CustomAttribute
+                app:attributeName="textColor"
+                app:customColorValue="@color/black"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@id/movie_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:visibility="visible"
+            app:layout_constraintLeft_toRightOf="@id/movie_poster"
+            app:layout_constraintRight_toLeftOf="@id/progress_rating"
+            app:layout_constraintTop_toBottomOf="@id/movie_title" />
+
+        <Constraint
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+
+
+        <Constraint
+            android:id="@id/progress_rating"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/oval_solid"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_image"/>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/collapsed">
+        <Constraint
+            android:id="@id/toolbar_image"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacer">
+            <CustomAttribute
+                app:attributeName="foreground"
+                app:customColorDrawableValue="@color/colorPrimaryDark" />
+        </Constraint>
+
+        <TextView
+            android:id="@id/movie_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            app:layout_constraintTop_toBottomOf="parent"/>
+
+        <Constraint
+            android:id="@id/movie_title"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+            app:layout_constraintRight_toRightOf="@id/toolbar_image"
+            app:layout_constraintLeft_toRightOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/toolbar_image">
+            <CustomAttribute
+                app:attributeName="textColor"
+                app:customColorValue="@color/white"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@id/progress_rating"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/oval_solid"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_image"/>
+
+        <Constraint
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_image"/>
+
+    </ConstraintSet>
+
+</MotionScene>
