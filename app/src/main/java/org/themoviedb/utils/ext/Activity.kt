@@ -12,6 +12,8 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import android.view.WindowManager
+
 
 @Suppress("DEPRECATION")
 fun Context.detectNetworkHealth(): Boolean {
@@ -24,6 +26,16 @@ fun Context.detectNetworkHealth(): Boolean {
     } else {
         val ni = connectivityManager.activeNetworkInfo
         ni != null && ni.isConnected
+    }
+}
+
+fun Activity.setTransparentStatusBar() {
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 }
 

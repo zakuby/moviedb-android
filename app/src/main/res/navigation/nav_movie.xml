@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/movie_detail_fragment"
-        android:name="org.themoviedb.screens.movie.view.MovieDetailFragment"
+        android:name="org.themoviedb.screens.movie.view.MovieDetailActivity"
         android:label="MovieDetailFragment"
-        tools:layout="@layout/fragment_detail_movie">
+        tools:layout="@layout/activity_detail_movie">
 
         <argument
             android:name="movie"

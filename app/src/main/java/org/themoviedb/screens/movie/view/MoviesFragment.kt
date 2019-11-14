@@ -1,5 +1,6 @@
 package org.themoviedb.screens.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +26,13 @@ class MoviesFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentMoviesBinding
 
-    private val adapter by lazy { MoviesListAdapter { movie ->
-        val action = MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movie)
-        val activity = activity as MainActivity
-        activity.supportActionBar?.hide()
-        findNavController().navigate(action)
-    } }
+    private val adapter by lazy {
+        MoviesListAdapter { movie ->
+            val movieDetailIntent = Intent(activity, MovieDetailActivity::class.java)
+                .apply { putExtra("movie", movie) }
+            requireActivity().startActivity(movieDetailIntent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
