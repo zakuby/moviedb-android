@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_movies.*
-import org.themoviedb.MainActivity
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.utils.ext.observe

@@ -10,7 +10,6 @@ import org.themoviedb.databinding.ActivityDetailMovieBinding
 import org.themoviedb.models.Movie
 import org.themoviedb.screens.movie.viewmodel.MovieDetailViewModel
 import org.themoviedb.utils.ext.observe
-import org.themoviedb.utils.ext.setTransparentStatusBar
 import javax.inject.Inject
 
 class MovieDetailActivity : BaseActivity<ActivityDetailMovieBinding>(
@@ -23,11 +22,9 @@ class MovieDetailActivity : BaseActivity<ActivityDetailMovieBinding>(
 
     private val viewModel: MovieDetailViewModel by viewModels { viewModelFactory }
 
-
     private val adapter by lazy { MovieCastsAdapter() }
 
     private val movie: Movie by lazy { intent.getParcelableExtra("movie") as Movie }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

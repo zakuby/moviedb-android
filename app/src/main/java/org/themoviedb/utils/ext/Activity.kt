@@ -14,7 +14,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import android.view.WindowManager
 
-
 @Suppress("DEPRECATION")
 fun Context.detectNetworkHealth(): Boolean {
     val connectivityManager =
