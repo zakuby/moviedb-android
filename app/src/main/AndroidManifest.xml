@@ -33,6 +33,9 @@
             android:name=".screens.WebViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".screens.movie.view.MovieDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
