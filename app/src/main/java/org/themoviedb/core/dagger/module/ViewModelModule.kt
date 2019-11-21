@@ -9,6 +9,7 @@ import org.themoviedb.core.dagger.ViewModelKey
 import org.themoviedb.screens.movie.viewmodel.MovieDetailViewModel
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.screens.profile.ProfileViewModel
+import org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel
 import org.themoviedb.utils.ViewModelFactory
 
 @Module
@@ -21,6 +22,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MoviesViewModel::class)
     internal abstract fun moviesViewModel(viewModel: MoviesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TvShowViewModel::class)
+    internal abstract fun tvShowViewModel(viewModel: TvShowViewModel): ViewModel
 
     @Binds
     @IntoMap

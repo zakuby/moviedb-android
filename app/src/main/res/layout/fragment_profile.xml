@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -24,8 +24,9 @@
                 android:id="@+id/profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_profile_image"
                 app:civ_border_color="@color/black"
@@ -35,7 +36,8 @@
                 android:id="@+id/profile_name_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profile_image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_image"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
@@ -50,7 +52,8 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/profile_name_header"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_name_header"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
@@ -67,7 +70,8 @@
                 android:id="@+id/separator_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/profile_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_name"
                 android:layout_marginTop="10dp"
                 android:background="@color/athens_gray" />
 
@@ -75,7 +79,8 @@
                 android:id="@+id/profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/separator_profile_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator_profile_name"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:drawableStart="@drawable/ic_gmail"
@@ -96,14 +101,16 @@
                 android:id="@+id/separator_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/profile_email"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_email"
                 android:background="@color/athens_gray" />
 
             <TextView
                 android:id="@+id/profile_whatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/separator_profile_email"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator_profile_email"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:drawableStart="@drawable/ic_whatsapp"
@@ -124,14 +131,16 @@
                 android:id="@+id/separator_profile_whatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/profile_whatsapp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_whatsapp"
                 android:background="@color/athens_gray" />
 
             <TextView
                 android:id="@+id/profile_github"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/separator_profile_whatsapp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator_profile_whatsapp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:drawableStart="@drawable/ic_github"
@@ -151,14 +160,16 @@
                 android:id="@+id/separator_profile_github"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/profile_github"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_github"
                 android:background="@color/athens_gray" />
 
             <TextView
                 android:id="@+id/profile_dicoding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/separator_profile_github"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator_profile_github"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:drawableStart="@drawable/ic_dicoding"
@@ -178,10 +189,11 @@
                 android:id="@+id/separator_profile_dicoding"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/profile_dicoding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_dicoding"
                 android:background="@color/athens_gray" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </layout>

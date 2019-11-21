@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/movies_fragment"
+        android:icon="@drawable/anim_ic_movie"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_movie_title"/>
+    <item
+        android:id="@+id/tv_show_fragment"
+        android:icon="@drawable/anim_ic_tv_show"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_tv_show_title"/>
+</menu>

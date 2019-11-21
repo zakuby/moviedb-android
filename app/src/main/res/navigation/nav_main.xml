@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_movie"
+    app:startDestination="@id/bottom_nav_fragment">
+
+    <action
+        android:id="@+id/action_to_profile"
+        app:destination="@id/profile_fragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="org.themoviedb.screens.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/bottom_nav_fragment"
+        android:name="org.themoviedb.BottomNavigationFragment"
+        android:label="@string/bottom_nav_movie_title"
+        tools:layout="@layout/fragment_bottom_navigation"/>
+</navigation>

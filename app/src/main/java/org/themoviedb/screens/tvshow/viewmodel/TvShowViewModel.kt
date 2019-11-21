@@ -1,4 +1,4 @@
-package org.themoviedb.screens.movie.viewmodel
+package org.themoviedb.screens.tvshow.viewmodel
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
@@ -11,18 +11,21 @@ import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
 import org.themoviedb.core.network.service.TheMovieDbServices
-import org.themoviedb.models.Cast
+import org.themoviedb.models.TvShow
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(
+class TvShowViewModel @Inject constructor(
     private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel() {
+    init {
+        getPopularMovies()
+    }
 
-    private val casts = MutableLiveData<List<Cast>>()
+    private val tvShows = MutableLiveData<List<TvShow>>()
 
-    fun getMovieCasts(): LiveData<List<Cast>> = casts
+    fun getTvShows(): LiveData<List<TvShow>> = tvShows
 
     val isResponseError = ObservableBoolean(false)
 
@@ -30,16 +33,16 @@ class MovieDetailViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    fun fetchMovieCasts(id: String) {
-        service.getMovieCredits(id)
+    private fun getPopularMovies() {
+        service.getTopRatedTvShows()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading() }
             .doAfterTerminate { finishLoading() }
             .subscribeBy(
                 onSuccess = { resp ->
-                    resp.cast?.let { respCast ->
-                        casts.postValue(respCast.take(10))
+                    resp.results?.let { popularMovies ->
+                        tvShows.postValue(popularMovies)
                     }
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)

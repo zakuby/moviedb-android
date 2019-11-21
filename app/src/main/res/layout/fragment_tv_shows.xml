@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/error_layout"
+            layout="@layout/view_offline"
+            android:visibility="@{viewModel.isResponseError ? View.VISIBLE : View.GONE}"
+            bind:model="@{viewModel.errorResponse}"
+            tools:visibility="gone" />
+
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.isResponseError ? View.GONE : View.VISIBLE}">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                shimmer:shimmer_auto_start="true"
+                tools:visibility="gone">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/skeleton_fragment_movie_list" />
+                </androidx.core.widget.NestedScrollView>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:itemCount="5"
+                tools:listitem="@layout/list_item_movie"
+                tools:visibility="visible" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+</layout>

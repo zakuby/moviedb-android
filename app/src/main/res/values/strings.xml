@@ -19,4 +19,6 @@
     <string name="movie_list_more_info">More Info</string>
     <string name="movie_detail_overview">Overview</string>
     <string name="movie_detail_top_billed">Top Billed Cast</string>
+    <string name="bottom_nav_movie_title">Movie</string>
+    <string name="bottom_nav_tv_show_title">TV Show</string>
 </resources>

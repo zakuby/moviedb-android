@@ -10,13 +10,13 @@ import io.reactivex.schedulers.Schedulers
 import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
-import org.themoviedb.core.network.service.MovieServices
+import org.themoviedb.core.network.service.TheMovieDbServices
 import org.themoviedb.models.Movie
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
-    private val service: MovieServices,
+    private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel() {
 

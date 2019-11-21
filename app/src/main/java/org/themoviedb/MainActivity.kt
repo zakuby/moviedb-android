@@ -13,6 +13,7 @@ import org.themoviedb.databinding.ActivityMainBinding
 import org.themoviedb.screens.movie.view.MovieDetailFragment
 import org.themoviedb.screens.movie.view.MoviesFragment
 import org.themoviedb.screens.profile.ProfileFragment
+import org.themoviedb.screens.tvshow.view.TvShowFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -57,7 +58,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
-    abstract fun contributeMoviesFragment(): MoviesFragment
+    abstract fun contributeBottomNavFragment(): BottomNavigationFragment
 
     @FragmentScoped
     @ContributesAndroidInjector
@@ -66,4 +67,12 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeMoviesFragment(): MoviesFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeTvShowFragment(): TvShowFragment
 }

@@ -14,7 +14,7 @@
         android:clipToPadding="false">
 
         <ImageView
-            android:id="@+id/movie_image"
+            android:id="@+id/tv_show_image"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:background="@color/athens_gray"
@@ -29,8 +29,8 @@
             android:layout_margin="10dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
-            android:layout_toEndOf="@id/movie_image"
-            android:layout_toRightOf="@id/movie_image"
+            android:layout_toEndOf="@id/tv_show_image"
+            android:layout_toRightOf="@id/tv_show_image"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -108,8 +108,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/movie_image"
-            android:layout_toRightOf="@id/movie_image"
+            android:layout_toEndOf="@id/tv_show_image"
+            android:layout_toRightOf="@id/tv_show_image"
             android:orientation="vertical">
 
             <View
