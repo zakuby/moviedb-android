@@ -26,7 +26,11 @@ class TvShowsAdapter(
     override fun getItemCount(): Int = tvShows.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(tvShows[position])
+        val tvShow = tvShows[position]
+        holder.apply {
+            bind(tvShow)
+            itemView.setOnClickListener { onClick(tvShow) }
+        }
     }
 
     inner class ViewHolder(private val binding: ListItemTvShowsBinding) :

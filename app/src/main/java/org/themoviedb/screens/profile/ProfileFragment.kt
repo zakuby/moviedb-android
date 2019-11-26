@@ -14,7 +14,7 @@ import org.themoviedb.utils.ext.observe
 import org.themoviedb.utils.ext.toast
 import org.themoviedb.R
 import org.themoviedb.databinding.FragmentProfileBinding
-import org.themoviedb.screens.WebViewActivity
+import org.themoviedb.screens.main.view.WebViewActivity
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {

@@ -1,9 +1,8 @@
-package org.themoviedb.screens
+package org.themoviedb.screens.main.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.themoviedb.MainActivity
 import org.themoviedb.R
 
 class SplashActivity : AppCompatActivity() {

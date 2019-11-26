@@ -20,7 +20,7 @@ class TvShowViewModel @Inject constructor(
     private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel() {
     init {
-        getPopularMovies()
+        getTopRatedTvShows()
     }
 
     private val tvShows = MutableLiveData<List<TvShow>>()
@@ -33,7 +33,7 @@ class TvShowViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    private fun getPopularMovies() {
+    fun getTopRatedTvShows() {
         service.getTopRatedTvShows()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -42,12 +42,14 @@ class TvShowViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
+                        isResponseError.set(false)
                         tvShows.postValue(popularMovies)
-                    }
+                    } ?: isResponseError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
+                    isResponseError.set(true)
                 }
             ).disposedBy(compositeDisposable)
     }

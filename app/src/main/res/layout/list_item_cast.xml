@@ -31,7 +31,8 @@
                 android:scaleType="centerCrop"
                 tools:src="@drawable/joaquin_phoenix"
                 bind:loadImageUrl="@{cast.profileImage}"
-                android:src="@color/athens_gray" />
+                android:src="@color/athens_gray"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="match_parent"

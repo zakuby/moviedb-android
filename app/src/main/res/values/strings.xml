@@ -1,24 +1,29 @@
 <resources>
-    <string name="app_name">The Movie Db</string>
-    <string name="roboto_regular">sans-serif</string>
-    <string name="roboto_light">sans-serif-light</string>
-    <string name="roboto_condensed">sans-serif-condensed</string>
-    <string name="roboto_black">sans-serif-black</string>
-    <string name="roboto_thin">sans-serif-black</string>
-    <string name="roboto_medium">sans-serif-medium</string>
+    <string name="app_name" translatable="false">The Movie Db</string>
+    <string name="roboto_regular" translatable="false">sans-serif</string>
+    <string name="roboto_light" translatable="false">sans-serif-light</string>
+    <string name="roboto_condensed" translatable="false">sans-serif-condensed</string>
+    <string name="roboto_black" translatable="false">sans-serif-black</string>
+    <string name="roboto_thin" translatable="false">sans-serif-black</string>
+    <string name="roboto_medium" translatable="false">sans-serif-medium</string>
     <string name="list_item_movie_image_desc">Movie Image</string>
     <string name="profile_github_account">Github Account</string>
-    <string name="profile_full_name">Nama Lengkap</string>
+    <string name="profile_full_name">Full Name</string>
     <string name="movie_detail_title">Movie Detail</string>
-    <string name="movie_list_title">The Movie DB</string>
+    <string name="movie_list_title" translatable="false">The Movie DB</string>
     <string name="title_profile">Profile</string>
     <string name="profile_dicoding_account">Dicoding Account</string>
-    <string name="error_no_internet_connection">No internet connection Please try again.</string>
+    <string name="error_no_internet_connection">No internet connection\nPlease try again.</string>
     <string name="button_retry">Retry</string>
     <string name="error_no_whatsapp">Please Install Whatsapp.</string>
     <string name="movie_list_more_info">More Info</string>
     <string name="movie_detail_overview">Overview</string>
     <string name="movie_detail_top_billed">Top Billed Cast</string>
-    <string name="bottom_nav_movie_title">Movie</string>
     <string name="bottom_nav_tv_show_title">TV Show</string>
+    <string name="bottom_nav_movie_title">Movie</string>
+    <string name="title_settings">Settings</string>
+    <string name="error_response_data">Something wrong with response data.</string>
+    <string name="error_internal">Internal server error.</string>
+    <string name="error_hotspot_login">Hotspot login required.</string>
+    <string name="error_request_timeout">Request Timeout.</string>
 </resources>

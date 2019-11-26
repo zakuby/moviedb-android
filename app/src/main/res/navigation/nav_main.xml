@@ -19,7 +19,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/bottom_nav_fragment"
-        android:name="org.themoviedb.BottomNavigationFragment"
+        android:name="org.themoviedb.screens.main.view.BottomNavigationFragment"
         android:label="@string/bottom_nav_movie_title"
         tools:layout="@layout/fragment_bottom_navigation"/>
 </navigation>

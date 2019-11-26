@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_movies.*
 import org.themoviedb.databinding.FragmentMoviesBinding
+import org.themoviedb.screens.main.view.DetailActivity
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
@@ -26,8 +26,8 @@ class MoviesFragment : DaggerFragment() {
 
     private val adapter by lazy {
         MoviesListAdapter { movie ->
-            val movieDetailIntent = Intent(activity, MovieDetailActivity::class.java)
-                .apply { putExtra("movie", movie) }
+            val movieDetailIntent = Intent(activity, DetailActivity::class.java)
+                .apply { putExtra(DetailActivity.EXTRA_DETAIL, movie) }
             requireActivity().startActivity(movieDetailIntent)
         }
     }
@@ -40,6 +40,7 @@ class MoviesFragment : DaggerFragment() {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = viewLifecycleOwner
+                errorLayout.retryButton.setOnClickListener { retryLoadMovie() }
                 viewModel = this@MoviesFragment.viewModel
                 recyclerView.apply {
                     layoutManager = LinearLayoutManager(requireActivity())
@@ -48,6 +49,8 @@ class MoviesFragment : DaggerFragment() {
             }
         return binding.root
     }
+
+    private fun retryLoadMovie() = viewModel.getPopularMovies()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

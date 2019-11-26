@@ -2,11 +2,11 @@ package org.themoviedb.core.dagger.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import org.themoviedb.MainActivity
-import org.themoviedb.MainActivityModule
+import org.themoviedb.screens.main.view.MainActivity
+import org.themoviedb.screens.main.view.MainActivityModule
 import org.themoviedb.core.dagger.ActivityScoped
-import org.themoviedb.screens.WebViewActivity
-import org.themoviedb.screens.movie.view.MovieDetailActivity
+import org.themoviedb.screens.main.view.WebViewActivity
+import org.themoviedb.screens.main.view.DetailActivity
 
 @Module
 abstract class ActivityModule {
@@ -17,7 +17,7 @@ abstract class ActivityModule {
 
     @ActivityScoped
     @ContributesAndroidInjector
-    abstract fun contributeMovieDetailActivity(): MovieDetailActivity
+    abstract fun contributeMovieDetailActivity(): DetailActivity
 
     @ActivityScoped
     @ContributesAndroidInjector

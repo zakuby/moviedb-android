@@ -1,12 +1,15 @@
-package org.themoviedb
+package org.themoviedb.screens.main.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import org.themoviedb.R
 import org.themoviedb.core.base.BaseActivity
 import org.themoviedb.core.dagger.FragmentScoped
 import org.themoviedb.databinding.ActivityMainBinding
@@ -33,6 +36,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.navigate(R.id.action_to_profile)
     }
 
+    private fun openSettings() {
+        val settingsIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+        startActivity(settingsIntent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_profile, menu)
         return true
@@ -42,6 +50,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return when (item.itemId) {
             R.id.action_profile -> {
                 openProfile()
+                true
+            }
+            R.id.action_settings -> {
+                openSettings()
                 true
             }
             else -> super.onOptionsItemSelected(item)

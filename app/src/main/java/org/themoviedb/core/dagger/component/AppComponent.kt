@@ -9,6 +9,7 @@ import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
 import org.themoviedb.core.base.BaseApplication
 import org.themoviedb.core.dagger.module.ActivityModule
+import org.themoviedb.core.dagger.module.AppModule
 import org.themoviedb.core.dagger.module.NetworkModule
 import org.themoviedb.core.dagger.module.ViewModelModule
 import javax.inject.Singleton
@@ -18,6 +19,7 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class,
+        AppModule::class,
         ActivityModule::class,
         NetworkModule::class,
         ViewModelModule::class

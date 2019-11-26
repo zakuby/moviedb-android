@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.R
 import org.themoviedb.databinding.FragmentTvShowsBinding
-import org.themoviedb.screens.movie.view.MovieDetailActivity
+import org.themoviedb.models.Movie
+import org.themoviedb.screens.main.view.DetailActivity
 import org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
@@ -26,8 +29,13 @@ class TvShowFragment : DaggerFragment() {
 
     private val adapter by lazy {
         TvShowsAdapter { tvShow ->
-            val movieDetailIntent = Intent(activity, MovieDetailActivity::class.java)
-                .apply { putExtra("movie", tvShow) }
+            val converToMovie = Movie(
+                id = tvShow.id, title = tvShow.title,
+                date = tvShow.date, description = tvShow.description, rate = tvShow.rate,
+                posterImage = tvShow.posterImage, backgroundImage = tvShow.backgroundImage
+            )
+            val movieDetailIntent = Intent(activity, DetailActivity::class.java)
+                .apply { putExtra(DetailActivity.EXTRA_DETAIL, converToMovie) }
             requireActivity().startActivity(movieDetailIntent)
         }
     }
@@ -40,6 +48,7 @@ class TvShowFragment : DaggerFragment() {
         binding = FragmentTvShowsBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = viewLifecycleOwner
+                errorLayout.retryButton.setOnClickListener { retryLoadTvShow() }
                 viewModel = this@TvShowFragment.viewModel
                 recyclerView.apply {
                     layoutManager = LinearLayoutManager(requireActivity())
@@ -48,6 +57,8 @@ class TvShowFragment : DaggerFragment() {
             }
         return binding.root
     }
+
+    private fun retryLoadTvShow() = viewModel.getTopRatedTvShows()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

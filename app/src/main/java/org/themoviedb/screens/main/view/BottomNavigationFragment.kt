@@ -1,4 +1,4 @@
-package org.themoviedb
+package org.themoviedb.screens.main.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.support.DaggerFragment
+import org.themoviedb.R
 import org.themoviedb.databinding.FragmentBottomNavigationBinding
 
 class BottomNavigationFragment : DaggerFragment() {
@@ -32,7 +33,9 @@ class BottomNavigationFragment : DaggerFragment() {
     private fun setupNavigation() {
 
         val navController =
-            Navigation.findNavController(requireActivity(), R.id.nav_host_bottom_fragment).apply {
+            Navigation.findNavController(requireActivity(),
+                R.id.nav_host_bottom_fragment
+            ).apply {
                 addOnDestinationChangedListener { _, destination, _ ->
                     (activity as MainActivity).supportActionBar?.title = destination.label
                 }

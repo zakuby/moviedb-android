@@ -34,7 +34,7 @@ class MoviesViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    private fun getPopularMovies() {
+    fun getPopularMovies() {
         service.getPopularMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,12 +43,14 @@ class MoviesViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
+                        isResponseError.set(false)
                         movies.postValue(popularMovies)
-                    }
+                    } ?: isResponseError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
+                    isResponseError.set(true)
                 }
             ).disposedBy(compositeDisposable)
     }

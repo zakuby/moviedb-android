@@ -1,4 +1,4 @@
-package org.themoviedb.screens
+package org.themoviedb.screens.main.view
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
