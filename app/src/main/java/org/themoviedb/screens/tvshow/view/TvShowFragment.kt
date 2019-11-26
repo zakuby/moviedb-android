@@ -30,7 +30,8 @@ class TvShowFragment : DaggerFragment() {
             val converToMovie = Movie(
                 id = tvShow.id, title = tvShow.title,
                 date = tvShow.date, description = tvShow.description, rate = tvShow.rate,
-                posterImage = tvShow.posterImage, backgroundImage = tvShow.backgroundImage
+                posterImage = tvShow.posterImage, backgroundImage = tvShow.backgroundImage,
+                isMovie = false
             )
             val movieDetailIntent = Intent(activity, DetailActivity::class.java)
                 .apply { putExtra(DetailActivity.EXTRA_DETAIL, converToMovie) }

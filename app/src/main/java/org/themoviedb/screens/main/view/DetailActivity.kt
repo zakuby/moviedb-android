@@ -52,7 +52,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(
     }
 
     private fun subscribeUI() {
-        viewModel.fetchMovieCasts(movie.id ?: return)
+        viewModel.fetchMovieCasts(movie.id ?: return, movie.isMovie)
 
         observe(viewModel.getLoading()) { isLoading ->
             if (isLoading) {

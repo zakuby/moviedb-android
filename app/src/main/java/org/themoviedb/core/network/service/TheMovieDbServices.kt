@@ -27,7 +27,7 @@ interface TheMovieDbServices {
         @Path("id") id: String
     ): Single<MovieCreditsResponse>
 
-    @GET("movie/{id}/credits")
+    @GET("tv/{id}/credits")
     fun getTvShowCredits(
         @Path("id") id: String
     ): Single<MovieCreditsResponse>
