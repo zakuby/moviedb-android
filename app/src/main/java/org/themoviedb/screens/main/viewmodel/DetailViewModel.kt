@@ -4,12 +4,14 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.crashlytics.android.Crashlytics
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
+import org.themoviedb.core.network.response.MovieCreditsResponse
 import org.themoviedb.core.network.service.TheMovieDbServices
 import org.themoviedb.models.Cast
 import org.themoviedb.utils.ext.disposedBy
@@ -30,9 +32,11 @@ class DetailViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    fun fetchMovieCasts(id: String) {
-        service.getMovieCredits(id)
-            .subscribeOn(Schedulers.io())
+    fun fetchMovieCasts(id: String, isMovieCast: Boolean) {
+        val fetchCredits =
+            if (isMovieCast) service.getMovieCredits(id) else service.getTvShowCredits(id)
+
+        fetchCredits.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading() }
             .doAfterTerminate { finishLoading() }

@@ -14,7 +14,8 @@ open class Movie(
     @SerializedName("overview") val description: String?,
     @SerializedName("vote_average") val rate: String?,
     @SerializedName("poster_path") val posterImage: String?,
-    @SerializedName("backdrop_path") val backgroundImage: String?
+    @SerializedName("backdrop_path") val backgroundImage: String?,
+    val isMovie: Boolean? = true
 ) : Parcelable {
     fun formattedDate(): String {
         date ?: return ""
