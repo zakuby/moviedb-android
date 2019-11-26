@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.themoviedb.databinding.ListItemMovieBinding
 import org.themoviedb.models.Movie
 
-class MoviesListAdapter(val onClick: (Movie) -> Unit) : RecyclerView.Adapter<MoviesListAdapter.ViewHolder>() {
+class MoviesListAdapter(
+    val onClick: (Movie) -> Unit
+) : RecyclerView.Adapter<MoviesListAdapter.ViewHolder>() {
 
     private var movies = emptyList<Movie>()
 
@@ -31,7 +33,8 @@ class MoviesListAdapter(val onClick: (Movie) -> Unit) : RecyclerView.Adapter<Mov
         }
     }
 
-    inner class ViewHolder(private val binding: ListItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) = binding.apply { this.movie = movie }
     }
 }

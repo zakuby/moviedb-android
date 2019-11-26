@@ -10,13 +10,13 @@ import io.reactivex.schedulers.Schedulers
 import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
-import org.themoviedb.core.network.service.MovieServices
+import org.themoviedb.core.network.service.TheMovieDbServices
 import org.themoviedb.models.Movie
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
-    private val service: MovieServices,
+    private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel() {
 
@@ -34,7 +34,7 @@ class MoviesViewModel @Inject constructor(
 
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
 
-    private fun getPopularMovies() {
+    fun getPopularMovies() {
         service.getPopularMovies()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,12 +43,14 @@ class MoviesViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
+                        isResponseError.set(false)
                         movies.postValue(popularMovies)
-                    }
+                    } ?: isResponseError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
+                    isResponseError.set(true)
                 }
             ).disposedBy(compositeDisposable)
     }

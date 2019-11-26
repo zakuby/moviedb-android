@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
-data class Movie(
+open class Movie(
     val id: String?,
     val title: String?,
     @SerializedName("release_date") val date: String?,

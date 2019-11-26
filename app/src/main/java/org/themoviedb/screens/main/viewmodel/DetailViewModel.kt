@@ -1,4 +1,4 @@
-package org.themoviedb.screens.movie.viewmodel
+package org.themoviedb.screens.main.viewmodel
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
@@ -10,13 +10,13 @@ import io.reactivex.schedulers.Schedulers
 import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
-import org.themoviedb.core.network.service.MovieServices
+import org.themoviedb.core.network.service.TheMovieDbServices
 import org.themoviedb.models.Cast
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(
-    private val service: MovieServices,
+class DetailViewModel @Inject constructor(
+    private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler
 ) : BaseViewModel() {
 
@@ -39,10 +39,12 @@ class MovieDetailViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.cast?.let { respCast ->
+                        isResponseError.set(false)
                         casts.postValue(respCast.take(10))
-                    }
+                    } ?: isResponseError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
+                    isResponseError.set(true)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
                 }

@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 import org.themoviedb.R
 
-@BindingAdapter("bind:loadImageUrl")
+@BindingAdapter("loadImageUrl")
 fun loadImageUrl(imgView: ImageView, url: String?) {
     if (url.isNullOrBlank()) return
     Picasso.get()
@@ -18,7 +18,7 @@ fun loadImageUrl(imgView: ImageView, url: String?) {
         .into(imgView)
 }
 
-@BindingAdapter("bind:setProgressRating")
+@BindingAdapter("setProgressRating")
 fun setProgressRating(progressBar: ProgressBar, stringRate: String) {
     val rate = (stringRate.toDoubleOrNull() ?: 0.0) * 10
     val res = progressBar.context.resources

@@ -8,7 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.themoviedb.BuildConfig
-import org.themoviedb.core.network.service.MovieServices
+import org.themoviedb.core.network.service.TheMovieDbServices
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -75,5 +75,5 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieServices(retrofit: Retrofit): MovieServices = retrofit.create(MovieServices::class.java)
+    fun provideMovieServices(retrofit: Retrofit): TheMovieDbServices = retrofit.create(TheMovieDbServices::class.java)
 }
