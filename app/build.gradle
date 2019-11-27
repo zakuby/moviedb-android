@@ -76,8 +76,8 @@ android {
 
 ext {
     //layout
-    materialVersion = '1.1.0-alpha09'
-    constraintLayoutVersion = '2.0.0-beta1'
+    materialVersion = '1.2.0-alpha02'
+    constraintLayoutVersion = '2.0.0-beta3'
     shimmerVersion = '0.4.0'
     circleImageVersion = '3.0.1'
 
@@ -96,6 +96,7 @@ ext {
     funktionaleVersion = '1.2'
 
     //aac
+    room_version = '2.2.2'
     lifecycle_version = '2.1.0'
 
     //dependency injection
@@ -113,6 +114,7 @@ dependencies {
     implementation "androidx.navigation:navigation-runtime-ktx:$ktxVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     //For layouting purpose
     implementation "com.google.android.material:material:$materialVersion"
@@ -124,8 +126,12 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     //Android Architecture Component
-    // ViewModel and LiveData
+    //ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    //Room for Local Storage
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
     //Networking Libs
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

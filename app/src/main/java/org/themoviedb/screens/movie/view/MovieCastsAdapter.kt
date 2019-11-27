@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.themoviedb.databinding.ListItemCastBinding
-import org.themoviedb.models.Cast
+import org.themoviedb.data.models.Cast
 
 class MovieCastsAdapter : RecyclerView.Adapter<MovieCastsAdapter.ViewHolder>() {
 

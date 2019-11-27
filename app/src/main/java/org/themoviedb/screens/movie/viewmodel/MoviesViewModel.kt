@@ -11,7 +11,7 @@ import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
 import org.themoviedb.core.network.service.TheMovieDbServices
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 

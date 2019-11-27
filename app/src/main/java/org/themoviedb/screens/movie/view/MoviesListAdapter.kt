@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.themoviedb.databinding.ListItemMovieBinding
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 
 class MoviesListAdapter(
     val onClick: (Movie) -> Unit

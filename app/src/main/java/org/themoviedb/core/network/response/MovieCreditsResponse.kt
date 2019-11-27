@@ -1,6 +1,6 @@
 package org.themoviedb.core.network.response
 
-import org.themoviedb.models.Cast
+import org.themoviedb.data.models.Cast
 
 class MovieCreditsResponse(
     val id: Int?,

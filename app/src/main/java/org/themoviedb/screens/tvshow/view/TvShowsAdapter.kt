@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.themoviedb.databinding.ListItemTvShowsBinding
-import org.themoviedb.models.TvShow
+import org.themoviedb.data.models.TvShow
 
 class TvShowsAdapter(
     val onClick: (TvShow) -> Unit

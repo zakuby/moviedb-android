@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import org.themoviedb.databinding.FragmentDetailBinding
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 import org.themoviedb.screens.main.viewmodel.DetailViewModel
 import org.themoviedb.screens.movie.view.MovieCastsAdapter
 import org.themoviedb.utils.ext.observe

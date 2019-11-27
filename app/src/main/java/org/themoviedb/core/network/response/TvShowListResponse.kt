@@ -1,6 +1,6 @@
 package org.themoviedb.core.network.response
 
-import org.themoviedb.models.TvShow
+import org.themoviedb.data.models.TvShow
 
 data class TvShowListResponse(
     val page: Int?,
