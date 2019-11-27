@@ -59,7 +59,6 @@ class DetailFragment : DaggerFragment() {
     override fun onResume() {
         super.onResume()
         activity.supportActionBar?.hide()
-
     }
 
     override fun onStop() {

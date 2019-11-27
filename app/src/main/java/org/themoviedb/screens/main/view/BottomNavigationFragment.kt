@@ -49,11 +49,10 @@ class BottomNavigationFragment : DaggerFragment() {
         }
     }
 
-    fun navigateToDetail(movie: Movie){
+    fun navigateToDetail(movie: Movie) {
         val action = BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(movie)
         val activity = activity as MainActivity
         activity.supportActionBar?.hide()
         findNavController().navigate(action)
-
     }
 }

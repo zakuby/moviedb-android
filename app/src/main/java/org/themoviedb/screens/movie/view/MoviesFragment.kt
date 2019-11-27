@@ -1,6 +1,5 @@
 package org.themoviedb.screens.movie.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.screens.main.view.BottomNavigationFragment
-import org.themoviedb.screens.main.view.DetailFragment
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject

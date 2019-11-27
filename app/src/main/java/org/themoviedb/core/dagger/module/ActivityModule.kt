@@ -6,7 +6,6 @@ import org.themoviedb.screens.main.view.MainActivity
 import org.themoviedb.screens.main.view.MainActivityModule
 import org.themoviedb.core.dagger.ActivityScoped
 import org.themoviedb.screens.main.view.WebViewActivity
-import org.themoviedb.screens.main.view.DetailFragment
 
 @Module
 abstract class ActivityModule {

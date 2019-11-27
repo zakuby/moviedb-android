@@ -11,12 +11,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import org.themoviedb.R
 
-
-
-
-
-
-
 fun Activity.setWhiteStatusBar() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = window.decorView.systemUiVisibility
@@ -26,7 +20,7 @@ fun Activity.setWhiteStatusBar() {
     }
 }
 
-fun Activity.setBlackStatusBar(){
+fun Activity.setBlackStatusBar() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = window.decorView.systemUiVisibility
         flags = flags xor View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR // for clear light status bar

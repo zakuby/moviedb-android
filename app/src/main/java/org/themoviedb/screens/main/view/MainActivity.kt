@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.Module
@@ -86,7 +85,6 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
-
 
     @FragmentScoped
     @ContributesAndroidInjector
