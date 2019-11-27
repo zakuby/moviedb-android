@@ -16,6 +16,8 @@ import org.themoviedb.databinding.ActivityMainBinding
 import org.themoviedb.screens.movie.view.MoviesFragment
 import org.themoviedb.screens.profile.ProfileFragment
 import org.themoviedb.screens.tvshow.view.TvShowFragment
+import org.themoviedb.utils.ext.setBlackStatusBar
+import org.themoviedb.utils.ext.setWhiteStatusBar
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -28,7 +30,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun setupActivity() {
         val toolbar = binding.toolbar
+
         setSupportActionBar(toolbar)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.detail_fragment -> setBlackStatusBar()
+                else -> setWhiteStatusBar()
+            }
+        }
+
         setupActionBarWithNavController(navController)
     }
 
@@ -74,6 +85,10 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeDetailFragment(): DetailFragment
 
     @FragmentScoped
     @ContributesAndroidInjector

@@ -1,6 +1,5 @@
 package org.themoviedb.screens.tvshow.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import org.themoviedb.databinding.FragmentTvShowsBinding
 import org.themoviedb.models.Movie
-import org.themoviedb.screens.main.view.DetailActivity
+import org.themoviedb.screens.main.view.BottomNavigationFragment
 import org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
@@ -25,17 +24,17 @@ class TvShowFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentTvShowsBinding
 
+    private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
+
     private val adapter by lazy {
         TvShowsAdapter { tvShow ->
-            val converToMovie = Movie(
+            val convertToMovie = Movie(
                 id = tvShow.id, title = tvShow.title,
                 date = tvShow.date, description = tvShow.description, rate = tvShow.rate,
                 posterImage = tvShow.posterImage, backgroundImage = tvShow.backgroundImage,
                 isMovie = false
             )
-            val movieDetailIntent = Intent(activity, DetailActivity::class.java)
-                .apply { putExtra(DetailActivity.EXTRA_DETAIL, converToMovie) }
-            requireActivity().startActivity(movieDetailIntent)
+            parent.navigateToDetail(convertToMovie)
         }
     }
 
