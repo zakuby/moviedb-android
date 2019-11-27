@@ -12,6 +12,7 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+
     <fragment
         android:id="@+id/profile_fragment"
         android:name="org.themoviedb.screens.profile.ProfileFragment"
@@ -21,5 +22,22 @@
         android:id="@+id/bottom_nav_fragment"
         android:name="org.themoviedb.screens.main.view.BottomNavigationFragment"
         android:label="@string/bottom_nav_movie_title"
-        tools:layout="@layout/fragment_bottom_navigation"/>
+        tools:layout="@layout/fragment_bottom_navigation">
+        <action
+            android:id="@+id/action_bottom_nav_fragment_to_detail_fragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_top"
+            app:destination="@id/detail_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail_fragment"
+        android:name="org.themoviedb.screens.main.view.DetailFragment"
+        android:label="@string/movie_detail_title"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="movie"
+            app:argType="org.themoviedb.models.Movie" />
+    </fragment>
 </navigation>

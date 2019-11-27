@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.support.DaggerFragment
 import org.themoviedb.R
 import org.themoviedb.databinding.FragmentBottomNavigationBinding
+import org.themoviedb.models.Movie
 
 class BottomNavigationFragment : DaggerFragment() {
 
@@ -45,5 +47,13 @@ class BottomNavigationFragment : DaggerFragment() {
             itemIconTintList = null
             setupWithNavController(navController)
         }
+    }
+
+    fun navigateToDetail(movie: Movie){
+        val action = BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(movie)
+        val activity = activity as MainActivity
+        activity.supportActionBar?.hide()
+        findNavController().navigate(action)
+
     }
 }

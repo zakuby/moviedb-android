@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/collapsing_movie_detail"
-        tools:context=".screens.main.view.DetailActivity">
+        tools:context=".screens.main.view.DetailFragment">
 
         <ImageView
             android:id="@+id/toolbar_image"
