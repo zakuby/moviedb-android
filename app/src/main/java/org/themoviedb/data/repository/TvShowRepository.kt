@@ -11,7 +11,7 @@ class TvShowRepository @Inject constructor(
     private val database: Database
 ) {
 
-    fun removieTvShow(id: Long) = database.tvShowDao().deleteById(id)
+    fun removeTvShow(id: Long) = database.tvShowDao().deleteById(id)
 
     fun saveTvShow(tvShow: TvShow) = database.tvShowDao().insert(tvShow)
 

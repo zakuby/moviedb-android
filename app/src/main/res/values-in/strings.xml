@@ -20,4 +20,5 @@
     <string name="error_internal">Kesalahan server dari dalam.</string>
     <string name="error_hotspot_login">Diperlukan login hotspot.</string>
     <string name="error_request_timeout">Permintaan Timeout</string>
+    <string name="bottom_nav_favorite_title">Favorit</string>
 </resources>

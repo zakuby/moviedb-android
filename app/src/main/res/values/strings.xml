@@ -26,4 +26,5 @@
     <string name="error_internal">Internal server error.</string>
     <string name="error_hotspot_login">Hotspot login required.</string>
     <string name="error_request_timeout">Request Timeout.</string>
+    <string name="bottom_nav_favorite_title">Favorite</string>
 </resources>

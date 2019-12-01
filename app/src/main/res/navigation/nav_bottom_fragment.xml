@@ -17,5 +17,10 @@
         android:name="org.themoviedb.screens.tvshow.view.TvShowFragment"
         android:label="@string/bottom_nav_tv_show_title"
         tools:layout="@layout/fragment_tv_shows"/>
+    <fragment
+        android:id="@+id/favorite_fragment"
+        android:name="org.themoviedb.screens.favorite.view.FavoriteFragment"
+        android:label="@string/bottom_nav_favorite_title"
+        tools:layout="@layout/fragment_favorite"/>
 
 </navigation>

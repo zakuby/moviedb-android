@@ -6,6 +6,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import org.themoviedb.core.dagger.ViewModelKey
+import org.themoviedb.screens.favorite.viewmodel.FavoriteMovieViewModel
+import org.themoviedb.screens.favorite.viewmodel.FavoriteTvShowViewModel
 import org.themoviedb.screens.main.viewmodel.DetailViewModel
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
 import org.themoviedb.screens.profile.ProfileViewModel
@@ -32,6 +34,17 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     internal abstract fun movieDetailViewModel(viewModel: DetailViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavoriteMovieViewModel::class)
+    internal abstract fun favoriteMovieViewModel(viewModel: FavoriteMovieViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavoriteTvShowViewModel::class)
+    internal abstract fun favoriteTvShowViewModel(viewModel: FavoriteTvShowViewModel): ViewModel
 
     @Binds
     @IntoMap

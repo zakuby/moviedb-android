@@ -12,4 +12,10 @@
         android:icon="@drawable/anim_ic_tv_show"
         app:showAsAction="ifRoom"
         android:title="@string/bottom_nav_tv_show_title"/>
+
+    <item
+        android:id="@+id/favorite_fragment"
+        android:icon="@drawable/anim_ic_tv_show"
+        app:showAsAction="ifRoom"
+        android:title="@string/bottom_nav_favorite_title"/>
 </menu>

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="cast"
-            type="org.themoviedb.models.Cast" />
+            type="org.themoviedb.data.models.Cast" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
