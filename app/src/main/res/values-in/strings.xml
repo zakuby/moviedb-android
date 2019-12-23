@@ -6,7 +6,7 @@
     <string name="error_no_whatsapp">Silakan Instal Whatsapp terlebih dahulu.</string>
     <string name="button_retry">Coba Lagi</string>
     <string name="list_item_movie_image_desc">Gambar Film</string>
-    <string name="movie_detail_overview">Ikhtisar</string>
+    <string name="movie_detail_overview">Sinopsis</string>
     <string name="movie_detail_title">Detail Film</string>
     <string name="movie_detail_top_billed">Aktor Utama</string>
     <string name="movie_list_more_info">Info lebih lanjut</string>

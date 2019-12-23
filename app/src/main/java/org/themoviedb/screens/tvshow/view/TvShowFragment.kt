@@ -27,15 +27,7 @@ class TvShowFragment : DaggerFragment() {
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
     private val adapter by lazy {
-        TvShowsAdapter { tvShow ->
-            val convertToMovie = Movie(
-                id = tvShow.id, title = tvShow.title,
-                date = tvShow.date, description = tvShow.description, rate = tvShow.rate,
-                posterImage = tvShow.posterImage, backgroundImage = tvShow.backgroundImage,
-                isMovie = false
-            )
-            parent.navigateToDetail(convertToMovie)
-        }
+        TvShowsAdapter { tvShow -> parent.navigateToDetail(tvShow.convertToMovie()) }
     }
 
     override fun onCreateView(

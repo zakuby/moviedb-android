@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.adapter.MoviesListAdapter
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.screens.main.view.BottomNavigationFragment
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
@@ -26,7 +26,13 @@ class MoviesFragment : DaggerFragment() {
 
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
-    private val adapter by lazy { MoviesListAdapter { movie -> parent.navigateToDetail(movie) } }
+    private val adapter by lazy {
+        MoviesListAdapter { movie ->
+            parent.navigateToDetail(
+                movie
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

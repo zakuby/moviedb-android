@@ -112,9 +112,9 @@
                         android:ellipsize="end"
                         android:fontFamily="@string/roboto_light"
                         android:maxLines="2"
-                        android:text="@{movie.formattedDate()}"
                         android:textColor="@color/black"
                         android:textSize="12sp"
+                        app:formatDate="@{movie.date}"
                         tools:text="December 14, 2018" />
                 </LinearLayout>
 

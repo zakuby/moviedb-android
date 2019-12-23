@@ -41,8 +41,7 @@ class DetailFragment : DaggerFragment() {
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            movie = this@DetailFragment.movie
-            viewModel = this@DetailFragment.viewModel
+            viewModel = this@DetailFragment.viewModel.apply { setMovieDetail(this@DetailFragment.movie) }
             backButton.setOnClickListener { findNavController().popBackStack() }
             recyclerViewCast.apply {
                 layoutManager = LinearLayoutManager(
@@ -72,8 +71,6 @@ class DetailFragment : DaggerFragment() {
     }
 
     private fun subscribeUI() {
-        viewModel.fetchMovieCasts(movie.id ?: return, movie.isMovie ?: true)
-
         observe(viewModel.getLoading()) { isLoading ->
             if (isLoading) {
                 binding.apply {

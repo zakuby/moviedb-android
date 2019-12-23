@@ -12,25 +12,19 @@ import java.util.*
 @Entity(tableName = "tvshow")
 @Parcelize
 data class TvShow(
-    @PrimaryKey @ColumnInfo(name = "id")
-    val id: String?,
-    @ColumnInfo(name = "title")
-    @SerializedName("original_name")val title: String?,
-    @ColumnInfo(name = "date")
+    @PrimaryKey
+    val id: String,
+    @SerializedName("original_name") val title: String?,
     @SerializedName("first_air_date") val date: String?,
-    @ColumnInfo(name = "description")
     @SerializedName("overview") val description: String?,
-    @ColumnInfo(name = "rate")
     @SerializedName("vote_average") val rate: String?,
-    @ColumnInfo(name = "posterImage")
     @SerializedName("poster_path") val posterImage: String?,
-    @ColumnInfo(name = "backgroundImage")
-    @SerializedName("backdrop_path") val backgroundImage: String?
+    @SerializedName("backdrop_path") val backgroundImage: String?,
+    var isFavorite: Boolean = false
 ) : Parcelable {
-    fun formattedDate(): String {
-        date ?: return ""
-        val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val formatter = SimpleDateFormat("MMMM d, yyyy", Locale.getDefault())
-        return formatter.format(parser.parse(date) ?: return "")
-    }
+
+    fun convertToMovie(): Movie = Movie(
+        id = id, title = title, date = date, description = description, rate = rate,
+        posterImage = posterImage, backgroundImage = backgroundImage, isMovie = false, isFavorite = isFavorite
+    )
 }

@@ -96,7 +96,7 @@ ext {
     funktionaleVersion = '1.2'
 
     //aac
-    room_version = '2.2.2'
+    room_version = '2.2.3'
     lifecycle_version = '2.1.0'
 
     //dependency injection
@@ -131,6 +131,7 @@ dependencies {
     //Room for Local Storage
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     //Networking Libs
     //Retrofit

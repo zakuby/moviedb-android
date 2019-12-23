@@ -21,7 +21,7 @@
         <include
             android:id="@+id/error_layout"
             layout="@layout/view_offline"
-            android:visibility="@{viewModel.isResponseError ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.isError ? View.VISIBLE : View.GONE}"
             bind:model="@{viewModel.errorResponse}"
             tools:visibility="gone" />
 
@@ -30,7 +30,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.isResponseError ? View.GONE : View.VISIBLE}">
+            android:visibility="@{viewModel.isError ? View.GONE : View.VISIBLE}">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view"

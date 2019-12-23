@@ -1,4 +1,4 @@
-package org.themoviedb.screens.movie.view
+package org.themoviedb.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.adapter.FavoriteMovieListAdapter
 import org.themoviedb.databinding.FragmentFavoriteMovieBinding
 import org.themoviedb.screens.favorite.viewmodel.FavoriteMovieViewModel
-import org.themoviedb.screens.movie.view.MoviesListAdapter
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class FavoriteMovieFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentFavoriteMovieBinding
 
-    private val adapter by lazy { MoviesListAdapter { } }
+    private val adapter by lazy { FavoriteMovieListAdapter { } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +35,7 @@ class FavoriteMovieFragment : DaggerFragment() {
                 lifecycleOwner = viewLifecycleOwner
                 viewModel = this@FavoriteMovieFragment.viewModel
                 recyclerView.apply {
-                    layoutManager = LinearLayoutManager(requireActivity())
+                    layoutManager = GridLayoutManager(requireContext(), 2)
                     adapter = this@FavoriteMovieFragment.adapter
                 }
             }
@@ -49,7 +49,7 @@ class FavoriteMovieFragment : DaggerFragment() {
 
     private fun subscribeUI() {
 
-        observe(viewModel.getMovies()) { movies ->
+        observe(viewModel.getFavoriteMovies()) { movies ->
             adapter.loadMovies(movies)
         }
     }
