@@ -11,7 +11,7 @@ import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
 import org.themoviedb.core.network.service.TheMovieDbServices
-import org.themoviedb.models.TvShow
+import org.themoviedb.data.models.TvShow
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class TvShowViewModel @Inject constructor(
 
     fun getTvShows(): LiveData<List<TvShow>> = tvShows
 
-    val isResponseError = ObservableBoolean(false)
+    val isError = ObservableBoolean(false)
 
     private val errorResponse = MutableLiveData<ErrorResponse>()
 
@@ -42,14 +42,14 @@ class TvShowViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
-                        isResponseError.set(false)
+                        isError.set(false)
                         tvShows.postValue(popularMovies)
-                    } ?: isResponseError.set(true)
+                    } ?: isError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
-                    isResponseError.set(true)
+                    isError.set(true)
                 }
             ).disposedBy(compositeDisposable)
     }

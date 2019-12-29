@@ -1,6 +1,6 @@
 package org.themoviedb.core.network.response
 
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 
 data class MovieListResponse(
     val page: Int?,

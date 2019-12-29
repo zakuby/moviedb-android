@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.adapter.MovieListAdapter
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.screens.main.view.BottomNavigationFragment
 import org.themoviedb.screens.movie.viewmodel.MoviesViewModel
@@ -26,7 +26,7 @@ class MoviesFragment : DaggerFragment() {
 
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
-    private val adapter by lazy { MoviesListAdapter { movie -> parent.navigateToDetail(movie) } }
+    private val adapter by lazy { MovieListAdapter { movie -> parent.navigateToDetail(movie) } }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,7 @@ class MoviesFragment : DaggerFragment() {
                 errorLayout.retryButton.setOnClickListener { retryLoadMovie() }
                 viewModel = this@MoviesFragment.viewModel
                 recyclerView.apply {
-                    layoutManager = LinearLayoutManager(requireActivity())
+                    layoutManager = LinearLayoutManager(requireContext())
                     adapter = this@MoviesFragment.adapter
                 }
             }
@@ -50,30 +50,10 @@ class MoviesFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        findNavController()
         subscribeUI()
     }
 
     private fun subscribeUI() {
-
-        observe(viewModel.getLoading()) { isLoading ->
-            if (isLoading) {
-                binding.apply {
-                    recyclerView.visibility = View.GONE
-                    shimmerView.visibility = View.VISIBLE
-                    shimmerView.startShimmer()
-                }
-            } else {
-                binding.apply {
-                    shimmerView.stopShimmer()
-                    shimmerView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        observe(viewModel.getMovies()) { movies ->
-            adapter.loadMovies(movies)
-        }
+        observe(viewModel.getMovies()) { movies -> adapter.loadItems(movies) }
     }
 }

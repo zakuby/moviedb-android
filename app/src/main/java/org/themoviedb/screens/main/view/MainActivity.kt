@@ -13,6 +13,9 @@ import org.themoviedb.R
 import org.themoviedb.core.base.BaseActivity
 import org.themoviedb.core.dagger.FragmentScoped
 import org.themoviedb.databinding.ActivityMainBinding
+import org.themoviedb.screens.favorite.view.FavoriteFragment
+import org.themoviedb.screens.favorite.view.FavoriteMovieFragment
+import org.themoviedb.screens.favorite.view.FavoriteTvShowFragment
 import org.themoviedb.screens.movie.view.MoviesFragment
 import org.themoviedb.screens.profile.ProfileFragment
 import org.themoviedb.screens.tvshow.view.TvShowFragment
@@ -97,4 +100,16 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeTvShowFragment(): TvShowFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeFavoriteFragment(): FavoriteFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeFavoriteMovieFragment(): FavoriteMovieFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeFavoriteTvShowFragment(): FavoriteTvShowFragment
 }

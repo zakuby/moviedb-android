@@ -7,11 +7,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
-
-        <variable
-            name="movie"
-            type="org.themoviedb.models.Movie" />
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -39,7 +35,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:loadImageUrl="@{movie.backgroundImage}"
+            bind:loadImageUrl="@{viewModel.movie.backgroundImage}"
             tools:src="@drawable/backdrop_spiderman" />
 
 
@@ -58,7 +54,7 @@
             android:id="@+id/spacer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="48dp"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
             app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -78,7 +74,7 @@
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:src="@color/athens_gray"
-                bind:loadImageUrl="@{movie.posterImage}"
+                bind:loadImageUrl="@{viewModel.movie.posterImage}"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/poster_spiderman" />
         </androidx.cardview.widget.CardView>
@@ -93,7 +89,7 @@
             android:layout_marginRight="24dp"
             android:background="@drawable/oval_solid"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_image">
+            app:layout_constraintTop_toBottomOf="@id/spacer">
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
@@ -104,54 +100,56 @@
                 android:max="100"
                 android:progressDrawable="@drawable/bg_circular_progress_green"
                 android:secondaryProgress="100"
-                bind:setProgressRating="@{movie.rate}"
+                bind:setProgressRating="@{viewModel.movie.rate}"
                 tools:progress="86" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@{movie.rate}"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="8.6" />
-
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/progress_rating_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{viewModel.movie.rate}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/progress_rating"
+            app:layout_constraintBottom_toBottomOf="@id/progress_rating"
+            app:layout_constraintLeft_toLeftOf="@id/progress_rating"
+            app:layout_constraintRight_toRightOf="@id/progress_rating"
+            tools:text="8.6" />
 
         <TextView
             android:id="@+id/movie_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
             android:fontFamily="@string/roboto_black"
-            android:text="@{movie.title}"
+            android:text="@{viewModel.movie.title}"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/progress_rating"
             app:layout_constraintLeft_toRightOf="@id/movie_poster"
-            app:layout_constraintRight_toLeftOf="@id/progress_rating"
+            app:layout_constraintRight_toRightOf="parent"
             tools:text="Spider-Man: Into the Spider-Verse" />
 
         <TextView
             android:id="@+id/movie_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
             android:fontFamily="@string/roboto_regular"
             android:gravity="start"
-            android:text="@{movie.formattedDate()}"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintLeft_toRightOf="@id/movie_poster"
-            app:layout_constraintRight_toLeftOf="@id/progress_rating"
+            app:formatDate="@{viewModel.movie.date}"
+            app:layout_constraintLeft_toLeftOf="@id/movie_title"
+            app:layout_constraintRight_toRightOf="@id/movie_title"
             app:layout_constraintTop_toBottomOf="@id/movie_title"
             tools:text="October 18, 2019" />
 
@@ -186,7 +184,7 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
                     android:fontFamily="@string/roboto_regular"
-                    android:text="@{movie.description}"
+                    android:text="@{viewModel.movie.description}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@id/movie_overview_header"
@@ -197,7 +195,7 @@
                     android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isResponseError ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.isError ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@id/movie_overview_desc">
 
 
@@ -230,8 +228,9 @@
                                 android:layout_marginTop="5dp"
                                 android:clipToPadding="false"
                                 android:paddingLeft="24dp"
-                                android:paddingRight="24dp"
-                                android:paddingBottom="24dp">
+                                android:paddingBottom="24dp"
+                                android:paddingStart="24dp"
+                                tools:ignore="RtlSymmetry">
 
                                 <include layout="@layout/skeleton_recycler_list_cast" />
                             </androidx.core.widget.NestedScrollView>
@@ -280,11 +279,22 @@
 
                 </FrameLayout>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
+        <ImageView
+            android:id="@+id/favorite_button_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:onClick="@{() -> viewModel.updateRepository()}"
+            android:visibility="@{viewModel.movieFavoriteLoading ? View.GONE : View.VISIBLE}"
+            android:src="@{viewModel.isMovieFavorite() ? @drawable/ic_favorite_remove_fab : @drawable/ic_favorite_fab }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_favorite_remove_fab" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

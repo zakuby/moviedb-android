@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.android.support.DaggerFragment
 import org.themoviedb.R
 import org.themoviedb.databinding.FragmentBottomNavigationBinding
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 
 class BottomNavigationFragment : DaggerFragment() {
 

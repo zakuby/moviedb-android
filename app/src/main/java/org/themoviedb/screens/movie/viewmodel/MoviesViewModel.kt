@@ -11,7 +11,7 @@ import org.themoviedb.core.base.BaseViewModel
 import org.themoviedb.core.network.response.ErrorResponse
 import org.themoviedb.core.network.response.ErrorResponseHandler
 import org.themoviedb.core.network.service.TheMovieDbServices
-import org.themoviedb.models.Movie
+import org.themoviedb.data.models.Movie
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class MoviesViewModel @Inject constructor(
 
     fun getMovies(): LiveData<List<Movie>> = movies
 
-    val isResponseError = ObservableBoolean(false)
+    val isError = ObservableBoolean(false)
 
     private val errorResponse = MutableLiveData<ErrorResponse>()
 
@@ -43,14 +43,14 @@ class MoviesViewModel @Inject constructor(
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.results?.let { popularMovies ->
-                        isResponseError.set(false)
+                        isError.set(false)
                         movies.postValue(popularMovies)
-                    } ?: isResponseError.set(true)
+                    } ?: isError.set(true)
                 }, onError = { error ->
                     val errResp = errorResponseHandler.handleException(error)
                     errorResponse.postValue(errResp)
                     Crashlytics.logException(error)
-                    isResponseError.set(true)
+                    isError.set(true)
                 }
             ).disposedBy(compositeDisposable)
     }

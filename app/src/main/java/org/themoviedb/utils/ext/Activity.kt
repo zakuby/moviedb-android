@@ -30,6 +30,7 @@ fun Activity.setBlackStatusBar() {
 }
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T) -> Unit) {
+    liveData.removeObservers(this)
     liveData.observe(this, Observer(body))
 }
 

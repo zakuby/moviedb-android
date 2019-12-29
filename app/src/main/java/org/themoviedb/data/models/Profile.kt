@@ -1,4 +1,4 @@
-package org.themoviedb.models
+package org.themoviedb.data.models
 
 data class Profile(
     val name: String = "Muhammad Yaqub",

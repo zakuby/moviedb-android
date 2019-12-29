@@ -6,7 +6,7 @@
     <string name="error_no_whatsapp">Silakan Instal Whatsapp terlebih dahulu.</string>
     <string name="button_retry">Coba Lagi</string>
     <string name="list_item_movie_image_desc">Gambar Film</string>
-    <string name="movie_detail_overview">Ikhtisar</string>
+    <string name="movie_detail_overview">Sinopsis</string>
     <string name="movie_detail_title">Detail Film</string>
     <string name="movie_detail_top_billed">Aktor Utama</string>
     <string name="movie_list_more_info">Info lebih lanjut</string>
@@ -20,4 +20,8 @@
     <string name="error_internal">Kesalahan server dari dalam.</string>
     <string name="error_hotspot_login">Diperlukan login hotspot.</string>
     <string name="error_request_timeout">Permintaan Timeout</string>
+    <string name="bottom_nav_favorite_title">Favorit</string>
+    <string name="dialog_title">Berhasil !</string>
+    <string name="dialog_favorite_remove_desc">Sedih..\nDihapus dari daftar Favorit</string>
+    <string name="dialog_favorite_add_desc">Hore!\nDitambahkan ke daftar Favorit</string>
 </resources>
