@@ -11,12 +11,18 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.android.support.DaggerFragment
 import org.themoviedb.R
+import org.themoviedb.data.models.Movie
 import org.themoviedb.databinding.FragmentFavoriteBinding
+import org.themoviedb.screens.main.view.BottomNavigationFragment
 
 class FavoriteFragment : DaggerFragment() {
 
-    private val pagerAdapter: FavoritePagerAdapter by lazy { FavoritePagerAdapter(childFragmentManager, lifecycle) }
+    private lateinit var pagerAdapter: FavoritePagerAdapter
     private lateinit var binding: FragmentFavoriteBinding
+
+    private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
+
+    fun navigateToDetail(movie: Movie) = parent.navigateToDetail(movie)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +42,14 @@ class FavoriteFragment : DaggerFragment() {
     }
 
     private fun initPagerAdapter() {
-        binding.viewPager.adapter = pagerAdapter
-
+        pagerAdapter = FavoritePagerAdapter(childFragmentManager, lifecycle)
+        binding.viewPager.apply {
+            offscreenPageLimit = 2
+            adapter = pagerAdapter
+        }
     }
 
-    private fun initTabLayout(){
+    private fun initTabLayout() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, pos ->
             tab.text = when (pos) {
                 0 -> resources.getString(R.string.bottom_nav_movie_title)
@@ -50,17 +59,14 @@ class FavoriteFragment : DaggerFragment() {
     }
 
     private inner class FavoritePagerAdapter(
-        fa: FragmentManager,
+        fm: FragmentManager,
         lifecycle: Lifecycle
-    ) : FragmentStateAdapter(fa, lifecycle) {
+    ) : FragmentStateAdapter(fm, lifecycle) {
         override fun getItemCount(): Int = 2
 
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> FavoriteMovieFragment()
-                else -> FavoriteTvShowFragment()
-            }
+        override fun createFragment(position: Int): Fragment = when (position) {
+            0 -> FavoriteMovieFragment.newInstance()
+            else -> FavoriteTvShowFragment.newInstance()
         }
-
     }
 }

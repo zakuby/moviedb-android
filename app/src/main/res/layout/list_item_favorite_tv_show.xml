@@ -8,12 +8,11 @@
 
         <variable
             name="item"
-            type="org.themoviedb.data.models.Movie" />
+            type="org.themoviedb.data.models.TvShow" />
 
         <variable
             name="adapter"
-            type="org.themoviedb.adapter.FavoriteMovieAdapter" />
-
+            type="org.themoviedb.adapter.FavoriteTvShowAdapter" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

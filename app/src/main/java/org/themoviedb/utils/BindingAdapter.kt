@@ -1,10 +1,12 @@
 package org.themoviedb.utils
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
 import org.themoviedb.R
 import java.text.SimpleDateFormat
@@ -19,6 +21,16 @@ fun loadImageUrl(imgView: ImageView, url: String?) {
         .fit()
         .centerCrop()
         .into(imgView)
+}
+
+@BindingAdapter("isShimmer")
+fun isShimmerStart(shimmerView: ShimmerFrameLayout, isShimmer: Boolean) {
+    shimmerView.apply { if (isShimmer) startShimmer() else stopShimmer() }
+}
+
+@BindingAdapter("isGone")
+fun isViewGone(view: View, isGone: Boolean) {
+    view.visibility = if (isGone) View.GONE else View.VISIBLE
 }
 
 @BindingAdapter("setProgressRating")

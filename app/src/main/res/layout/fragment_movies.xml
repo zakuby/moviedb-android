@@ -2,7 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto">
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -30,13 +31,15 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.isError ? View.GONE : View.VISIBLE}">
+            app:isGone="@{viewModel.isError()}">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 shimmer:shimmer_auto_start="true"
+                app:isShimmer="@{viewModel.getLoading()}"
+                app:isGone="@{!viewModel.getLoading()}"
                 tools:visibility="gone">
 
                 <androidx.core.widget.NestedScrollView
@@ -54,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
+                app:isGone="@{viewModel.getLoading()}"
                 tools:itemCount="5"
                 tools:listitem="@layout/list_item_movie"
                 tools:visibility="visible" />

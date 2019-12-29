@@ -8,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.adapter.TvShowsAdapter
 import org.themoviedb.databinding.FragmentTvShowsBinding
-import org.themoviedb.data.models.Movie
 import org.themoviedb.screens.main.view.BottomNavigationFragment
 import org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel
 import org.themoviedb.utils.ext.observe
@@ -41,7 +41,7 @@ class TvShowFragment : DaggerFragment() {
                 errorLayout.retryButton.setOnClickListener { retryLoadTvShow() }
                 viewModel = this@TvShowFragment.viewModel
                 recyclerView.apply {
-                    layoutManager = LinearLayoutManager(requireActivity())
+                    layoutManager = LinearLayoutManager(requireContext())
                     adapter = this@TvShowFragment.adapter
                 }
             }
@@ -56,25 +56,6 @@ class TvShowFragment : DaggerFragment() {
     }
 
     private fun subscribeUI() {
-
-        observe(viewModel.getLoading()) { isLoading ->
-            if (isLoading) {
-                binding.apply {
-                    recyclerView.visibility = View.GONE
-                    shimmerView.visibility = View.VISIBLE
-                    shimmerView.startShimmer()
-                }
-            } else {
-                binding.apply {
-                    shimmerView.stopShimmer()
-                    shimmerView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                }
-            }
-        }
-
-        observe(viewModel.getTvShows()) { tvShows ->
-            adapter.loadTvShows(tvShows)
-        }
+        observe(viewModel.getTvShows()) { tvShows -> adapter.loadItems(tvShows) }
     }
 }

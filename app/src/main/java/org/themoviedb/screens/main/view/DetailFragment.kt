@@ -13,7 +13,8 @@ import dagger.android.support.DaggerFragment
 import org.themoviedb.databinding.FragmentDetailBinding
 import org.themoviedb.data.models.Movie
 import org.themoviedb.screens.main.viewmodel.DetailViewModel
-import org.themoviedb.screens.movie.view.MovieCastsAdapter
+import org.themoviedb.adapter.DetailListCastAdapter
+import org.themoviedb.utils.CustomDialog
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
 
@@ -24,13 +25,16 @@ class DetailFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var customDialog: CustomDialog
+
     private val viewModel: DetailViewModel by viewModels { viewModelFactory }
 
     private val movieArgs: DetailFragmentArgs by navArgs()
 
     private val movie: Movie by lazy { movieArgs.movie }
 
-    private val adapter by lazy { MovieCastsAdapter() }
+    private val adapter by lazy { DetailListCastAdapter() }
 
     private val activity: MainActivity by lazy { getActivity() as MainActivity }
 
@@ -87,8 +91,8 @@ class DetailFragment : DaggerFragment() {
             }
         }
 
-        observe(viewModel.getMovieCasts()) { casts ->
-            adapter.loadCasts(casts)
-        }
+        observe(viewModel.getMovieCasts()) { casts -> adapter.loadItems(casts) }
+        observe(viewModel.onFavoriteAdded) { customDialog.showAddToFavoriteDialog(requireContext()) }
+        observe(viewModel.onFavoriteRemoved) { customDialog.showRemoveFromFavoriteDialog(requireContext()) }
     }
 }

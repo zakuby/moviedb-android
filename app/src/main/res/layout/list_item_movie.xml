@@ -7,8 +7,12 @@
     <data>
 
         <variable
-            name="movie"
+            name="item"
             type="org.themoviedb.data.models.Movie" />
+
+        <variable
+            name="adapter"
+            type="org.themoviedb.core.base.BaseAdapter" />
 
     </data>
 
@@ -16,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="225dp"
         android:layout_margin="10dp"
+        android:onClick="@{() -> adapter.onItemClick(item)}"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp">
 
@@ -38,7 +43,7 @@
                 android:contentDescription="@string/list_item_movie_image_desc"
                 android:scaleType="centerCrop"
                 android:src="@color/athens_gray"
-                bind:loadImageUrl="@{movie.posterImage}"
+                bind:loadImageUrl="@{item.posterImage}"
                 tools:src="@drawable/poster_spiderman" />
 
             <RelativeLayout
@@ -66,14 +71,14 @@
                         android:max="100"
                         android:progressDrawable="@drawable/bg_circular_progress_green"
                         android:secondaryProgress="100"
-                        bind:setProgressRating="@{movie.rate}"
+                        bind:setProgressRating="@{item.rate}"
                         tools:progress="86" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@{movie.rate}"
+                        android:text="@{item.rate}"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -100,7 +105,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@string/roboto_black"
                         android:maxLines="2"
-                        android:text="@{movie.title}"
+                        android:text="@{item.title}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         tools:text="Spider-Man: Into the Spider-Verse" />
@@ -114,7 +119,7 @@
                         android:maxLines="2"
                         android:textColor="@color/black"
                         android:textSize="12sp"
-                        app:formatDate="@{movie.date}"
+                        app:formatDate="@{item.date}"
                         tools:text="December 14, 2018" />
                 </LinearLayout>
 
@@ -135,7 +140,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@string/roboto_light"
                 android:maxLines="7"
-                android:text="@{movie.description}"
+                android:text="@{item.description}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="Miles Morales is juggling his life between being a high school student and being a spider-man. When Wilson Kingpin Fisk uses a super collider, others from across the Spider-Verse are transported to this dimension." />

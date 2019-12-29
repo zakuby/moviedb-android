@@ -14,6 +14,7 @@ import org.themoviedb.data.models.Movie
 import org.themoviedb.data.models.TvShow
 import org.themoviedb.data.repository.MovieRepository
 import org.themoviedb.data.repository.TvShowRepository
+import org.themoviedb.utils.SingleLiveEvent
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
@@ -32,6 +33,9 @@ class DetailViewModel @Inject constructor(
     private val isFavorite get() = isMovieFavorite.get()
 
     val movieFavoriteLoading = ObservableBoolean(true)
+
+    val onFavoriteAdded = SingleLiveEvent<Unit>()
+    val onFavoriteRemoved = SingleLiveEvent<Unit>()
 
     fun getMovieCasts(): LiveData<List<Cast>> = casts
 
@@ -53,8 +57,6 @@ class DetailViewModel @Inject constructor(
 
     private fun getMovieFromRepo(id: String) {
         movieRepository.getMovieById(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { movieFavoriteLoading.set(true) }
             .doAfterTerminate { movieFavoriteLoading.set(false) }
             .subscribeBy(
@@ -65,8 +67,6 @@ class DetailViewModel @Inject constructor(
 
     private fun getTvShowFromRepo(id: String) {
         tvShowRepository.getTvShowById(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { movieFavoriteLoading.set(true) }
             .doAfterTerminate { movieFavoriteLoading.set(false) }
             .subscribeBy(
@@ -108,13 +108,19 @@ class DetailViewModel @Inject constructor(
         if (isFavorite)
             movieRepository.removeMovie(movie.id)
                 .subscribeBy(
-                    onComplete = { isMovieFavorite.set(false) },
+                    onComplete = {
+                        onFavoriteRemoved.call()
+                        isMovieFavorite.set(false)
+                    },
                     onError = { error -> Crashlytics.logException(error) }
                 ).disposedBy(compositeDisposable)
         else
             movieRepository.saveMovie(movie.apply { isFavorite = true })
                 .subscribeBy(
-                    onComplete = { isMovieFavorite.set(true) },
+                    onComplete = {
+                        onFavoriteAdded.call()
+                        isMovieFavorite.set(true)
+                    },
                     onError = { error -> Crashlytics.logException(error) }
                 ).disposedBy(compositeDisposable)
     }
@@ -123,13 +129,19 @@ class DetailViewModel @Inject constructor(
         if (isFavorite)
             tvShowRepository.removeTvShow(tvShow.id)
                 .subscribeBy(
-                    onComplete = { isMovieFavorite.set(false) },
+                    onComplete = {
+                        onFavoriteRemoved.call()
+                        isMovieFavorite.set(false)
+                    },
                     onError = { error -> Crashlytics.logException(error) }
                 ).disposedBy(compositeDisposable)
         else
             tvShowRepository.saveTvShow(tvShow.apply { isFavorite = true })
                 .subscribeBy(
-                    onComplete = { isMovieFavorite.set(true) },
+                    onComplete = {
+                        onFavoriteAdded.call()
+                        isMovieFavorite.set(true)
+                    },
                     onError = { error -> Crashlytics.logException(error) }
                 ).disposedBy(compositeDisposable)
     }

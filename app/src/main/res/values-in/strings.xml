@@ -21,4 +21,7 @@
     <string name="error_hotspot_login">Diperlukan login hotspot.</string>
     <string name="error_request_timeout">Permintaan Timeout</string>
     <string name="bottom_nav_favorite_title">Favorit</string>
+    <string name="dialog_title">Berhasil !</string>
+    <string name="dialog_favorite_remove_desc">Sedih..\nDihapus dari daftar Favorit</string>
+    <string name="dialog_favorite_add_desc">Hore!\nDitambahkan ke daftar Favorit</string>
 </resources>
