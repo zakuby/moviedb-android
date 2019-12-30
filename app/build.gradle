@@ -76,8 +76,8 @@ android {
 
 ext {
     //layout
-    materialVersion = '1.2.0-alpha02'
-    constraintLayoutVersion = '2.0.0-beta3'
+    materialVersion = '1.2.0-alpha03'
+    constraintLayoutVersion = '2.0.0-beta4'
     shimmerVersion = '0.4.0'
     circleImageVersion = '3.0.1'
     lottieVersion = '3.3.1'
