@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/favorite_fragment"
-        android:icon="@drawable/anim_ic_tv_show"
+        android:icon="@drawable/anim_ic_favorite"
         app:showAsAction="ifRoom"
         android:title="@string/bottom_nav_favorite_title"/>
 </menu>

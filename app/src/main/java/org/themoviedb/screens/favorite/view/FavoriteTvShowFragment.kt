@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.R
 import org.themoviedb.adapter.FavoriteTvShowAdapter
 import org.themoviedb.data.models.TvShow
 import org.themoviedb.databinding.FragmentFavoriteListBinding
@@ -54,6 +55,7 @@ class FavoriteTvShowFragment : DaggerFragment() {
                     layoutManager = LinearLayoutManager(requireActivity())
                     adapter = this@FavoriteTvShowFragment.adapter
                 }
+                btnAddFavorite.setOnClickListener { parent.navigateTab(R.id.tv_show_fragment) }
             }
         return binding.root
     }
@@ -69,7 +71,7 @@ class FavoriteTvShowFragment : DaggerFragment() {
         observe(viewModel.isTvShowEmpty) { isEmpty ->
             binding.apply {
                 recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
-                emptyAnimation.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                emptyLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
             }
         }
     }

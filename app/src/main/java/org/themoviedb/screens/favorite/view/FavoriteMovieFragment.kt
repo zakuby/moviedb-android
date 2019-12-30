@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import org.themoviedb.R
 import org.themoviedb.adapter.FavoriteMovieAdapter
 import org.themoviedb.data.models.Movie
 import org.themoviedb.databinding.FragmentFavoriteListBinding
@@ -35,9 +36,12 @@ class FavoriteMovieFragment : DaggerFragment() {
 
     private val parent by lazy { requireParentFragment() as FavoriteFragment }
 
-    private val adapter by lazy { FavoriteMovieAdapter(
-        clickListener = { parent.navigateToDetail(it) },
-        removeFavoriteListener = { handleRemoveMovie(it) }) }
+    private val adapter by lazy {
+        FavoriteMovieAdapter(
+            clickListener = { parent.navigateToDetail(it) },
+            removeFavoriteListener = { handleRemoveMovie(it) }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +55,7 @@ class FavoriteMovieFragment : DaggerFragment() {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = this@FavoriteMovieFragment.adapter
                 }
+                btnAddFavorite.setOnClickListener { parent.navigateTab(R.id.movies_fragment) }
             }
         return binding.root
     }
@@ -66,7 +71,7 @@ class FavoriteMovieFragment : DaggerFragment() {
         observe(viewModel.isMovieEmpty) { isEmpty ->
             binding.apply {
                 recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
-                emptyAnimation.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                emptyLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
             }
         }
     }
