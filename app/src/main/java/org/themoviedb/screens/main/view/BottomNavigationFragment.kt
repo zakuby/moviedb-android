@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -35,13 +36,12 @@ class BottomNavigationFragment : DaggerFragment() {
     private fun setupNavigation() {
 
         val navController =
-            Navigation.findNavController(requireActivity(),
-                R.id.nav_host_bottom_fragment
-            ).apply {
-                addOnDestinationChangedListener { _, destination, _ ->
-                    (activity as MainActivity).supportActionBar?.title = destination.label
+            Navigation.findNavController(requireActivity(), R.id.nav_host_bottom_fragment)
+                .apply {
+                    addOnDestinationChangedListener { _, destination, _ ->
+                        (activity as MainActivity).supportActionBar?.title = destination.label
+                    }
                 }
-            }
 
         binding.bottomNavBar.apply {
             itemIconTintList = null
@@ -49,8 +49,13 @@ class BottomNavigationFragment : DaggerFragment() {
         }
     }
 
+    fun setBottomNavPosition(@IdRes id: Int) {
+        binding.bottomNavBar.selectedItemId = id
+    }
+
     fun navigateToDetail(movie: Movie) {
-        val action = BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(movie)
+        val action =
+            BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(movie)
         val activity = activity as MainActivity
         activity.supportActionBar?.hide()
         findNavController().navigate(action)

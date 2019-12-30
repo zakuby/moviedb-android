@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -23,6 +24,8 @@ class FavoriteFragment : DaggerFragment() {
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
     fun navigateToDetail(movie: Movie) = parent.navigateToDetail(movie)
+
+    fun navigateTab(@IdRes id: Int) = parent.setBottomNavPosition(id)
 
     override fun onCreateView(
         inflater: LayoutInflater,

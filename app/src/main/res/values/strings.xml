@@ -30,4 +30,6 @@
     <string name="dialog_title">Success !</string>
     <string name="dialog_favorite_remove_desc">That\'s Sad..\nRemoved from Favorite List</string>
     <string name="dialog_favorite_add_desc">Hooray !\nAdded to Favorite List</string>
+    <string name="button_add_favorite">Add Favorite</string>
+    <string name="empty_favorite_description">Oh no..\nLooks like you still you don\'t have any Favorites.</string>
 </resources>
