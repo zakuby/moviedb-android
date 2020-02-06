@@ -99,6 +99,7 @@ ext {
     //aac
     room_version = '2.2.3'
     lifecycle_version = '2.2.0'
+    paging_version = "2.1.1"
 
     //dependency injection
     daggerVersion = '2.26'
@@ -127,6 +128,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     //Animation Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    //Pagination Libs
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     //Android Architecture Component
     //ViewModel and LiveData

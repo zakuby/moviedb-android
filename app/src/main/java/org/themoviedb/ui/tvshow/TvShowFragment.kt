@@ -33,7 +33,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowsBinding>(R.layout.fragment_tv
 
     private fun initBinding() {
         binding.apply {
-            errorLayout.retryButton.setOnClickListener { retryLoadTvShow() }
+            errorLayout.retryButton.setOnClickListener { retryLoadTvShows() }
             viewModel = this@TvShowFragment.viewModel
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -42,9 +42,9 @@ class TvShowFragment : BaseFragment<FragmentTvShowsBinding>(R.layout.fragment_tv
         }
     }
 
-    private fun retryLoadTvShow() = viewModel.getTopRatedTvShows()
+    private fun retryLoadTvShows() = viewModel.retryLoadTvShows()
 
     private fun subscribeUI() {
-        observe(viewModel.getTvShows()) { tvShows -> adapter.loadItems(tvShows) }
+        observe(viewModel.tvShows, adapter::submitList)
     }
 }

@@ -1,6 +1,7 @@
 package org.themoviedb.ui.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
 
     private val adapter by lazy { MovieListAdapter { movie -> parent.navigateToDetail(movie) } }
 
-    private fun retryLoadMovie() = viewModel.getPopularMovies()
+    private fun retryLoadMovie() = viewModel.retryLoadMovies()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +35,7 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
 
     private fun initBinding() {
         binding.apply {
-            errorLayout.retryButton.setOnClickListener { retryLoadMovie() }
+            errorLayout.retryButton.setOnClickListener { retryLoadMovie().also { Log.d("RETRY", "RETRYING in View") } }
             viewModel = this@MoviesFragment.viewModel
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -44,6 +45,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
     }
 
     private fun subscribeUI() {
-        observe(viewModel.getMovies()) { movies -> adapter.loadItems(movies) }
+        observe(viewModel.movies, adapter::submitList)
     }
 }

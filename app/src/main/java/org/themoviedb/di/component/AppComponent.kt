@@ -20,6 +20,7 @@ import javax.inject.Singleton
         ActivityModule::class,
         NetworkModule::class,
         RoomModule::class,
+        DataSourceModule::class,
         ViewModelModule::class
     ]
 )
