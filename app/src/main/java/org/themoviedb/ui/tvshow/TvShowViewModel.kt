@@ -1,56 +1,37 @@
 package org.themoviedb.ui.tvshow
 
-import androidx.databinding.ObservableBoolean
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.crashlytics.android.Crashlytics
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
-import org.themoviedb.ui.base.BaseViewModel
-import org.themoviedb.data.remote.response.ErrorResponse
-import org.themoviedb.data.remote.response.ErrorResponseHandler
-import org.themoviedb.data.remote.service.TheMovieDbServices
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import org.themoviedb.data.local.models.TvShow
-import org.themoviedb.utils.ext.disposedBy
+import org.themoviedb.data.local.source.TvShowDataSource
+import org.themoviedb.data.local.source.TvShowDataSourceFactory
+import org.themoviedb.data.remote.response.ErrorResponse
+import org.themoviedb.ui.base.BaseViewModel
 import javax.inject.Inject
 
 class TvShowViewModel @Inject constructor(
-    private val service: TheMovieDbServices,
-    private val errorResponseHandler: ErrorResponseHandler
-) : BaseViewModel() {
+    private val dataSourceFactory: TvShowDataSourceFactory
+): BaseViewModel() {
+
+    val initialLoading: LiveData<Boolean>
+    val initialEmpty: LiveData<Boolean>
+    val errorResponse: LiveData<ErrorResponse>
+    val tvShows: LiveData<PagedList<TvShow>>
+
     init {
-        getTopRatedTvShows()
+        val config = PagedList.Config.Builder()
+            .setPageSize(10)
+            .setInitialLoadSizeHint(10)
+            .setEnablePlaceholders(false)
+            .build()
+        tvShows = LivePagedListBuilder(dataSourceFactory, config).build()
+        errorResponse = Transformations.switchMap(dataSourceFactory.getDataSource(), TvShowDataSource::getErrorResponse)
+        initialLoading = Transformations.switchMap(dataSourceFactory.getDataSource(), TvShowDataSource::getInitialLoading)
+        initialEmpty = Transformations.switchMap(dataSourceFactory.getDataSource(), TvShowDataSource::getInitialEmpty)
     }
 
-    private val tvShows = MutableLiveData<List<TvShow>>()
-
-    fun getTvShows(): LiveData<List<TvShow>> = tvShows
-
-    val isError = ObservableBoolean(false)
-
-    private val errorResponse = MutableLiveData<ErrorResponse>()
-
-    fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
-
-    fun getTopRatedTvShows() {
-        service.getTopRatedTvShows()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { setLoading() }
-            .doAfterTerminate { finishLoading() }
-            .subscribeBy(
-                onSuccess = { resp ->
-                    resp.results?.let { popularMovies ->
-                        isError.set(false)
-                        tvShows.postValue(popularMovies)
-                    } ?: isError.set(true)
-                }, onError = { error ->
-                    val errResp = errorResponseHandler.handleException(error)
-                    errorResponse.postValue(errResp)
-                    Crashlytics.logException(error)
-                    isError.set(true)
-                }
-            ).disposedBy(compositeDisposable)
-    }
+    fun retryLoadTvShows() = dataSourceFactory.reloadInitial().also { Log.d("RETRY", "RETRYING in ViewModel") }
 }

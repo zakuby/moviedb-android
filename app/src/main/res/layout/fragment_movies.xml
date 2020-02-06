@@ -22,7 +22,7 @@
         <include
             android:id="@+id/error_layout"
             layout="@layout/view_offline"
-            android:visibility="@{viewModel.isError ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.initialEmpty ? View.VISIBLE : View.GONE}"
             bind:model="@{viewModel.errorResponse}"
             tools:visibility="gone" />
 
@@ -31,15 +31,15 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:isGone="@{viewModel.isError()}">
+            app:isGone="@{viewModel.initialEmpty}">
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 shimmer:shimmer_auto_start="true"
-                app:isShimmer="@{viewModel.getLoading()}"
-                app:isGone="@{!viewModel.getLoading()}"
+                app:isShimmer="@{viewModel.initialLoading}"
+                app:isGone="@{!viewModel.initialLoading}"
                 tools:visibility="gone">
 
                 <androidx.core.widget.NestedScrollView
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
-                app:isGone="@{viewModel.getLoading()}"
+                app:isGone="@{viewModel.initialLoading}"
                 tools:itemCount="5"
                 tools:listitem="@layout/list_item_movie"
                 tools:visibility="visible" />

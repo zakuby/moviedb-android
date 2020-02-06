@@ -13,13 +13,13 @@ interface TheMovieDbServices {
     @GET("movie/popular")
     fun getPopularMovies(
         @Query("language") lang: String = "en-US",
-        @Query("page") page: String = "1"
+        @Query("page") page: Int = 1
     ): Single<MovieListResponse>
 
     @GET("tv/top_rated")
     fun getTopRatedTvShows(
         @Query("language") lang: String = "en-US",
-        @Query("page") page: String = "1"
+        @Query("page") page: Int = 1
     ): Single<TvShowListResponse>
 
     @GET("movie/{id}/credits")

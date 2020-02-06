@@ -12,7 +12,7 @@
 
         <variable
             name="adapter"
-            type="org.themoviedb.ui.base.BaseAdapter" />
+            type="org.themoviedb.ui.base.BasePagedListAdapter" />
 
     </data>
 
