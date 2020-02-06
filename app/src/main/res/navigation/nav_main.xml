@@ -15,12 +15,12 @@
 
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="org.themoviedb.screens.profile.ProfileFragment"
+        android:name="org.themoviedb.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/bottom_nav_fragment"
-        android:name="org.themoviedb.screens.main.view.BottomNavigationFragment"
+        android:name="org.themoviedb.ui.main.BottomNavigationFragment"
         android:label="@string/bottom_nav_movie_title"
         tools:layout="@layout/fragment_bottom_navigation">
         <action
@@ -33,11 +33,11 @@
     </fragment>
     <fragment
         android:id="@+id/detail_fragment"
-        android:name="org.themoviedb.screens.main.view.DetailFragment"
+        android:name="org.themoviedb.ui.detail.DetailFragment"
         android:label="@string/movie_detail_title"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="movie"
-            app:argType="org.themoviedb.data.models.Movie" />
+            app:argType="org.themoviedb.data.local.models.Movie" />
     </fragment>
 </navigation>

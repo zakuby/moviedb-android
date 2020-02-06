@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.themoviedb.screens.profile.ProfileViewModel" />
+            type="org.themoviedb.ui.profile.ProfileViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

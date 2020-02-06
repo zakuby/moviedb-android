@@ -34,7 +34,7 @@ android.applicationVariants.all { variant ->
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "org.themoviedb"
         minSdkVersion 16
@@ -76,18 +76,18 @@ android {
 
 ext {
     //layout
-    materialVersion = '1.2.0-alpha03'
+    materialVersion = '1.2.0-alpha04'
     constraintLayoutVersion = '2.0.0-beta4'
     shimmerVersion = '0.4.0'
     circleImageVersion = '3.0.1'
     lottieVersion = '3.3.1'
 
     //ktx
-    ktxVersion = '1.1.0'
+    ktxVersion = '1.2.0'
 
     //networking
     okHttpVersion = '3.12.0'
-    retrofitVersion = '2.5.0'
+    retrofitVersion = '2.7.1'
     //image processing
     picassoVersion = '2.71828'
 
@@ -98,10 +98,10 @@ ext {
 
     //aac
     room_version = '2.2.3'
-    lifecycle_version = '2.1.0'
+    lifecycle_version = '2.2.0'
 
     //dependency injection
-    daggerVersion = '2.22.1'
+    daggerVersion = '2.26'
 }
 
 dependencies {
@@ -112,7 +112,7 @@ dependencies {
     //ktx
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.fragment:fragment-ktx:$ktxVersion"
-    implementation "androidx.navigation:navigation-runtime-ktx:$ktxVersion"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -158,7 +158,7 @@ dependencies {
 
 
     // Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     testImplementation 'junit:junit:4.12'

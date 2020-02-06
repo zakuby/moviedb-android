@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="org.themoviedb.core.network.response.ErrorResponse" />
+            type="org.themoviedb.data.remote.response.ErrorResponse" />
     </data>
 
     <LinearLayout

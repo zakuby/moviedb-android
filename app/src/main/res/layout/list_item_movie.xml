@@ -8,11 +8,11 @@
 
         <variable
             name="item"
-            type="org.themoviedb.data.models.Movie" />
+            type="org.themoviedb.data.local.models.Movie" />
 
         <variable
             name="adapter"
-            type="org.themoviedb.core.base.BaseAdapter" />
+            type="org.themoviedb.ui.base.BaseAdapter" />
 
     </data>
 

@@ -8,18 +8,18 @@
 
     <fragment
         android:id="@+id/movies_fragment"
-        android:name="org.themoviedb.screens.movie.view.MoviesFragment"
+        android:name="org.themoviedb.ui.movie.MoviesFragment"
         android:label="@string/bottom_nav_movie_title"
         tools:layout="@layout/fragment_movies"/>
 
     <fragment
         android:id="@+id/tv_show_fragment"
-        android:name="org.themoviedb.screens.tvshow.view.TvShowFragment"
+        android:name="org.themoviedb.ui.tvshow.TvShowFragment"
         android:label="@string/bottom_nav_tv_show_title"
         tools:layout="@layout/fragment_tv_shows"/>
     <fragment
         android:id="@+id/favorite_fragment"
-        android:name="org.themoviedb.screens.favorite.view.FavoriteFragment"
+        android:name="org.themoviedb.ui.favorite.view.FavoriteFragment"
         android:label="@string/bottom_nav_favorite_title"
         tools:layout="@layout/fragment_favorite"/>
 
