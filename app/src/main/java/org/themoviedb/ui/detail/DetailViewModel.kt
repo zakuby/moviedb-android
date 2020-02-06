@@ -52,7 +52,6 @@ class DetailViewModel @Inject constructor(
         val id = movie.id
         if (isMovie) getMovieFromRepo(id)
         else getTvShowFromRepo(id)
-
     }
 
     private fun getMovieFromRepo(id: String) {

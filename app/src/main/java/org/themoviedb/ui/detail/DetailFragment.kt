@@ -1,19 +1,16 @@
 package org.themoviedb.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import org.themoviedb.R
-import org.themoviedb.databinding.FragmentDetailBinding
-import org.themoviedb.data.local.models.Movie
 import org.themoviedb.adapters.DetailListCastAdapter
+import org.themoviedb.data.local.models.Movie
+import org.themoviedb.databinding.FragmentDetailBinding
 import org.themoviedb.ui.base.BaseFragment
 import org.themoviedb.ui.main.MainActivity
 import org.themoviedb.utils.CustomDialog

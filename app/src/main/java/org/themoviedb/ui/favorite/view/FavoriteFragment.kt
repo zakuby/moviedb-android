@@ -1,16 +1,13 @@
 package org.themoviedb.ui.favorite.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.android.support.DaggerFragment
 import org.themoviedb.R
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.databinding.FragmentFavoriteBinding

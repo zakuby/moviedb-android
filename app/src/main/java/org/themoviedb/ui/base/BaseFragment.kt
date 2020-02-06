@@ -9,9 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<B: ViewDataBinding> constructor(
+abstract class BaseFragment<B : ViewDataBinding> constructor(
     @LayoutRes val layoutRes: Int
-): DaggerFragment() {
+) : DaggerFragment() {
 
     protected lateinit var binding: B
 
