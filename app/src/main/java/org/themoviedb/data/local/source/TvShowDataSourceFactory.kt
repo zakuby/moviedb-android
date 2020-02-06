@@ -8,10 +8,10 @@ import org.themoviedb.data.remote.response.ErrorResponseHandler
 import org.themoviedb.data.remote.service.TheMovieDbServices
 import javax.inject.Inject
 
-class TvShowDataSourceFactory  @Inject constructor(
+class TvShowDataSourceFactory @Inject constructor(
     private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler
-): DataSource.Factory<Int, TvShow>() {
+) : DataSource.Factory<Int, TvShow>() {
 
     private lateinit var dataSource: TvShowDataSource
 
@@ -27,13 +27,12 @@ class TvShowDataSourceFactory  @Inject constructor(
 
     fun reloadInitial() = dataSource.invalidate()
 
-    fun searchMovies(keyword: String?){
+    fun searchMovies(keyword: String?) {
         this.keyword = keyword
         dataSource.invalidate()
     }
 
     fun getKeywords(): String = keyword ?: ""
-
 
     fun getDataSource(): LiveData<TvShowDataSource> = dataSourceLiveData
 }

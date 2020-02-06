@@ -1,6 +1,5 @@
 package org.themoviedb.ui.tvshow
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 class TvShowViewModel @Inject constructor(
     private val dataSourceFactory: TvShowDataSourceFactory
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val initialLoading: LiveData<Boolean>
     val initialEmpty: LiveData<Boolean>

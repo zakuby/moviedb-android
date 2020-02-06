@@ -27,13 +27,12 @@ class MovieDataSourceFactory @Inject constructor(
 
     fun reloadInitial() = dataSource.invalidate()
 
-    fun searchMovies(keyword: String?){
+    fun searchMovies(keyword: String?) {
         this.keyword = keyword
         dataSource.invalidate()
     }
 
     fun getKeywords(): String = keyword ?: ""
-
 
     fun getDataSource(): LiveData<MovieDataSource> = dataSourceLiveData
 }

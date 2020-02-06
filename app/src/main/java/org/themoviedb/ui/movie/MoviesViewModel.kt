@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
     private val dataSourceFactory: MovieDataSourceFactory
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val initialLoading: LiveData<Boolean>
     val initialEmpty: LiveData<Boolean>
