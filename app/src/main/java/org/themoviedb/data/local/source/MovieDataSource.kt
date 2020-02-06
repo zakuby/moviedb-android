@@ -1,6 +1,5 @@
 package org.themoviedb.data.local.source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
@@ -17,7 +16,8 @@ import org.themoviedb.utils.ext.disposedBy
 
 class MovieDataSource constructor(
     private val service: TheMovieDbServices,
-    private val errorResponseHandler: ErrorResponseHandler
+    private val errorResponseHandler: ErrorResponseHandler,
+    private val keyword: String? = ""
 ) : PageKeyedDataSource<Int, Movie>() {
 
     private val initialLoading = MutableLiveData<Boolean>()
@@ -29,8 +29,8 @@ class MovieDataSource constructor(
     private val compositeDisposable = CompositeDisposable()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
-        service.getPopularMovies()
-            .subscribeOn(Schedulers.io())
+        val movieServices = if (keyword.isNullOrEmpty()) service.getPopularMovies() else service.searchMovies(keyword = keyword)
+        movieServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { initialLoading.postValue(true) }
             .doAfterTerminate { initialLoading.postValue(false) }
@@ -50,8 +50,8 @@ class MovieDataSource constructor(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        service.getPopularMovies(page = params.key)
-            .subscribeOn(Schedulers.io())
+        val movieServices = if (keyword.isNullOrEmpty()) service.getPopularMovies(page = params.key) else service.searchMovies(page = params.key, keyword = keyword)
+        movieServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { resp ->

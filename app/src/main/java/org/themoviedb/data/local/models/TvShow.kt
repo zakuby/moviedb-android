@@ -1,6 +1,7 @@
 package org.themoviedb.data.local.models
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -19,6 +20,18 @@ data class TvShow(
     @SerializedName("backdrop_path") val backgroundImage: String?,
     var isFavorite: Boolean = false
 ) : Parcelable {
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShow>() {
+            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     fun convertToMovie(): Movie = Movie(
         id = id, title = title, date = date, description = description, rate = rate,

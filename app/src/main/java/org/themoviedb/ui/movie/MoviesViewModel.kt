@@ -1,6 +1,6 @@
 package org.themoviedb.ui.movie
 
-import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -20,6 +20,7 @@ class MoviesViewModel @Inject constructor(
     val initialEmpty: LiveData<Boolean>
     val errorResponse: LiveData<ErrorResponse>
     val movies: LiveData<PagedList<Movie>>
+    val searchQuery = ObservableField<String>(dataSourceFactory.getKeywords())
 
     init {
         val config = PagedList.Config.Builder()
@@ -34,4 +35,8 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun retryLoadMovies() = dataSourceFactory.reloadInitial()
+    fun searchMovies(keyword: String?) {
+        searchQuery.set(keyword)
+        dataSourceFactory.searchMovies(keyword)
+    }
 }

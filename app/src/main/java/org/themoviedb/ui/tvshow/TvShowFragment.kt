@@ -2,6 +2,8 @@ package org.themoviedb.ui.tvshow
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +37,24 @@ class TvShowFragment : BaseFragment<FragmentTvShowsBinding>(R.layout.fragment_tv
         binding.apply {
             errorLayout.retryButton.setOnClickListener { retryLoadTvShows() }
             viewModel = this@TvShowFragment.viewModel
+            searchView.apply {
+                val query = this@TvShowFragment.viewModel.searchQuery.get()
+                setQuery(query, false)
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        this@TvShowFragment.viewModel.searchMovies(query)
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean = false
+
+                })
+                view?.findViewById<ImageView>(R.id.search_close_btn)?.setOnClickListener {
+                    this@TvShowFragment.viewModel.searchMovies("")
+                    setQuery("", false)
+                    isIconified = true
+                }
+            }
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = this@TvShowFragment.adapter

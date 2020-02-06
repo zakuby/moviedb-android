@@ -1,8 +1,9 @@
 package org.themoviedb.ui.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,8 +36,26 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
 
     private fun initBinding() {
         binding.apply {
-            errorLayout.retryButton.setOnClickListener { retryLoadMovie().also { Log.d("RETRY", "RETRYING in View") } }
+            errorLayout.retryButton.setOnClickListener { retryLoadMovie() }
             viewModel = this@MoviesFragment.viewModel
+            searchView.apply {
+                val query = this@MoviesFragment.viewModel.searchQuery.get()
+                setQuery(query, false)
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        this@MoviesFragment.viewModel.searchMovies(query)
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean = false
+
+                })
+                view?.findViewById<ImageView>(R.id.search_close_btn)?.setOnClickListener {
+                    this@MoviesFragment.viewModel.searchMovies("")
+                    setQuery("", false)
+                    isIconified = true
+                }
+            }
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = this@MoviesFragment.adapter
