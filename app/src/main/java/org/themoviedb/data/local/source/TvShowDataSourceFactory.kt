@@ -17,13 +17,22 @@ class TvShowDataSourceFactory  @Inject constructor(
 
     private val dataSourceLiveData = MutableLiveData<TvShowDataSource>()
 
+    private var keyword: String? = null
+
     override fun create(): DataSource<Int, TvShow> {
-        dataSource = TvShowDataSource(service, errorResponseHandler)
+        dataSource = TvShowDataSource(service, errorResponseHandler, keyword)
         dataSourceLiveData.postValue(dataSource)
         return dataSource
     }
 
     fun reloadInitial() = dataSource.invalidate()
+
+    fun searchMovies(keyword: String?){
+        this.keyword = keyword
+        dataSource.invalidate()
+    }
+
+    fun getKeywords(): String = keyword ?: ""
 
 
     fun getDataSource(): LiveData<TvShowDataSource> = dataSourceLiveData

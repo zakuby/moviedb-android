@@ -16,10 +16,24 @@ interface TheMovieDbServices {
         @Query("page") page: Int = 1
     ): Single<MovieListResponse>
 
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("language") lang: String = "en-US",
+        @Query("page") page: Int = 1,
+        @Query("query") keyword: String
+    ): Single<MovieListResponse>
+
     @GET("tv/top_rated")
     fun getTopRatedTvShows(
         @Query("language") lang: String = "en-US",
         @Query("page") page: Int = 1
+    ): Single<TvShowListResponse>
+
+    @GET("search/tv")
+    fun searchTvShows(
+        @Query("language") lang: String = "en-US",
+        @Query("page") page: Int = 1,
+        @Query("query") keyword: String
     ): Single<TvShowListResponse>
 
     @GET("movie/{id}/credits")

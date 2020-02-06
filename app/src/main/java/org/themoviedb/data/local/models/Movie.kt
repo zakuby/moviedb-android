@@ -1,6 +1,7 @@
 package org.themoviedb.data.local.models
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -20,6 +21,18 @@ data class Movie(
     val isMovie: Boolean? = true,
     var isFavorite: Boolean = false
 ) : Parcelable {
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     fun convertToTvShow(): TvShow = TvShow(
         id = id, title = title, date = date, description = description, rate = rate,

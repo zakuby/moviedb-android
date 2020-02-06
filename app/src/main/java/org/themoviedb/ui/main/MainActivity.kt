@@ -10,9 +10,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import org.themoviedb.R
-import org.themoviedb.ui.base.BaseActivity
-import org.themoviedb.di.FragmentScoped
 import org.themoviedb.databinding.ActivityMainBinding
+import org.themoviedb.di.FragmentScoped
+import org.themoviedb.ui.base.BaseActivity
 import org.themoviedb.ui.detail.DetailFragment
 import org.themoviedb.ui.favorite.view.FavoriteFragment
 import org.themoviedb.ui.favorite.view.FavoriteMovieFragment

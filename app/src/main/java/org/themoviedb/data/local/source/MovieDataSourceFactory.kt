@@ -17,13 +17,22 @@ class MovieDataSourceFactory @Inject constructor(
 
     private val dataSourceLiveData = MutableLiveData<MovieDataSource>()
 
+    private var keyword: String? = null
+
     override fun create(): DataSource<Int, Movie> {
-        dataSource = MovieDataSource(service, errorResponseHandler)
+        dataSource = MovieDataSource(service, errorResponseHandler, keyword)
         dataSourceLiveData.postValue(dataSource)
         return dataSource
     }
 
     fun reloadInitial() = dataSource.invalidate()
+
+    fun searchMovies(keyword: String?){
+        this.keyword = keyword
+        dataSource.invalidate()
+    }
+
+    fun getKeywords(): String = keyword ?: ""
 
 
     fun getDataSource(): LiveData<MovieDataSource> = dataSourceLiveData

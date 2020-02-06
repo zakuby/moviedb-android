@@ -1,6 +1,7 @@
 package org.themoviedb.ui.tvshow
 
 import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
@@ -20,6 +21,7 @@ class TvShowViewModel @Inject constructor(
     val initialEmpty: LiveData<Boolean>
     val errorResponse: LiveData<ErrorResponse>
     val tvShows: LiveData<PagedList<TvShow>>
+    val searchQuery = ObservableField<String>(dataSourceFactory.getKeywords())
 
     init {
         val config = PagedList.Config.Builder()
@@ -33,5 +35,10 @@ class TvShowViewModel @Inject constructor(
         initialEmpty = Transformations.switchMap(dataSourceFactory.getDataSource(), TvShowDataSource::getInitialEmpty)
     }
 
-    fun retryLoadTvShows() = dataSourceFactory.reloadInitial().also { Log.d("RETRY", "RETRYING in ViewModel") }
+    fun retryLoadTvShows() = dataSourceFactory.reloadInitial()
+
+    fun searchMovies(keyword: String?) {
+        searchQuery.set(keyword)
+        dataSourceFactory.searchMovies(keyword)
+    }
 }

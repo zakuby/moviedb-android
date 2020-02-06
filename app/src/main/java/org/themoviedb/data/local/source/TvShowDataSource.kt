@@ -1,6 +1,5 @@
 package org.themoviedb.data.local.source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
@@ -17,7 +16,8 @@ import org.themoviedb.utils.ext.disposedBy
 
 class TvShowDataSource constructor(
     private val service: TheMovieDbServices,
-    private val errorResponseHandler: ErrorResponseHandler
+    private val errorResponseHandler: ErrorResponseHandler,
+    private val keyword: String? = ""
 ) : PageKeyedDataSource<Int, TvShow>() {
 
     private val initialLoading = MutableLiveData<Boolean>()
@@ -29,8 +29,8 @@ class TvShowDataSource constructor(
     private val compositeDisposable = CompositeDisposable()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, TvShow>) {
-        service.getTopRatedTvShows()
-            .subscribeOn(Schedulers.io())
+        val tvShowServices = if (keyword.isNullOrEmpty()) service.getTopRatedTvShows() else service.searchTvShows(keyword = keyword)
+        tvShowServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { initialLoading.postValue(true) }
             .doAfterTerminate { initialLoading.postValue(false) }
@@ -50,8 +50,8 @@ class TvShowDataSource constructor(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, TvShow>) {
-        service.getTopRatedTvShows(page = params.key)
-            .subscribeOn(Schedulers.io())
+        val tvShowServices = if (keyword.isNullOrEmpty()) service.getTopRatedTvShows(page = params.key) else service.searchTvShows(page = params.key, keyword = keyword)
+        tvShowServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { resp ->
