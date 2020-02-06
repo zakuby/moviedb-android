@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="org.themoviedb.screens.movie.viewmodel.MoviesViewModel" />
+            type="org.themoviedb.ui.movie.MoviesViewModel" />
 
     </data>
 

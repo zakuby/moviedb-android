@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="org.themoviedb.screens.tvshow.viewmodel.TvShowViewModel" />
+            type="org.themoviedb.ui.tvshow.TvShowViewModel" />
 
     </data>
 

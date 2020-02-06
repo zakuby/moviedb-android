@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="org.themoviedb.screens.main.viewmodel.DetailViewModel" />
+            type="org.themoviedb.ui.detail.DetailViewModel" />
 
     </data>
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/collapsing_movie_detail"
-        tools:context=".screens.main.view.DetailFragment">
+        tools:context=".ui.detail.DetailFragment">
 
         <ImageView
             android:id="@+id/toolbar_image"
