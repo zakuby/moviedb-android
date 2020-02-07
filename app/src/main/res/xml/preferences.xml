@@ -14,4 +14,13 @@
         android:title="@string/pref_notify_daily_reminder_name" />
 
 
+    <ListPreference
+        android:title="@string/pref_language_name"
+        android:summary="@string/pref_language_summary"
+        android:key="@string/pref_key_language"
+        android:defaultValue="@string/pref_language_en"
+        android:entries="@array/language_mode"
+        android:entryValues="@array/language_mode_value"/>
+
+
 </androidx.preference.PreferenceScreen>

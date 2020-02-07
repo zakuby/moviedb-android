@@ -17,6 +17,7 @@ import org.themoviedb.ui.favorite.view.FavoriteMovieFragment
 import org.themoviedb.ui.favorite.view.FavoriteTvShowFragment
 import org.themoviedb.ui.movie.MoviesFragment
 import org.themoviedb.ui.profile.ProfileFragment
+import org.themoviedb.ui.settings.SettingsFragment
 import org.themoviedb.ui.tvshow.TvShowFragment
 import org.themoviedb.utils.ext.setBlackStatusBar
 import org.themoviedb.utils.ext.setWhiteStatusBar
@@ -83,6 +84,10 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeSettingsFragment(): SettingsFragment
 
     @FragmentScoped
     @ContributesAndroidInjector
