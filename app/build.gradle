@@ -101,6 +101,7 @@ ext {
     lifecycle_version = '2.2.0'
     paging_version = "2.1.1"
     work_version = "2.3.1"
+    preference_version = "1.1.0"
 
     //dependency injection
     daggerVersion = '2.26'
@@ -129,8 +130,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     //Animation Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
-    //Pagination Libs
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    //Preference Screen
+    implementation "androidx.preference:preference:$preference_version"
 
     //Android Architecture Component
     //ViewModel and LiveData
@@ -139,8 +140,9 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-
-    // Kotlin + coroutines
+    //Pagination Libs
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    // WorkManager Kotlin
     implementation "androidx.work:work-runtime-ktx:$work_version"
     //  RxJava2 support
     implementation "androidx.work:work-rxjava2:$work_version"

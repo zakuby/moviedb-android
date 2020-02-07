@@ -34,4 +34,18 @@
     <string name="empty_favorite_description">Oh no..\nLooks like you still you don\'t have any Favorites.</string>
     <string name="hint_search_movie">Search Movies…</string>
     <string name="hint_search_tv_show">Search Tv Shows…</string>
+
+
+    <string name="pref_key_language" translatable="false">key_language</string>
+    <string name="pref_languiage_name">Language</string>
+    <string name="pref_language_summary">Select language English or Bahasa Indonesia.</string>
+
+    <string name="pref_key_notify_release_reminder" translatable="false">key_release_reminder</string>
+    <string name="pref_notify_release_reminder_name">Release Reminder</string>
+    <string name="pref_notify_release_reminder_summary">Reminder showing the movie that released today.</string>
+
+
+    <string name="pref_key_notify_daily_reminder" translatable="false">key_daily_reminder</string>
+    <string name="pref_notify_daily_reminder_name">Daily Reminder</string>
+    <string name="pref_notify_daily_reminder_summary">Reminder for return to app.</string>
 </resources>

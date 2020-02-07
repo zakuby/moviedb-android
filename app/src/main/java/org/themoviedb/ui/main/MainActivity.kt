@@ -1,8 +1,6 @@
 package org.themoviedb.ui.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
@@ -47,14 +45,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setupActionBarWithNavController(navController)
     }
 
-    private fun openProfile() {
-        navController.navigate(R.id.action_to_profile)
-    }
+    private fun openProfile() = navController.navigate(R.id.action_to_profile)
 
-    private fun openSettings() {
-        val settingsIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-        startActivity(settingsIntent)
-    }
+
+    private fun openSettings() = navController.navigate(R.id.action_to_settings)
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_profile, menu)
