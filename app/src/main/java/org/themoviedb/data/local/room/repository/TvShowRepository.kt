@@ -13,7 +13,7 @@ class TvShowRepository @Inject constructor(
     private val database: Database
 ) {
 
-    fun removeTvShow(id: String) =
+    fun removeTvShow(id: Int) =
         database.tvShowDao()
             .deleteByTvShow(id)
             .subscribeOn(Schedulers.io())
@@ -31,7 +31,7 @@ class TvShowRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getTvShowById(id: String): Single<TvShow> =
+    fun getTvShowById(id: Int): Single<TvShow> =
         database.tvShowDao()
             .selectById(id)
             .subscribeOn(Schedulers.io())

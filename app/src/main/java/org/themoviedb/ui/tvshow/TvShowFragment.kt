@@ -47,7 +47,6 @@ class TvShowFragment : BaseFragment<FragmentTvShowsBinding>(R.layout.fragment_tv
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean = false
-
                 })
                 view?.findViewById<ImageView>(R.id.search_close_btn)?.setOnClickListener {
                     this@TvShowFragment.viewModel.searchMovies("")

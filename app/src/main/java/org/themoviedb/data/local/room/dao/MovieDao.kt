@@ -15,7 +15,7 @@ interface MovieDao {
     fun insertAll(movies: List<Movie>): List<Long>
 
     @Query("SELECT * FROM movie WHERE id = :id")
-    fun selectById(id: String): Single<Movie>
+    fun selectById(id: Int): Single<Movie>
 
     @Query("SELECT * FROM movie")
     fun selectAll(): Single<List<Movie>>
@@ -24,7 +24,7 @@ interface MovieDao {
     fun update(movie: Movie): Int
 
     @Query("DELETE FROM movie WHERE id = :id")
-    fun deleteById(id: String): Completable
+    fun deleteById(id: Int): Completable
 
     @Query("DELETE FROM movie")
     fun deleteAll(): Int

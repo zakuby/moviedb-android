@@ -1,8 +1,6 @@
 package org.themoviedb.ui.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
@@ -19,6 +17,7 @@ import org.themoviedb.ui.favorite.view.FavoriteMovieFragment
 import org.themoviedb.ui.favorite.view.FavoriteTvShowFragment
 import org.themoviedb.ui.movie.MoviesFragment
 import org.themoviedb.ui.profile.ProfileFragment
+import org.themoviedb.ui.settings.SettingsFragment
 import org.themoviedb.ui.tvshow.TvShowFragment
 import org.themoviedb.utils.ext.setBlackStatusBar
 import org.themoviedb.utils.ext.setWhiteStatusBar
@@ -47,14 +46,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setupActionBarWithNavController(navController)
     }
 
-    private fun openProfile() {
-        navController.navigate(R.id.action_to_profile)
-    }
+    private fun openProfile() = navController.navigate(R.id.action_to_profile)
 
-    private fun openSettings() {
-        val settingsIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-        startActivity(settingsIntent)
-    }
+    private fun openSettings() = navController.navigate(R.id.action_to_settings)
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_profile, menu)
@@ -89,6 +83,10 @@ abstract class MainActivityModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeProfileFragment(): ProfileFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeSettingsFragment(): SettingsFragment
 
     @FragmentScoped
     @ContributesAndroidInjector

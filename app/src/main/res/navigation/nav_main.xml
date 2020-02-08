@@ -18,6 +18,20 @@
         android:name="org.themoviedb.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <action
+        android:id="@+id/action_to_settings"
+        app:destination="@id/settings_fragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="org.themoviedb.ui.settings.SettingsFragment"
+        android:label="@string/title_settings" />
+
     <fragment
         android:id="@+id/bottom_nav_fragment"
         android:name="org.themoviedb.ui.main.BottomNavigationFragment"

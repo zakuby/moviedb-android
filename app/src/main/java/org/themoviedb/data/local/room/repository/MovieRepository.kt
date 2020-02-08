@@ -13,7 +13,7 @@ class MovieRepository @Inject constructor(
     private val database: Database
 ) {
 
-    fun removeMovie(id: String) =
+    fun removeMovie(id: Int) =
         database.movieDao()
             .deleteById(id)
             .subscribeOn(Schedulers.io())
@@ -31,7 +31,7 @@ class MovieRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getMovieById(id: String): Single<Movie> =
+    fun getMovieById(id: Int): Single<Movie> =
         database.movieDao()
             .selectById(id)
             .subscribeOn(Schedulers.io())

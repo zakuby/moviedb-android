@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TvShow(
     @PrimaryKey
-    val id: String,
+    val id: Int,
     @SerializedName("original_name") val title: String?,
     @SerializedName("first_air_date") val date: String?,
     @SerializedName("overview") val description: String?,

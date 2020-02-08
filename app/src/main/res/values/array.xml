@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_mode">
+        <item>@string/language_mode_en</item>
+        <item>@string/language_mode_in</item>
+    </string-array>
+    <string-array name="language_mode_value">
+        <item>@string/pref_language_en</item>
+        <item>@string/pref_language_in</item>
+    </string-array>
+</resources>

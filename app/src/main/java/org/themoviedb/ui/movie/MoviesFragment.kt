@@ -48,7 +48,6 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean = false
-
                 })
                 view?.findViewById<ImageView>(R.id.search_close_btn)?.setOnClickListener {
                     this@MoviesFragment.viewModel.searchMovies("")

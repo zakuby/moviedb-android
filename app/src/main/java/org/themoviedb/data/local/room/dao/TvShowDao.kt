@@ -15,7 +15,7 @@ interface TvShowDao {
     fun insertAll(tvshows: List<TvShow>): List<Long>
 
     @Query("SELECT * FROM tvshow WHERE id = :id")
-    fun selectById(id: String): Single<TvShow>
+    fun selectById(id: Int): Single<TvShow>
 
     @Query("SELECT * FROM tvshow")
     fun selectAll(): Single<List<TvShow>>
@@ -24,7 +24,7 @@ interface TvShowDao {
     fun update(tvshow: TvShow): Int
 
     @Query("DELETE FROM tvshow WHERE id= :id")
-    fun deleteByTvShow(id: String): Completable
+    fun deleteByTvShow(id: Int): Completable
 
     @Query("DELETE FROM tvshow")
     fun deleteAll(): Int

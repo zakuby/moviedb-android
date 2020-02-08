@@ -27,4 +27,14 @@
     <string name="empty_favorite_description">Oh tidak..\nSepertinya anda belum memiliki daftar Favorit.</string>
     <string name="hint_search_movie">Cari Film…</string>
     <string name="hint_search_tv_show">Cari Acara TV…</string>
+    <string name="pref_language_summary">Pilih bahasa Inggris atau Indoneisa.</string>
+    <string name="pref_language_name">Bahasa</string>
+    <string name="language_mode_en">Bahasa Inggris</string>
+    <string name="language_mode_in">Bahasa Indonesia</string>
+    <string name="pref_notify_daily_reminder_name">Pengingat Harian</string>
+    <string name="pref_notify_daily_reminder_summary">Pengingat untuk kembali ke Aplikasi.</string>
+    <string name="pref_notify_release_reminder_name">Pengingat Rilis</string>
+    <string name="pref_notify_release_reminder_summary">Pengingat menampilkan film yang dirilis hari ini.</string>
+    <string name="notify_daily_content">The Movie DB merindukanmu!</string>
+    <string name="notify_release_content">%1$s telah dirilis hari ini!</string>
 </resources>
