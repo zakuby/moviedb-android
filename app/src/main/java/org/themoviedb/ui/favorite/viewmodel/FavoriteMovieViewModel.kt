@@ -37,7 +37,7 @@ class FavoriteMovieViewModel @Inject constructor(
             ).disposedBy(compositeDisposable)
     }
 
-    fun removeMovieFromRepo(id: String) {
+    fun removeMovieFromRepo(id: Int) {
         movieRepository.removeMovie(id)
             .subscribeBy(
                 onComplete = {

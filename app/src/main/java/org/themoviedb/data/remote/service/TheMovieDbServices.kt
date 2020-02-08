@@ -7,6 +7,8 @@ import org.themoviedb.data.remote.response.TvShowListResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.text.SimpleDateFormat
+import java.util.*
 
 interface TheMovieDbServices {
 
@@ -14,6 +16,14 @@ interface TheMovieDbServices {
     fun getPopularMovies(
         @Query("language") lang: String = "en-US",
         @Query("page") page: Int = 1
+    ): Single<MovieListResponse>
+
+    @GET("discover/movie")
+    fun getTodayReleaseMovies(
+        @Query("language") lang: String = "en-US",
+        @Query("page") page: Int = 1,
+        @Query("primary_release_date.gte") dateGte: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
+        @Query("primary_release_date.lte") dateLte: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     ): Single<MovieListResponse>
 
     @GET("search/movie")
@@ -38,11 +48,11 @@ interface TheMovieDbServices {
 
     @GET("movie/{id}/credits")
     fun getMovieCredits(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): Single<MovieCreditsResponse>
 
     @GET("tv/{id}/credits")
     fun getTvShowCredits(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): Single<MovieCreditsResponse>
 }

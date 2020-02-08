@@ -54,7 +54,7 @@ class DetailViewModel @Inject constructor(
         else getTvShowFromRepo(id)
     }
 
-    private fun getMovieFromRepo(id: String) {
+    private fun getMovieFromRepo(id: Int) {
         movieRepository.getMovieById(id)
             .doOnSubscribe { movieFavoriteLoading.set(true) }
             .doAfterTerminate { movieFavoriteLoading.set(false) }
@@ -64,7 +64,7 @@ class DetailViewModel @Inject constructor(
             ).disposedBy(compositeDisposable)
     }
 
-    private fun getTvShowFromRepo(id: String) {
+    private fun getTvShowFromRepo(id: Int) {
         tvShowRepository.getTvShowById(id)
             .doOnSubscribe { movieFavoriteLoading.set(true) }
             .doAfterTerminate { movieFavoriteLoading.set(false) }
@@ -74,7 +74,7 @@ class DetailViewModel @Inject constructor(
             ).disposedBy(compositeDisposable)
     }
 
-    private fun fetchMovieCasts(id: String, isMovieCast: Boolean) {
+    private fun fetchMovieCasts(id: Int, isMovieCast: Boolean) {
         val fetchCredits =
             if (isMovieCast) service.getMovieCredits(id) else service.getTvShowCredits(id)
 

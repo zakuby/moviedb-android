@@ -35,7 +35,7 @@ class FavoriteTvShowViewModel @Inject constructor(
             ).disposedBy(compositeDisposable)
     }
 
-    fun removeTvShowFromRepo(id: String) {
+    fun removeTvShowFromRepo(id: Int) {
         tvShowRepository.removeTvShow(id)
             .subscribeBy(
                 onComplete = {

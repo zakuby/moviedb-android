@@ -3,26 +3,24 @@ package org.themoviedb.ui.settings
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import org.themoviedb.R
-import org.themoviedb.notification.NotificationDailyWorker
+import org.themoviedb.workers.NotificationDailyWorker
 import org.themoviedb.utils.WORKER_DAILY_TAG
-import org.themoviedb.utils.getDelayNotification
+import org.themoviedb.utils.WORKER_RELEASE_TAG
+import org.themoviedb.utils.getDelayNextDay
+import org.themoviedb.workers.ReleaseReminderWorker
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.time.milliseconds
 
 
 class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
@@ -80,9 +78,8 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
 
     private fun initNotifyReleaseReminderPrefs(){
         val notificationPreference = findPreference<SwitchPreference>(getString(R.string.pref_key_notify_release_reminder))
-        notificationPreference?.setOnPreferenceChangeListener { _, newValue ->
-            val value = newValue as Boolean
-            //TODO: Set notification daily WorkManager
+        notificationPreference?.setOnPreferenceChangeListener { _, _ ->
+            enqueueReleaseReminderWorker()
             return@setOnPreferenceChangeListener true
         }
     }
@@ -95,9 +92,21 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
             return@setOnPreferenceChangeListener true
         }
     }
+
+    private fun enqueueReleaseReminderWorker(){
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val work = PeriodicWorkRequestBuilder<ReleaseReminderWorker>(24, TimeUnit.HOURS)
+            .setInitialDelay(getDelayNextDay(0), TimeUnit.MILLISECONDS)
+            .setConstraints(constraints)
+            .build()
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(WORKER_RELEASE_TAG, ExistingPeriodicWorkPolicy.REPLACE, work)
+    }
+
     private fun enqueueDailyReminderWorker(){
         val work = PeriodicWorkRequestBuilder<NotificationDailyWorker>(24, TimeUnit.HOURS)
-            .setInitialDelay(getDelayNotification(), TimeUnit.MILLISECONDS)
+            .setInitialDelay(getDelayNextDay(7), TimeUnit.MILLISECONDS)
             .build()
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(WORKER_DAILY_TAG, ExistingPeriodicWorkPolicy.REPLACE, work)
     }
