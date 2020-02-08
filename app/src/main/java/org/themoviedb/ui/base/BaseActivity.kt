@@ -62,5 +62,4 @@ abstract class BaseActivity<B : ViewDataBinding> constructor(
         resources.updateConfiguration(configuration, resources.displayMetrics)
         return context
     }
-
 }

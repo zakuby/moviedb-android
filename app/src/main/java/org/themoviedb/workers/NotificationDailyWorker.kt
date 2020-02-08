@@ -20,7 +20,7 @@ import org.themoviedb.utils.NOTIFICATION_ID
 import javax.inject.Inject
 import javax.inject.Provider
 
-class NotificationDailyWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params)  {
+class NotificationDailyWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
 
     private fun getContentIntent(): PendingIntent? {
         val intent = Intent(applicationContext, MainActivity::class.java)
@@ -60,12 +60,10 @@ class NotificationDailyWorker (ctx: Context, params: WorkerParameters) : Worker(
                 notificationManager.createNotificationChannel(channel)
             }
         }
-        with(NotificationManagerCompat.from(applicationContext)){
+        with(NotificationManagerCompat.from(applicationContext)) {
             notify(NOTIFICATION_ID, builder.build())
         }
     }
-
-
 
     override fun doWork(): Result {
         val prefManager = PreferenceManager.getDefaultSharedPreferences(applicationContext)

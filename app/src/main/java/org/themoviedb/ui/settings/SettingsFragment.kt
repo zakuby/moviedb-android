@@ -22,7 +22,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
 class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
@@ -48,16 +47,15 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         initNotifyDailyReminderPrefs()
     }
 
-    private fun initLanguagePrefs(){
-        val  languagePreference = findPreference<ListPreference>(getString(R.string.pref_key_language))
+    private fun initLanguagePrefs() {
+        val languagePreference = findPreference<ListPreference>(getString(R.string.pref_key_language))
         languagePreference?.setOnPreferenceChangeListener { _, newValue ->
             updateLanguage(newValue as String)
             return@setOnPreferenceChangeListener true
         }
-
     }
 
-    private fun updateLanguage(lang: String){
+    private fun updateLanguage(lang: String) {
         val locale = Locale(lang)
         Locale.setDefault(locale)
         val configuration: Configuration = resources.configuration
@@ -75,8 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         requireActivity().recreate()
     }
 
-
-    private fun initNotifyReleaseReminderPrefs(){
+    private fun initNotifyReleaseReminderPrefs() {
         val notificationPreference = findPreference<SwitchPreference>(getString(R.string.pref_key_notify_release_reminder))
         notificationPreference?.setOnPreferenceChangeListener { _, _ ->
             enqueueReleaseReminderWorker()
@@ -84,8 +81,7 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         }
     }
 
-
-    private fun initNotifyDailyReminderPrefs(){
+    private fun initNotifyDailyReminderPrefs() {
         val notificationPreference = findPreference<SwitchPreference>(getString(R.string.pref_key_notify_daily_reminder))
         notificationPreference?.setOnPreferenceChangeListener { _, _ ->
             enqueueDailyReminderWorker()
@@ -93,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         }
     }
 
-    private fun enqueueReleaseReminderWorker(){
+    private fun enqueueReleaseReminderWorker() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
@@ -104,12 +100,10 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(WORKER_RELEASE_TAG, ExistingPeriodicWorkPolicy.REPLACE, work)
     }
 
-    private fun enqueueDailyReminderWorker(){
+    private fun enqueueDailyReminderWorker() {
         val work = PeriodicWorkRequestBuilder<NotificationDailyWorker>(24, TimeUnit.HOURS)
             .setInitialDelay(getDelayNextDay(7), TimeUnit.MILLISECONDS)
             .build()
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(WORKER_DAILY_TAG, ExistingPeriodicWorkPolicy.REPLACE, work)
     }
-
-
 }

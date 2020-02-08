@@ -4,11 +4,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.TaskStackBuilder
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.preference.PreferenceManager
@@ -21,7 +19,6 @@ import org.themoviedb.ui.main.MainActivity
 import org.themoviedb.utils.IWorkerFactory
 import org.themoviedb.utils.MOVIE_DATA
 import org.themoviedb.utils.NOTIFICATION_CHANNEL_ID
-import org.themoviedb.utils.NOTIFICATION_ID
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -31,7 +28,7 @@ class NotificationReleaseWorker(
     private val gson: Gson
 ) : Worker(context, params) {
 
-    private fun getMovieData(): Movie{
+    private fun getMovieData(): Movie {
         val json = inputData.getString(MOVIE_DATA)
         return gson.fromJson(json, Movie::class.java)
     }
@@ -73,12 +70,10 @@ class NotificationReleaseWorker(
                 notificationManager.createNotificationChannel(channel)
             }
         }
-        with(NotificationManagerCompat.from(applicationContext)){
+        with(NotificationManagerCompat.from(applicationContext)) {
             notify(getMovieData().id, builder.build())
         }
     }
-
-
 
     override fun doWork(): Result {
         val prefManager = PreferenceManager.getDefaultSharedPreferences(applicationContext)

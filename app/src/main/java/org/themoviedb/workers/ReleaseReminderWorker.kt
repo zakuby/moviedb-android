@@ -17,7 +17,7 @@ class ReleaseReminderWorker @Inject constructor (
     params: WorkerParameters,
     private val services: TheMovieDbServices,
     private val gson: Gson
-) : RxWorker(ctx, params)  {
+) : RxWorker(ctx, params) {
 
     override fun createWork(): Single<Result> =
         services.getTodayReleaseMovies()
@@ -36,12 +36,11 @@ class ReleaseReminderWorker @Inject constructor (
             .map { Result.success() }
             .onErrorReturn { Result.failure() }
 
-
     class Factory @Inject constructor(
         private val context: Provider<Context>,
         private val services: Provider<TheMovieDbServices>,
         private val gson: Provider<Gson>
-    ) : IWorkerFactory<ReleaseReminderWorker>{
+    ) : IWorkerFactory<ReleaseReminderWorker> {
         override fun create(params: WorkerParameters): ReleaseReminderWorker = ReleaseReminderWorker(context.get(), params, services.get(), gson.get())
     }
 }

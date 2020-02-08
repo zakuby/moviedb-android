@@ -48,7 +48,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun openProfile() = navController.navigate(R.id.action_to_profile)
 
-
     private fun openSettings() = navController.navigate(R.id.action_to_settings)
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
