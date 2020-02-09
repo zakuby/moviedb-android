@@ -68,8 +68,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    app:defaultQueryHint="@string/hint_search_movie"
-                    app:queryHint="@string/hint_search_movie"
+                    app:defaultQueryHint="@string/hint_search_tv_show"
+                    app:queryHint="@string/hint_search_tv_show"
                     app:queryBackground="@android:color/transparent"
                     app:iconifiedByDefault="false"/>
 

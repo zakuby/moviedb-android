@@ -20,6 +20,9 @@ interface MovieDao {
     @Query("SELECT * FROM movie")
     fun selectAll(): Single<List<Movie>>
 
+    @Query("SELECT * FROM movie")
+    fun selectAllForWidget(): List<Movie>
+
     @Update
     fun update(movie: Movie): Int
 

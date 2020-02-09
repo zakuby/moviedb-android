@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <StackView
+        android:id="@+id/stack_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:loopViews="true"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/launch_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:text="@string/btn_launch_movie_db" />
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@drawable/backdrop_spiderman"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="@string/widget_empty"
+        android:textSize="20sp"
+        tools:visibility="gone"/>
+</LinearLayout>

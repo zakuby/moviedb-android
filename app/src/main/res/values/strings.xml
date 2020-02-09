@@ -2,10 +2,7 @@
     <string name="app_name" translatable="false">The Movie Db</string>
     <string name="roboto_regular" translatable="false">sans-serif</string>
     <string name="roboto_light" translatable="false">sans-serif-light</string>
-    <string name="roboto_condensed" translatable="false">sans-serif-condensed</string>
     <string name="roboto_black" translatable="false">sans-serif-black</string>
-    <string name="roboto_thin" translatable="false">sans-serif-black</string>
-    <string name="roboto_medium" translatable="false">sans-serif-medium</string>
     <string name="list_item_movie_image_desc">Movie Image</string>
     <string name="profile_github_account">Github Account</string>
     <string name="profile_full_name">Full Name</string>
@@ -40,7 +37,6 @@
     <string name="pref_language_summary">Select language English or Bahasa Indonesia.</string>
     <string name="pref_language_en" translatable="false">en</string>
     <string name="pref_language_in" translatable="false">in</string>
-    <string name="pref_night_off" translatable="false">off</string>
     <string name="language_mode_en">English</string>
     <string name="language_mode_in">Bahasa Indonesia</string>
 
@@ -53,4 +49,6 @@
     <string name="pref_notify_daily_reminder_name">Daily Reminder</string>
     <string name="pref_notify_daily_reminder_summary">Reminder for return to app.</string>
     <string name="notify_release_content">%1$s has been released today!</string>
+    <string name="btn_launch_movie_db">Launch Movie DB</string>
+    <string name="widget_empty">Favorite Movie is Empty</string>
 </resources>

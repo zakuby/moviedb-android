@@ -2,6 +2,8 @@ package org.themoviedb.utils
 
 import java.util.*
 
+const val MOVIE_DATABASE = "TheMovieDb.db"
+
 const val MOVIE_DATA = "movie"
 
 const val NOTIFICATION_CHANNEL_ID = "notify-moviedb"
