@@ -6,8 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import org.themoviedb.data.local.models.TvShow.Companion.TABLE_NAME
 
-@Entity(tableName = "tvshow")
+@Entity(tableName = TABLE_NAME)
 @Parcelize
 data class TvShow(
     @PrimaryKey
@@ -22,6 +23,9 @@ data class TvShow(
 ) : Parcelable {
 
     companion object {
+
+        const val TABLE_NAME = "tvshow"
+
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShow>() {
             override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
                 return oldItem.id == newItem.id

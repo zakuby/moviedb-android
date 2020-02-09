@@ -54,6 +54,12 @@
         <service android:name=".ui.favorite.FavoriteWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
+
+        <provider
+            android:authorities="org.themoviedb.data.local.provider"
+            android:name=".data.local.provider.FavoriteMovieProvider"
+            android:exported="true"
+            android:permission="org.themoviedb.data.local.provider.READ_WRITE"/>
     </application>
 
 </manifest>

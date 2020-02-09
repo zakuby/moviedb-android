@@ -2,6 +2,9 @@ package org.themoviedb.utils
 
 import java.util.*
 
+
+const val PROVIDER_AUTHORITY = "org.themoviedb.data.local.provider"
+
 const val MOVIE_DATABASE = "TheMovieDb.db"
 
 const val MOVIE_DATA = "movie"
@@ -11,6 +14,7 @@ const val NOTIFICATION_ID = 322
 
 const val WORKER_RELEASE_TAG = "worker-release"
 const val WORKER_DAILY_TAG = "worker-daily"
+
 
 fun getDelayNextDay(hours: Int): Long {
     val currentTime = System.currentTimeMillis()
