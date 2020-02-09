@@ -29,7 +29,7 @@ class FavoriteMovieViewModel @Inject constructor(
             .doAfterTerminate { finishLoading() }
             .subscribeBy(
                 onSuccess = { movies ->
-                    if (!movies.isNullOrEmpty()){
+                    if (!movies.isNullOrEmpty()) {
                         if (needToReload) this.movies.postValue(movies)
                         isMovieEmpty.postValue(false)
                     } else isMovieEmpty.postValue(true)
@@ -46,5 +46,4 @@ class FavoriteMovieViewModel @Inject constructor(
                 }, onError = { error -> Crashlytics.logException(error) }
             ).disposedBy(compositeDisposable)
     }
-
 }

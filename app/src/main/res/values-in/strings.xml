@@ -37,4 +37,6 @@
     <string name="pref_notify_release_reminder_summary">Pengingat menampilkan film yang dirilis hari ini.</string>
     <string name="notify_daily_content">The Movie DB merindukanmu!</string>
     <string name="notify_release_content">%1$s telah dirilis hari ini!</string>
+    <string name="btn_launch_movie_db">Buka Movie DB</string>
+    <string name="widget_empty">Film Favorit kosong</string>
 </resources>

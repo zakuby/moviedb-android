@@ -4,13 +4,13 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.themoviedb.data.local.models.TvShow
-import org.themoviedb.data.local.room.Database
+import org.themoviedb.data.local.room.FavoriteDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class TvShowRepository @Inject constructor(
-    private val database: Database
+    private val database: FavoriteDatabase
 ) {
 
     fun removeTvShow(id: Int) =

@@ -27,7 +27,7 @@ class FavoriteTvShowViewModel @Inject constructor(
         tvShowRepository.getTvShows()
             .subscribeBy(
                 onSuccess = { tvShows ->
-                    if (!tvShows.isNullOrEmpty()){
+                    if (!tvShows.isNullOrEmpty()) {
                         if (needToReload) this.tvShows.postValue(tvShows)
                         isTvShowEmpty.postValue(false)
                     } else isTvShowEmpty.postValue(true)
