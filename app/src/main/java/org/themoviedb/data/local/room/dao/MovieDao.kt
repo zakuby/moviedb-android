@@ -29,7 +29,6 @@ interface MovieDao {
     @Query("SELECT * FROM $TABLE_NAME")
     fun selectAll(): Single<List<Movie>>
 
-
     @Query("SELECT * FROM $TABLE_NAME")
     fun selectAllCursor(): Cursor
 
@@ -41,7 +40,6 @@ interface MovieDao {
 
     @Query("DELETE FROM $TABLE_NAME WHERE id = :id")
     fun deleteById(id: Int): Completable
-
 
     @Query("DELETE FROM $TABLE_NAME WHERE id = :id")
     fun deleteByIdCursor(id: Int): Int

@@ -16,25 +16,25 @@ import org.themoviedb.data.local.models.Movie.Companion.TABLE_NAME
 data class Movie(
     @PrimaryKey
     @ColumnInfo(name = COLUMN_ID)
-    var id: Int,
+    val id: Int,
     @ColumnInfo(name = COLUMN_TITLE)
-    var title: String?,
+    val title: String?,
     @SerializedName("release_date")
     @ColumnInfo(name = COLUMN_DATE)
-    var date: String?,
+    val date: String?,
     @SerializedName("overview")
     @ColumnInfo(name = COLUMN_DESCRIPTION)
-    var description: String?,
+    val description: String?,
     @SerializedName("vote_average")
     @ColumnInfo(name = COLUMN_VOTE)
-    var rate: String?,
-    @SerializedName("COLUMN_POSTER")
+    val rate: String?,
+    @SerializedName("poster_path")
     @ColumnInfo(name = COLUMN_POSTER)
-    var posterImage: String?,
+    val posterImage: String?,
     @SerializedName("backdrop_path")
     @ColumnInfo(name = COLUMN_BACKGROUND)
-    var backgroundImage: String?,
-    var isMovie: Boolean? = true,
+    val backgroundImage: String?,
+    val isMovie: Boolean? = true,
     var isFavorite: Boolean = false
 ) : Parcelable {
 
@@ -45,9 +45,9 @@ data class Movie(
         const val COLUMN_TITLE = "title"
         const val COLUMN_DATE = "date"
         const val COLUMN_DESCRIPTION = "description"
-        const val COLUMN_VOTE = "vote_average"
-        const val COLUMN_POSTER = "poster_path"
-        const val COLUMN_BACKGROUND = "backdrop_path"
+        const val COLUMN_VOTE = "rate"
+        const val COLUMN_POSTER = "posterImage"
+        const val COLUMN_BACKGROUND = "backgroundImage"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {

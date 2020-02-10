@@ -1,4 +1,4 @@
-package org.themoviedb.ui.favorite
+package org.themoviedb.ui.favorite.provider
 
 import android.content.Context
 import android.content.Intent
