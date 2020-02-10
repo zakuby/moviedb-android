@@ -22,7 +22,6 @@ interface MovieDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
     fun selectById(id: Int): Single<Movie>
 
-
     @Query("SELECT * FROM $TABLE_NAME WHERE id = :id")
     fun selectByIdCursor(id: Int): Cursor
 
@@ -43,7 +42,6 @@ interface MovieDao {
 
     @Query("DELETE FROM $TABLE_NAME WHERE id = :id")
     fun deleteByIdCursor(id: Int): Int
-
 
     @Query("DELETE FROM $TABLE_NAME")
     fun deleteAll(): Int

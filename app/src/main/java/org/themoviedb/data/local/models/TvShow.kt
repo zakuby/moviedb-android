@@ -58,7 +58,7 @@ data class TvShow(
             }
         }
 
-        fun fromContentValues(values: ContentValues?): TvShow  {
+        fun fromContentValues(values: ContentValues?): TvShow {
             values?.let {
                 return TvShow(
                     id = values.getAsInteger(COLUMN_ID),

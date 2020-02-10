@@ -11,6 +11,18 @@
         android:gravity="center"
         android:loopViews="true"
         android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/backdrop_spiderman"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:text="@string/widget_empty"
+        android:textSize="20sp"
+        tools:visibility="gone"/>
     <Button
         android:id="@+id/launch_app"
         android:layout_width="match_parent"
@@ -19,15 +31,4 @@
         android:background="@color/black"
         android:textColor="@color/white"
         android:text="@string/btn_launch_movie_db" />
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@drawable/backdrop_spiderman"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="@string/widget_empty"
-        android:textSize="20sp"
-        tools:visibility="gone"/>
 </LinearLayout>

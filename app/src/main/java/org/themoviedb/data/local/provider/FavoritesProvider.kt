@@ -18,7 +18,7 @@ class FavoritesProvider : ContentProvider() {
     private lateinit var movieDao: MovieDao
     private lateinit var tvShowDao: TvShowDao
 
-    companion object{
+    companion object {
         private const val CODE_MOVIE_DIR = 1
         private const val CODE_MOVIE_ITEM = 2
         private const val CODE_TV_SHOW_DIR = 3
@@ -34,13 +34,11 @@ class FavoritesProvider : ContentProvider() {
         }
     }
 
-
     override fun onCreate(): Boolean {
         movieDao = FavoriteDatabase.getInstance(requireNotNull(context)).movieDao()
         tvShowDao = FavoriteDatabase.getInstance(requireNotNull(context)).tvShowDao()
         return true
     }
-
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         when (MATCHER.match(uri)) {
@@ -136,12 +134,12 @@ class FavoritesProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? {
-        return when (MATCHER.match(uri)){
-            CODE_MOVIE_DIR ->  "vnd.android.cursor.dir/" + PROVIDER_AUTHORITY + "." + Movie.TABLE_NAME
-            CODE_MOVIE_ITEM ->  "vnd.android.cursor.item/" + PROVIDER_AUTHORITY + "." + Movie.TABLE_NAME
-            CODE_TV_SHOW_DIR ->  "vnd.android.cursor.dir/" + PROVIDER_AUTHORITY + "." + TvShow.TABLE_NAME
-            CODE_TV_SHOW_ITEM ->  "vnd.android.cursor.item/" + PROVIDER_AUTHORITY + "." + TvShow.TABLE_NAME
-            else -> throw  IllegalArgumentException("Get Type Failure, Unknown URI Movie: $uri")
+        return when (MATCHER.match(uri)) {
+            CODE_MOVIE_DIR -> "vnd.android.cursor.dir/" + PROVIDER_AUTHORITY + "." + Movie.TABLE_NAME
+            CODE_MOVIE_ITEM -> "vnd.android.cursor.item/" + PROVIDER_AUTHORITY + "." + Movie.TABLE_NAME
+            CODE_TV_SHOW_DIR -> "vnd.android.cursor.dir/" + PROVIDER_AUTHORITY + "." + TvShow.TABLE_NAME
+            CODE_TV_SHOW_ITEM -> "vnd.android.cursor.item/" + PROVIDER_AUTHORITY + "." + TvShow.TABLE_NAME
+            else -> throw IllegalArgumentException("Get Type Failure, Unknown URI Movie: $uri")
         }
     }
 }

@@ -5,15 +5,11 @@ import android.content.Intent
 import android.os.Binder
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import androidx.core.os.bundleOf
-import androidx.navigation.NavDeepLinkBuilder
 import com.squareup.picasso.Picasso
 import io.reactivex.disposables.CompositeDisposable
 import org.themoviedb.R
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.room.FavoriteDatabase
-import org.themoviedb.ui.main.MainActivity
-import org.themoviedb.utils.MOVIE_DATA
 
 class FavoriteWidgetService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory =
@@ -46,13 +42,7 @@ class FavoriteWidgetFactory constructor(
 
     override fun getViewAt(position: Int): RemoteViews {
         val widgetItem = widgetItems[position]
-        val pendingIntent = NavDeepLinkBuilder(context).setComponentName(MainActivity::class.java)
-            .setGraph(R.navigation.nav_main)
-            .setDestination(R.id.detail_fragment)
-            .setArguments(bundleOf(MOVIE_DATA to widgetItem))
-            .createPendingIntent()
         val views = RemoteViews(context.packageName, R.layout.widget_favorite_item).apply {
-            setOnClickPendingIntent(R.id.widget_favorite_container, pendingIntent)
             setTextViewText(R.id.widget_title, widgetItem.title)
             setTextViewText(R.id.widget_date, widgetItem.date)
         }

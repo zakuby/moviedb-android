@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import org.themoviedb.data.local.models.Movie.Companion.TABLE_NAME
 
-
 @Entity(tableName = TABLE_NAME)
 @Parcelize
 data class Movie(
@@ -59,7 +58,7 @@ data class Movie(
             }
         }
 
-        fun fromContentValues(values: ContentValues?): Movie  {
+        fun fromContentValues(values: ContentValues?): Movie {
             values?.let {
                 return Movie(
                     id = values.getAsInteger(COLUMN_ID),
