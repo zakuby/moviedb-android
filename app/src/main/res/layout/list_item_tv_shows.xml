@@ -30,18 +30,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingEnd="8dp"
-            android:paddingRight="16dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             tools:ignore="RtlSymmetry">
 
             <ImageView
                 android:id="@+id/tv_show_image"
                 android:layout_width="150dp"
                 android:layout_height="225dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:contentDescription="@string/list_item_movie_image_desc"
                 android:scaleType="centerCrop"
                 android:src="@color/athens_gray"
@@ -52,16 +52,18 @@
                 android:id="@+id/tv_show_header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/tv_show_image"
-                android:layout_toRightOf="@id/tv_show_image">
+                android:layout_toStartOf="@id/tv_show_image"
+                android:layout_toLeftOf="@id/tv_show_image">
 
                 <FrameLayout
                     android:id="@+id/progress_rating"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/oval_solid">
 
                     <ProgressBar
@@ -92,12 +94,12 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@id/progress_rating"
-                    android:layout_toRightOf="@id/progress_rating"
+                    android:layout_toStartOf="@id/progress_rating"
+                    android:layout_toLeftOf="@id/progress_rating"
                     android:orientation="vertical">
 
                     <TextView
@@ -134,11 +136,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_show_header"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@id/tv_show_image"
+                android:layout_toLeftOf="@id/tv_show_image"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@id/tv_show_image"
-                android:layout_toRightOf="@id/tv_show_image"
                 android:ellipsize="end"
                 android:fontFamily="@string/roboto_light"
                 android:maxLines="7"
@@ -155,19 +157,19 @@
                 android:layout_marginLeft="-10dp"
                 android:layout_marginEnd="-8dp"
                 android:layout_marginRight="-8dp"
-                android:layout_toEndOf="@id/tv_show_image"
-                android:layout_toRightOf="@id/tv_show_image"
+                android:layout_toStartOf="@id/tv_show_image"
+                android:layout_toLeftOf="@id/tv_show_image"
                 android:background="@color/athens_gray" />
 
             <TextView
                 android:id="@+id/tv_show_more_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@id/tv_show_image"
-                android:layout_toRightOf="@id/tv_show_image"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@id/tv_show_image"
+                android:layout_toLeftOf="@id/tv_show_image"
                 android:fontFamily="@string/roboto_regular"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"

@@ -13,10 +13,10 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import org.themoviedb.R
-import org.themoviedb.workers.NotificationDailyWorker
 import org.themoviedb.utils.WORKER_DAILY_TAG
 import org.themoviedb.utils.WORKER_RELEASE_TAG
 import org.themoviedb.utils.getDelayNextDay
+import org.themoviedb.workers.NotificationDailyWorker
 import org.themoviedb.workers.ReleaseReminderWorker
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -55,6 +55,7 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun updateLanguage(lang: String) {
         val locale = Locale(lang)
         Locale.setDefault(locale)

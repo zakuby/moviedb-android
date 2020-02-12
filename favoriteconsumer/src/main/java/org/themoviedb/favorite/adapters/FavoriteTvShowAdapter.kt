@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_favorite.view.*
-import org.themoviedb.favorite.models.FavoriteTvShow
 import org.themoviedb.favorite.R
+import org.themoviedb.favorite.models.FavoriteTvShow
 
 class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHolder>() {
 
@@ -44,6 +45,14 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
             with(itemView){
                 title.text = tvShow.title
                 date.text = tvShow.date
+                background_image.run {
+                    Picasso.get()
+                        .load("https://image.tmdb.org/t/p/original/${tvShow.backgroundImage}")
+                        .placeholder(R.color.athens_gray)
+                        .fit()
+                        .centerCrop()
+                        .into(this)
+                }
             }
         }
     }
