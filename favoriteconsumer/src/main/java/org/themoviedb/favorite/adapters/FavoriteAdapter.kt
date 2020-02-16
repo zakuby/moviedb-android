@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_favorite.view.*
 import org.themoviedb.favorite.R
-import org.themoviedb.favorite.models.FavoriteMovie
+import org.themoviedb.favorite.models.Favorite
 
-class FavoriteMovieAdapter(
+class FavoriteAdapter(
     val isEmpty: (Boolean) -> Unit,
     val clickListener: (Int) -> Unit
-) : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     private var mCursor: Cursor? = null
 
@@ -45,7 +45,7 @@ class FavoriteMovieAdapter(
     ) {
 
         fun bind(cursor: Cursor) {
-            val movie = FavoriteMovie.getFromCursor(cursor)
+            val movie = Favorite.getFromCursor(cursor)
             with(itemView) {
                 title.text = movie.title
                 date.text = movie.date

@@ -14,8 +14,8 @@ import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_list_favorite.*
 import org.themoviedb.favorite.R
-import org.themoviedb.favorite.adapters.FavoriteMovieAdapter
-import org.themoviedb.favorite.models.FavoriteTvShow
+import org.themoviedb.favorite.adapters.FavoriteAdapter
+import org.themoviedb.favorite.models.Favorite
 
 class TvShowFragment : Fragment() {
 
@@ -23,7 +23,7 @@ class TvShowFragment : Fragment() {
         fun newInstance() = TvShowFragment()
     }
 
-    private val adapter by lazy { FavoriteMovieAdapter(this::renderState, this::openDetail) }
+    private val adapter by lazy { FavoriteAdapter(this::renderState, this::openDetail) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +49,13 @@ class TvShowFragment : Fragment() {
         override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
             return CursorLoader(
                 requireContext(),
-                FavoriteTvShow.TV_SHOW_URI,
+                Favorite.TV_SHOW_URI,
                 arrayOf(
-                    FavoriteTvShow.COLUMN_TITLE, FavoriteTvShow.COLUMN_DATE, FavoriteTvShow.COLUMN_DESCRIPTION, FavoriteTvShow.COLUMN_BACKGROUND
+                    Favorite.COLUMN_ID,
+                    Favorite.COLUMN_TITLE,
+                    Favorite.COLUMN_DATE,
+                    Favorite.COLUMN_DESCRIPTION,
+                    Favorite.COLUMN_BACKGROUND
                 ), null, null, null
             )
         }
