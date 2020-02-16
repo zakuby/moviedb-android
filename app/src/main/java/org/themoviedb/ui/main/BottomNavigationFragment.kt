@@ -38,13 +38,9 @@ class BottomNavigationFragment : BaseFragment<FragmentBottomNavigationBinding>(R
         binding.bottomNavBar.selectedItemId = id
     }
 
-    fun navigateToDetail(movie: Movie) {
+    fun navigateToDetail(movie: Movie, isMovie: Boolean = true) {
         val action =
-            BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(
-                movie
-            )
-        val activity = activity as MainActivity
-        activity.supportActionBar?.hide()
+            BottomNavigationFragmentDirections.actionBottomNavFragmentToDetailFragment(movie.id, isMovie)
         findNavController().navigate(action)
     }
 }

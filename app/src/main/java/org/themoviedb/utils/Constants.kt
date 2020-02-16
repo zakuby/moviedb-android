@@ -2,6 +2,8 @@ package org.themoviedb.utils
 
 import java.util.*
 
+const val PROVIDER_AUTHORITY = "org.themoviedb.data.local.provider"
+
 const val MOVIE_DATABASE = "TheMovieDb.db"
 
 const val MOVIE_DATA = "movie"

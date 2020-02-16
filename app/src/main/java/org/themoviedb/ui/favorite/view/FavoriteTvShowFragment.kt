@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.themoviedb.R
 import org.themoviedb.adapters.FavoriteTvShowAdapter
 import org.themoviedb.data.local.models.TvShow
+import org.themoviedb.data.local.provider.FavoritesProvider
 import org.themoviedb.databinding.FragmentFavoriteListBinding
 import org.themoviedb.ui.base.BaseFragment
 import org.themoviedb.ui.favorite.viewmodel.FavoriteTvShowViewModel
@@ -34,7 +35,7 @@ class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteListBinding>(R.layou
 
     private val adapter by lazy {
         FavoriteTvShowAdapter(
-            clickListener = { parent.navigateToDetail(it.convertToMovie()) },
+            clickListener = { parent.navigateToDetail(it.convertToMovie(), false) },
             removeFavoriteListener = { handleRemoveTvShow(it) }
         )
     }
@@ -73,6 +74,7 @@ class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteListBinding>(R.layou
                 adapter.removeFromFavorite(tvShow)
                 customDialog.dismiss()
             }
+            requireContext().contentResolver.notifyChange(FavoritesProvider.TV_SHOW_URI, null)
             customDialog.showRemoveFromFavoriteDialog(requireContext(), dismissListener)
         }
     }

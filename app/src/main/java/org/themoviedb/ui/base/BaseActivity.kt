@@ -43,18 +43,19 @@ abstract class BaseActivity<B : ViewDataBinding> constructor(
         val language: String = sharedPreferences.getString(context.getString(R.string.pref_key_language), defaultLang) ?: defaultLang
         val locale = Locale(language)
         Locale.setDefault(locale)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             updateResourcesLocale(context, locale)
         } else updateResourcesLocaleLegacy(context, locale)
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
+    @TargetApi(Build.VERSION_CODES.O)
     private fun updateResourcesLocale(context: Context, locale: Locale): Context {
         val configuration: Configuration = context.resources.configuration
         configuration.setLocale(locale)
         return context.createConfigurationContext(configuration)
     }
 
+    @Suppress("DEPRECATION")
     private fun updateResourcesLocaleLegacy(context: Context, locale: Locale): Context {
         val resources: Resources = context.resources
         val configuration: Configuration = resources.configuration

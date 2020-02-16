@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Favorite Movie Db</string>
+    <string name="roboto_regular" translatable="false">sans-serif</string>
+    <string name="roboto_light" translatable="false">sans-serif-light</string>
+    <string name="roboto_black" translatable="false">sans-serif-black</string>
+
+    <string name="tab_tv_show_title">TV Show</string>
+    <string name="tab_movie_title">Movie</string>
+    <string name="empty_state">Empty</string>
+</resources>

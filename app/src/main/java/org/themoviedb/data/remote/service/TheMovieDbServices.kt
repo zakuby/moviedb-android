@@ -1,6 +1,8 @@
 package org.themoviedb.data.remote.service
 
 import io.reactivex.Single
+import org.themoviedb.data.local.models.Movie
+import org.themoviedb.data.local.models.TvShow
 import org.themoviedb.data.remote.response.MovieCreditsResponse
 import org.themoviedb.data.remote.response.MovieListResponse
 import org.themoviedb.data.remote.response.TvShowListResponse
@@ -11,6 +13,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 interface TheMovieDbServices {
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(@Path("movie_id") movieId: Int): Single<Movie>
 
     @GET("movie/popular")
     fun getPopularMovies(
@@ -32,6 +37,9 @@ interface TheMovieDbServices {
         @Query("page") page: Int = 1,
         @Query("query") keyword: String
     ): Single<MovieListResponse>
+
+    @GET("tv/{tv_id}")
+    fun getTvShowDetail(@Path("tv_id") tvId: Int): Single<TvShow>
 
     @GET("tv/top_rated")
     fun getTopRatedTvShows(

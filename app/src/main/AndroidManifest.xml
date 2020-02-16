@@ -29,7 +29,9 @@
         <activity
             android:name=".ui.main.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.main.MainActivity" >
+            <nav-graph android:value="@navigation/nav_main"/>
+        </activity>
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
@@ -42,7 +44,7 @@
             android:exported="false"
             tools:replace="android:authorities" />
 
-        <receiver android:name=".ui.favorite.FavoriteWidgetProvider">
+        <receiver android:name=".ui.favorite.provider.FavoriteWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -51,9 +53,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/favorite_widget_info" />
         </receiver>
-        <service android:name=".ui.favorite.FavoriteWidgetService"
+        <service android:name=".ui.favorite.provider.FavoriteWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
+
+        <provider
+            android:authorities="org.themoviedb.data.local.provider"
+            android:name=".data.local.provider.FavoritesProvider"
+            android:exported="true"
+            android:permission="org.themoviedb.data.local.provider.READ_WRITE"/>
+
     </application>
 
 </manifest>
