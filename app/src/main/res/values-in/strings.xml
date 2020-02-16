@@ -39,4 +39,5 @@
     <string name="notify_release_content">%1$s telah dirilis hari ini!</string>
     <string name="btn_launch_movie_db">Buka Movie DB</string>
     <string name="widget_empty">Film Favorit kosong</string>
+    <string name="movie_detail_genre">Kategori</string>
 </resources>

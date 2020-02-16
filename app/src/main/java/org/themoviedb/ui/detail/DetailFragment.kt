@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.themoviedb.R
+import org.themoviedb.adapters.DetailGenreListAdapter
 import org.themoviedb.adapters.DetailListCastAdapter
 import org.themoviedb.data.local.provider.FavoritesProvider
 import org.themoviedb.databinding.FragmentDetailBinding
@@ -33,7 +34,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val detailId: Int by lazy { movieArgs.id }
 
-    private val adapter by lazy { DetailListCastAdapter() }
+    private val castAdapter by lazy { DetailListCastAdapter() }
+
+    private val genreAdapter by lazy { DetailGenreListAdapter() }
 
     private val activity: MainActivity by lazy { getActivity() as MainActivity }
 
@@ -53,7 +56,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     LinearLayoutManager.HORIZONTAL,
                     false
                 )
-                adapter = this@DetailFragment.adapter
+                adapter = castAdapter
+            }
+            recyclerViewGenre.apply {
+                layoutManager = LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = genreAdapter
             }
         }
     }
@@ -68,8 +79,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         activity.supportActionBar?.show()
     }
     private fun subscribeUI() {
-
-        observe(viewModel.getMovieCasts(), adapter::loadItems)
+        observe(viewModel.getDetailGenre(), genreAdapter::loadItems)
+        observe(viewModel.getMovieCasts(), castAdapter::loadItems)
         observe(viewModel.getFavoriteButtonAction()) { action ->
             requireContext().contentResolver.notifyChange(
                 if (action.type == "movie") FavoritesProvider.MOVIE_URI else FavoritesProvider.TV_SHOW_URI, null
