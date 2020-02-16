@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.list_item_favorite.view.*
 import org.themoviedb.favorite.R
 import org.themoviedb.favorite.models.FavoriteTvShow
 
-class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHolder>() {
+class FavoriteTvShowAdapter(val isEmpty: (Boolean) -> Unit) : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHolder>() {
 
     private var mCursor: Cursor? = null
 
@@ -31,6 +31,7 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
 
     internal fun setFavorites(cursor: Cursor?) {
         mCursor = cursor
+        isEmpty(cursor?.count == 0 || cursor == null)
         notifyDataSetChanged()
     }
 
@@ -40,9 +41,9 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
         )
     ) {
 
-        fun bind(cursor: Cursor){
+        fun bind(cursor: Cursor) {
             val tvShow = FavoriteTvShow.getFromCursor(cursor)
-            with(itemView){
+            with(itemView) {
                 title.text = tvShow.title
                 date.text = tvShow.date
                 background_image.run {
@@ -56,5 +57,4 @@ class FavoriteTvShowAdapter : RecyclerView.Adapter<FavoriteTvShowAdapter.ViewHol
             }
         }
     }
-
 }

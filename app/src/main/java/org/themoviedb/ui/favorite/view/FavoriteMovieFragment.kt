@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.themoviedb.R
 import org.themoviedb.adapters.FavoriteMovieAdapter
 import org.themoviedb.data.local.models.Movie
+import org.themoviedb.data.local.provider.FavoritesProvider
 import org.themoviedb.databinding.FragmentFavoriteListBinding
 import org.themoviedb.ui.base.BaseFragment
 import org.themoviedb.ui.favorite.viewmodel.FavoriteMovieViewModel
@@ -73,6 +74,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteListBinding>(R.layout
                 adapter.removeFromFavorite(movie)
                 customDialog.dismiss()
             }
+            requireContext().contentResolver.notifyChange(FavoritesProvider.MOVIE_URI, null)
             customDialog.showRemoveFromFavoriteDialog(requireContext(), dismissListener)
         }
     }

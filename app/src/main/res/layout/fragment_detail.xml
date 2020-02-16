@@ -204,6 +204,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         shimmer:shimmer_auto_start="true"
+                        app:isGone="@{!viewModel.getLoading}"
+                        app:isShimmer="@{viewModel.getLoading}"
                         tools:visibility="gone">
 
                         <LinearLayout
@@ -246,6 +248,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
+                        app:isGone="@{viewModel.getLoading}"
                         tools:visibility="visible">
 
                         <TextView

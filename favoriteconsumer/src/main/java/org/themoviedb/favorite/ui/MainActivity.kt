@@ -10,11 +10,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 import org.themoviedb.favorite.R
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var pagerAdapter: FavoritePagerAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,5 +45,4 @@ class MainActivity : AppCompatActivity() {
             else -> TvShowFragment.newInstance()
         }
     }
-
 }

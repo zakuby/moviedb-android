@@ -29,7 +29,9 @@
         <activity
             android:name=".ui.main.WebViewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.main.MainActivity" >
+            <nav-graph android:value="@navigation/nav_main"/>
+        </activity>
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"

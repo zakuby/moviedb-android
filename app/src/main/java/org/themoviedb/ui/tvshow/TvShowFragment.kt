@@ -25,7 +25,7 @@ class TvShowFragment : BaseFragment<FragmentTvShowsBinding>(R.layout.fragment_tv
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
     private val adapter by lazy {
-        TvShowsAdapter { tvShow -> parent.navigateToDetail(tvShow.convertToMovie()) }
+        TvShowsAdapter { tvShow -> parent.navigateToDetail(tvShow.convertToMovie(), false) }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

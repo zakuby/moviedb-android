@@ -6,6 +6,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.models.TvShow
 import org.themoviedb.data.local.room.FavoriteDatabase
@@ -24,6 +25,9 @@ class FavoritesProvider : ContentProvider() {
         private const val CODE_TV_SHOW_DIR = 3
         private const val CODE_TV_SHOW_ITEM = 4
 
+        val MOVIE_URI: Uri = Uri.Builder().scheme("content").authority(PROVIDER_AUTHORITY).appendPath(Movie.TABLE_NAME).build()
+        val TV_SHOW_URI: Uri = Uri.Builder().scheme("content").authority(PROVIDER_AUTHORITY).appendPath(TvShow.TABLE_NAME).build()
+
         private val MATCHER = UriMatcher(UriMatcher.NO_MATCH)
 
         init {
@@ -41,6 +45,7 @@ class FavoritesProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        Log.d("Provider uri", "Uri insert $uri")
         when (MATCHER.match(uri)) {
             CODE_MOVIE_DIR -> {
                 val context = context ?: return null

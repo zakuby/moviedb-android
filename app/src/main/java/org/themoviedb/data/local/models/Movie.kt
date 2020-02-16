@@ -33,7 +33,9 @@ data class Movie(
     @SerializedName("backdrop_path")
     @ColumnInfo(name = COLUMN_BACKGROUND)
     val backgroundImage: String?,
+    @ColumnInfo(name = COLUMN_IS_MOVIE)
     val isMovie: Boolean? = true,
+    @ColumnInfo(name = COLUMN_IS_FAVORITE)
     var isFavorite: Boolean = false
 ) : Parcelable {
 
@@ -47,6 +49,8 @@ data class Movie(
         const val COLUMN_VOTE = "rate"
         const val COLUMN_POSTER = "posterImage"
         const val COLUMN_BACKGROUND = "backgroundImage"
+        const val COLUMN_IS_MOVIE = "isMovie"
+        const val COLUMN_IS_FAVORITE = "isFavorite"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -68,8 +72,7 @@ data class Movie(
                     rate = values.getAsString(COLUMN_VOTE),
                     posterImage = values.getAsString(COLUMN_POSTER),
                     backgroundImage = values.getAsString(COLUMN_BACKGROUND),
-                    isFavorite = true,
-                    isMovie = true
+                    isFavorite = values.getAsBoolean(COLUMN_IS_FAVORITE) ?: true
                 )
             } ?: throw IllegalArgumentException("Content Values is empty")
         }

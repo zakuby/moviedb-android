@@ -51,7 +51,12 @@
         android:label="@string/movie_detail_title"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="movie"
-            app:argType="org.themoviedb.data.local.models.Movie" />
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="isMovie"
+            app:argType="boolean"/>
+        <deepLink
+            app:uri="themoviedb://detail/{id}?isMovie={isMovie}"/>
     </fragment>
 </navigation>

@@ -1,6 +1,8 @@
 package org.themoviedb.favorite.ui
 
+import android.content.Intent
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +14,16 @@ import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_list_favorite.*
 import org.themoviedb.favorite.R
-import org.themoviedb.favorite.adapters.FavoriteTvShowAdapter
+import org.themoviedb.favorite.adapters.FavoriteMovieAdapter
 import org.themoviedb.favorite.models.FavoriteTvShow
 
-class TvShowFragment : Fragment(){
+class TvShowFragment : Fragment() {
 
-    companion object{
+    companion object {
         fun newInstance() = TvShowFragment()
     }
 
-    private val adapter by lazy { FavoriteTvShowAdapter() }
+    private val adapter by lazy { FavoriteMovieAdapter(this::renderState, this::openDetail) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +54,21 @@ class TvShowFragment : Fragment(){
                     FavoriteTvShow.COLUMN_TITLE, FavoriteTvShow.COLUMN_DATE, FavoriteTvShow.COLUMN_DESCRIPTION, FavoriteTvShow.COLUMN_BACKGROUND
                 ), null, null, null
             )
+        }
+    }
+
+    private fun renderState(isEmpty: Boolean) {
+        empty_state.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+    }
+
+    private fun openDetail(id: Int) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("themoviedb://detail/$id?isMovie=false"))
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Handle exception
         }
     }
 }

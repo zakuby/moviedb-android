@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.themoviedb.R
 import org.themoviedb.adapters.DetailListCastAdapter
-import org.themoviedb.data.local.models.Movie
+import org.themoviedb.data.local.provider.FavoritesProvider
 import org.themoviedb.databinding.FragmentDetailBinding
 import org.themoviedb.ui.base.BaseFragment
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.*
 import org.themoviedb.ui.main.MainActivity
 import org.themoviedb.utils.CustomDialog
 import org.themoviedb.utils.ext.observe
@@ -29,7 +29,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val movieArgs: DetailFragmentArgs by navArgs()
 
-    private val movie: Movie by lazy { movieArgs.movie }
+    private val isMovieDetail: Boolean by lazy { movieArgs.isMovie }
+
+    private val detailId: Int by lazy { movieArgs.id }
 
     private val adapter by lazy { DetailListCastAdapter() }
 
@@ -43,8 +45,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun initBinding() {
         binding.apply {
-            viewModel = this@DetailFragment.viewModel.apply { setMovieDetail(this@DetailFragment.movie) }
-            backButton.setOnClickListener { findNavController().popBackStack() }
+            viewModel = this@DetailFragment.viewModel.apply { setMovieDetail(detailId, isMovieDetail) }
+            backButton.setOnClickListener { requireActivity().onBackPressed() }
             recyclerViewCast.apply {
                 layoutManager = LinearLayoutManager(
                     requireActivity(),
@@ -65,26 +67,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         super.onStop()
         activity.supportActionBar?.show()
     }
-
     private fun subscribeUI() {
-        observe(viewModel.getLoading()) { isLoading ->
-            if (isLoading) {
-                binding.apply {
-                    castView.visibility = View.GONE
-                    shimmerView.visibility = View.VISIBLE
-                    shimmerView.startShimmer()
-                }
-            } else {
-                binding.apply {
-                    shimmerView.stopShimmer()
-                    shimmerView.visibility = View.GONE
-                    castView.visibility = View.VISIBLE
-                }
+
+        observe(viewModel.getMovieCasts(), adapter::loadItems)
+        observe(viewModel.getFavoriteButtonAction()) { action ->
+            requireContext().contentResolver.notifyChange(
+                if (action.type == "movie") FavoritesProvider.MOVIE_URI else FavoritesProvider.TV_SHOW_URI, null
+            )
+            when (action) {
+                is ActionFavoriteAdded -> customDialog.showAddToFavoriteDialog(requireContext())
+                is ActionFavoriteRemoved -> customDialog.showRemoveFromFavoriteDialog(requireContext())
             }
         }
-
-        observe(viewModel.getMovieCasts()) { casts -> adapter.loadItems(casts) }
-        observe(viewModel.onFavoriteAdded) { customDialog.showAddToFavoriteDialog(requireContext()) }
-        observe(viewModel.onFavoriteRemoved) { customDialog.showRemoveFromFavoriteDialog(requireContext()) }
     }
 }

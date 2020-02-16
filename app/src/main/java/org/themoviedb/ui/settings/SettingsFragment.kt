@@ -61,14 +61,11 @@ class SettingsFragment : PreferenceFragmentCompat(), HasAndroidInjector {
         Locale.setDefault(locale)
         val configuration: Configuration = resources.configuration
         val displayMetrics = resources.displayMetrics
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             configuration.setLocale(locale)
-        } else {
-            configuration.locale = locale
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             requireContext().createConfigurationContext(configuration)
         } else {
+            configuration.locale = locale
             resources.updateConfiguration(configuration, displayMetrics)
         }
         requireActivity().recreate()

@@ -1,6 +1,9 @@
 package org.themoviedb.favorite.ui
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +18,13 @@ import org.themoviedb.favorite.R
 import org.themoviedb.favorite.adapters.FavoriteMovieAdapter
 import org.themoviedb.favorite.models.FavoriteMovie
 
-class MovieFragment : Fragment(){
+class MovieFragment : Fragment() {
 
-    companion object{
+    companion object {
         fun newInstance() = MovieFragment()
     }
 
-    private val adapter by lazy { FavoriteMovieAdapter() }
+    private val adapter by lazy { FavoriteMovieAdapter(this::renderState, this::openDetail) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +52,7 @@ class MovieFragment : Fragment(){
                 requireContext(),
                 FavoriteMovie.MOVIE_URI,
                 arrayOf(
+                    FavoriteMovie.COLUMN_ID,
                     FavoriteMovie.COLUMN_TITLE,
                     FavoriteMovie.COLUMN_DATE,
                     FavoriteMovie.COLUMN_DESCRIPTION,
@@ -58,4 +62,17 @@ class MovieFragment : Fragment(){
         }
     }
 
+    private fun renderState(isEmpty: Boolean) {
+        empty_state.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+    }
+
+    private fun openDetail(id: Int) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("themoviedb://detail/$id?isMovie=true"))
+        try {
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            // Handle exception
+        }
+    }
 }

@@ -20,7 +20,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
 
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
-    fun navigateToDetail(movie: Movie) = parent.navigateToDetail(movie)
+    fun navigateToDetail(movie: Movie, isMovie: Boolean = true) = parent.navigateToDetail(movie, isMovie)
 
     fun navigateTab(@IdRes id: Int) = parent.setBottomNavPosition(id)
 

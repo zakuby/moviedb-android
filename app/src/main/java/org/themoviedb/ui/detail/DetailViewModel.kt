@@ -7,14 +7,14 @@ import com.crashlytics.android.Crashlytics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.themoviedb.ui.base.BaseViewModel
-import org.themoviedb.data.remote.service.TheMovieDbServices
 import org.themoviedb.data.local.models.Cast
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.models.TvShow
 import org.themoviedb.data.local.room.repository.MovieRepository
 import org.themoviedb.data.local.room.repository.TvShowRepository
-import org.themoviedb.utils.SingleLiveEvent
+import org.themoviedb.data.remote.service.TheMovieDbServices
+import org.themoviedb.ui.base.BaseViewModel
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.*
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
@@ -25,6 +25,8 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val casts = MutableLiveData<List<Cast>>()
+    private val _isMovie = ObservableBoolean(true)
+    private val isMovie get() = _isMovie.get()
 
     val movie = MutableLiveData<Movie>()
     private val movieData get() = movie.value
@@ -34,24 +36,59 @@ class DetailViewModel @Inject constructor(
 
     val movieFavoriteLoading = ObservableBoolean(true)
 
-    val onFavoriteAdded = SingleLiveEvent<Unit>()
-    val onFavoriteRemoved = SingleLiveEvent<Unit>()
+    sealed class FavoriteAction(val type: String) {
+        class ActionFavoriteAdded(type: String) : FavoriteAction(type)
+        class ActionFavoriteRemoved(type: String) : FavoriteAction(type)
+    }
+
+    private val favoriteAction = MutableLiveData<FavoriteAction>()
+    fun getFavoriteButtonAction(): LiveData<FavoriteAction> = favoriteAction
 
     fun getMovieCasts(): LiveData<List<Cast>> = casts
 
     val isError = ObservableBoolean(false)
 
-    fun setMovieDetail(movie: Movie) {
-        checkIsMovieFavorite(movie)
-        this.movie.postValue(movie)
-        this.fetchMovieCasts(movie.id, movie.isMovie ?: true)
+    fun setMovieDetail(id: Int, isMovie: Boolean) {
+        this._isMovie.set(isMovie)
+        fetchDetail(id)
+        checkIsMovieFavorite(id)
+        this.fetchMovieCasts(id)
     }
 
-    private fun checkIsMovieFavorite(movie: Movie) {
-        val isMovie = movie.isMovie ?: true
-        val id = movie.id
+    private fun fetchDetail(id: Int) {
+        val fetchDetailApi = if (isMovie) service.getMovieDetail(id) else service.getTvShowDetail(id).map { it.convertToMovie() }
+        fetchDetailApi.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { setLoading() }
+            .doAfterTerminate { finishLoading() }
+            .subscribeBy(onSuccess = { movie.postValue(it) })
+            .disposedBy(compositeDisposable)
+    }
+
+    private fun checkIsMovieFavorite(id: Int) {
         if (isMovie) getMovieFromRepo(id)
         else getTvShowFromRepo(id)
+    }
+
+    private fun fetchMovieCasts(id: Int) {
+        val fetchCredits =
+            if (isMovie) service.getMovieCredits(id) else service.getTvShowCredits(id)
+
+        fetchCredits.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { setLoading() }
+            .doAfterTerminate { finishLoading() }
+            .subscribeBy(
+                onSuccess = { resp ->
+                    resp.cast?.let { respCast ->
+                        isError.set(false)
+                        casts.postValue(respCast.take(10))
+                    } ?: isError.set(true)
+                }, onError = { error ->
+                    isError.set(true)
+                    Crashlytics.logException(error)
+                }
+            ).disposedBy(compositeDisposable)
     }
 
     private fun getMovieFromRepo(id: Int) {
@@ -74,30 +111,8 @@ class DetailViewModel @Inject constructor(
             ).disposedBy(compositeDisposable)
     }
 
-    private fun fetchMovieCasts(id: Int, isMovieCast: Boolean) {
-        val fetchCredits =
-            if (isMovieCast) service.getMovieCredits(id) else service.getTvShowCredits(id)
-
-        fetchCredits.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { setLoading() }
-            .doAfterTerminate { finishLoading() }
-            .subscribeBy(
-                onSuccess = { resp ->
-                    resp.cast?.let { respCast ->
-                        isError.set(false)
-                        casts.postValue(respCast.take(10))
-                    } ?: isError.set(true)
-                }, onError = { error ->
-                    isError.set(true)
-                    Crashlytics.logException(error)
-                }
-            ).disposedBy(compositeDisposable)
-    }
-
     fun updateRepository() {
         movieData?.let { movie ->
-            val isMovie = movie.isMovie ?: true
             if (isMovie) updateMovieRepository(movie)
             else updateFavoriteRepository(movie.convertToTvShow())
         }
@@ -108,7 +123,7 @@ class DetailViewModel @Inject constructor(
             movieRepository.removeMovie(movie.id)
                 .subscribeBy(
                     onComplete = {
-                        onFavoriteRemoved.call()
+                        favoriteAction.postValue(ActionFavoriteRemoved("movie"))
                         isMovieFavorite.set(false)
                     },
                     onError = { error -> Crashlytics.logException(error) }
@@ -117,7 +132,7 @@ class DetailViewModel @Inject constructor(
             movieRepository.saveMovie(movie.apply { isFavorite = true })
                 .subscribeBy(
                     onComplete = {
-                        onFavoriteAdded.call()
+                        favoriteAction.postValue(ActionFavoriteAdded("movie"))
                         isMovieFavorite.set(true)
                     },
                     onError = { error -> Crashlytics.logException(error) }
@@ -129,7 +144,7 @@ class DetailViewModel @Inject constructor(
             tvShowRepository.removeTvShow(tvShow.id)
                 .subscribeBy(
                     onComplete = {
-                        onFavoriteRemoved.call()
+                        favoriteAction.postValue(ActionFavoriteRemoved("tv_show"))
                         isMovieFavorite.set(false)
                     },
                     onError = { error -> Crashlytics.logException(error) }
@@ -138,7 +153,7 @@ class DetailViewModel @Inject constructor(
             tvShowRepository.saveTvShow(tvShow.apply { isFavorite = true })
                 .subscribeBy(
                     onComplete = {
-                        onFavoriteAdded.call()
+                        favoriteAction.postValue(ActionFavoriteAdded("tv_show"))
                         isMovieFavorite.set(true)
                     },
                     onError = { error -> Crashlytics.logException(error) }

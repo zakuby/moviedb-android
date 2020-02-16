@@ -8,8 +8,7 @@ data class FavoriteTvShow(
     val date: String?,
     val description: String?,
     val backgroundImage: String?
-){
-
+) {
 
     companion object {
         val TV_SHOW_URI: Uri = Uri.parse("content://org.themoviedb.data.local.provider/tvshow")
@@ -18,8 +17,8 @@ data class FavoriteTvShow(
         const val COLUMN_DESCRIPTION = "description"
         const val COLUMN_BACKGROUND = "backgroundImage"
 
-        fun getFromCursor(cursor: Cursor): FavoriteMovie =
-            FavoriteMovie(
+        fun getFromCursor(cursor: Cursor): FavoriteTvShow =
+            FavoriteTvShow(
                 title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE)),
                 date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE)),
                 description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),

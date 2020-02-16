@@ -10,7 +10,10 @@ import kotlinx.android.synthetic.main.list_item_favorite.view.*
 import org.themoviedb.favorite.R
 import org.themoviedb.favorite.models.FavoriteMovie
 
-class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>() {
+class FavoriteMovieAdapter(
+    val isEmpty: (Boolean) -> Unit,
+    val clickListener: (Int) -> Unit
+) : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>() {
 
     private var mCursor: Cursor? = null
 
@@ -31,6 +34,7 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolde
 
     internal fun setFavorites(cursor: Cursor?) {
         mCursor = cursor
+        isEmpty(cursor?.count == 0 || cursor == null)
         notifyDataSetChanged()
     }
 
@@ -40,9 +44,9 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolde
         )
     ) {
 
-        fun bind(cursor: Cursor){
+        fun bind(cursor: Cursor) {
             val movie = FavoriteMovie.getFromCursor(cursor)
-            with(itemView){
+            with(itemView) {
                 title.text = movie.title
                 date.text = movie.date
                 background_image.run {
@@ -53,8 +57,8 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolde
                         .centerCrop()
                         .into(this)
                 }
+                setOnClickListener { clickListener(movie.id ?: return@setOnClickListener) }
             }
         }
     }
-
 }
