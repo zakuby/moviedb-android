@@ -8,6 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.themoviedb.data.local.models.Cast
+import org.themoviedb.data.local.models.Genre
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.models.TvShow
 import org.themoviedb.data.local.room.repository.MovieRepository
@@ -25,6 +26,9 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val casts = MutableLiveData<List<Cast>>()
+    fun getMovieCasts(): LiveData<List<Cast>> = casts
+    private val genres = MutableLiveData<List<Genre>>()
+    fun getDetailGenre(): LiveData<List<Genre>> = genres
     private val _isMovie = ObservableBoolean(true)
     private val isMovie get() = _isMovie.get()
 
@@ -35,6 +39,7 @@ class DetailViewModel @Inject constructor(
     private val isFavorite get() = isMovieFavorite.get()
 
     val movieFavoriteLoading = ObservableBoolean(true)
+    val detailCastLoading = ObservableBoolean(false)
 
     sealed class FavoriteAction(val type: String) {
         class ActionFavoriteAdded(type: String) : FavoriteAction(type)
@@ -44,24 +49,28 @@ class DetailViewModel @Inject constructor(
     private val favoriteAction = MutableLiveData<FavoriteAction>()
     fun getFavoriteButtonAction(): LiveData<FavoriteAction> = favoriteAction
 
-    fun getMovieCasts(): LiveData<List<Cast>> = casts
-
     val isError = ObservableBoolean(false)
 
     fun setMovieDetail(id: Int, isMovie: Boolean) {
         this._isMovie.set(isMovie)
         fetchDetail(id)
         checkIsMovieFavorite(id)
-        this.fetchMovieCasts(id)
     }
 
     private fun fetchDetail(id: Int) {
-        val fetchDetailApi = if (isMovie) service.getMovieDetail(id) else service.getTvShowDetail(id).map { it.convertToMovie() }
+        val fetchDetailApi =
+            if (isMovie) service.getMovieDetail(id) else service.getTvShowDetail(id).map { it.convertToMovie() }
         fetchDetailApi.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { setLoading() }
-            .doAfterTerminate { finishLoading() }
-            .subscribeBy(onSuccess = { movie.postValue(it) })
+            .doAfterTerminate {
+                finishLoading()
+                fetchMovieCasts(id)
+            }
+            .subscribeBy(onSuccess = { detail ->
+                genres.postValue(detail.genres)
+                movie.postValue(detail)
+            })
             .disposedBy(compositeDisposable)
     }
 
@@ -76,8 +85,8 @@ class DetailViewModel @Inject constructor(
 
         fetchCredits.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { setLoading() }
-            .doAfterTerminate { finishLoading() }
+            .doOnSubscribe { detailCastLoading.set(true) }
+            .doAfterTerminate { detailCastLoading.set(false) }
             .subscribeBy(
                 onSuccess = { resp ->
                     resp.cast?.let { respCast ->

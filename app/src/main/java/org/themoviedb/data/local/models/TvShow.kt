@@ -1,17 +1,16 @@
 package org.themoviedb.data.local.models
 
 import android.content.ContentValues
-import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import org.themoviedb.data.local.models.TvShow.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
-@Parcelize
+@TypeConverters(GenreConverter::class)
 data class TvShow(
     @PrimaryKey
     @ColumnInfo(name = COLUMN_ID)
@@ -34,8 +33,9 @@ data class TvShow(
     @SerializedName("backdrop_path")
     @ColumnInfo(name = COLUMN_BACKGROUND)
     val backgroundImage: String?,
-    var isFavorite: Boolean = false
-) : Parcelable {
+    var isFavorite: Boolean = false,
+    val genres: List<Genre>? = emptyList()
+) {
 
     companion object {
 
@@ -76,6 +76,6 @@ data class TvShow(
 
     fun convertToMovie(): Movie = Movie(
         id = id, title = title, date = date, description = description, rate = rate,
-        posterImage = posterImage, backgroundImage = backgroundImage, isMovie = false, isFavorite = isFavorite
+        posterImage = posterImage, backgroundImage = backgroundImage, isMovie = false, isFavorite = isFavorite, genres = genres
     )
 }

@@ -1,17 +1,16 @@
 package org.themoviedb.data.local.models
 
 import android.content.ContentValues
-import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import org.themoviedb.data.local.models.Movie.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
-@Parcelize
+@TypeConverters(GenreConverter::class)
 data class Movie(
     @PrimaryKey
     @ColumnInfo(name = COLUMN_ID)
@@ -36,8 +35,9 @@ data class Movie(
     @ColumnInfo(name = COLUMN_IS_MOVIE)
     val isMovie: Boolean? = true,
     @ColumnInfo(name = COLUMN_IS_FAVORITE)
-    var isFavorite: Boolean = false
-) : Parcelable {
+    var isFavorite: Boolean = false,
+    val genres: List<Genre>? = emptyList()
+) {
 
     companion object {
 
