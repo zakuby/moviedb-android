@@ -35,4 +35,6 @@ class TvShowDataSourceFactory @Inject constructor(
     fun getKeywords(): String = keyword ?: ""
 
     fun getDataSource(): LiveData<TvShowDataSource> = dataSourceLiveData
+
+    fun onClear() = dataSource.onClear()
 }

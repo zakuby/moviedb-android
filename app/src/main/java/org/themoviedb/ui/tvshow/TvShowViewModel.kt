@@ -40,4 +40,9 @@ class TvShowViewModel @Inject constructor(
         searchQuery.set(keyword)
         dataSourceFactory.searchMovies(keyword)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        dataSourceFactory.onClear()
+    }
 }

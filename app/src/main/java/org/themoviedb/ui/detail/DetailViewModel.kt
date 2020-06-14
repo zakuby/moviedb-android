@@ -3,19 +3,23 @@ package org.themoviedb.ui.detail
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.crashlytics.android.Crashlytics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.themoviedb.data.local.models.Cast
-import org.themoviedb.data.local.models.Genre
-import org.themoviedb.data.local.models.Movie
-import org.themoviedb.data.local.models.TvShow
+import org.themoviedb.data.local.models.*
 import org.themoviedb.data.local.room.repository.MovieRepository
 import org.themoviedb.data.local.room.repository.TvShowRepository
+import org.themoviedb.data.local.source.DetailReviewDataSource
+import org.themoviedb.data.local.source.DetailReviewDataSourceFactory
 import org.themoviedb.data.remote.service.TheMovieDbServices
 import org.themoviedb.ui.base.BaseViewModel
-import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.*
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.ActionFavoriteAdded
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.ActionFavoriteRemoved
+import org.themoviedb.utils.SingleLiveEvent
 import org.themoviedb.utils.ext.disposedBy
 import javax.inject.Inject
 
@@ -29,6 +33,11 @@ class DetailViewModel @Inject constructor(
     fun getMovieCasts(): LiveData<List<Cast>> = casts
     private val genres = MutableLiveData<List<Genre>>()
     fun getDetailGenre(): LiveData<List<Genre>> = genres
+
+    val onReviewLiveDataReady = SingleLiveEvent<Unit>()
+    private lateinit var reviews: LiveData<PagedList<Review>>
+    fun getDetailReview(): LiveData<PagedList<Review>> = reviews
+
     private val _isMovie = ObservableBoolean(true)
     private val isMovie get() = _isMovie.get()
 
@@ -40,6 +49,7 @@ class DetailViewModel @Inject constructor(
 
     val movieFavoriteLoading = ObservableBoolean(true)
     val detailCastLoading = ObservableBoolean(false)
+    lateinit var detailReviewLoading: LiveData<Boolean>
 
     sealed class FavoriteAction(val type: String) {
         class ActionFavoriteAdded(type: String) : FavoriteAction(type)
@@ -49,7 +59,9 @@ class DetailViewModel @Inject constructor(
     private val favoriteAction = MutableLiveData<FavoriteAction>()
     fun getFavoriteButtonAction(): LiveData<FavoriteAction> = favoriteAction
 
-    val isError = ObservableBoolean(false)
+    val isErrorCast = ObservableBoolean(false)
+
+    lateinit var isErrorReview: LiveData<Boolean>
 
     fun setMovieDetail(id: Int, isMovie: Boolean) {
         this._isMovie.set(isMovie)
@@ -66,6 +78,7 @@ class DetailViewModel @Inject constructor(
             .doAfterTerminate {
                 finishLoading()
                 fetchMovieCasts(id)
+                fetchReviews(id)
             }
             .subscribeBy(onSuccess = { detail ->
                 genres.postValue(detail.genres)
@@ -89,15 +102,30 @@ class DetailViewModel @Inject constructor(
             .doAfterTerminate { detailCastLoading.set(false) }
             .subscribeBy(
                 onSuccess = { resp ->
-                    resp.cast?.let { respCast ->
-                        isError.set(false)
-                        casts.postValue(respCast.take(10))
-                    } ?: isError.set(true)
+                    if (resp.cast.isNullOrEmpty()) isErrorCast.set(true)
+                    else {
+                        isErrorCast.set(false)
+                        casts.postValue(resp.cast.take(10))
+                    }
                 }, onError = { error ->
-                    isError.set(true)
+                    isErrorCast.set(true)
                     Crashlytics.logException(error)
                 }
             ).disposedBy(compositeDisposable)
+    }
+
+    private fun fetchReviews(id: Int) {
+        val config = PagedList.Config.Builder()
+            .setPageSize(10)
+            .setInitialLoadSizeHint(10)
+            .setEnablePlaceholders(false)
+            .build()
+        val dataSource = DetailReviewDataSource(service, id, isMovie, compositeDisposable)
+        val dataSourceFactory = DetailReviewDataSourceFactory(dataSource)
+        reviews = LivePagedListBuilder(dataSourceFactory, config).build()
+        detailReviewLoading = Transformations.switchMap(dataSourceFactory.getDataSource(), DetailReviewDataSource::getInitialLoading)
+        isErrorReview = Transformations.switchMap(dataSourceFactory.getDataSource(), DetailReviewDataSource::getInitialEmpty)
+        onReviewLiveDataReady.call()
     }
 
     private fun getMovieFromRepo(id: Int) {

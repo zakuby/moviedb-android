@@ -62,4 +62,9 @@ class MoviesViewModel @Inject constructor(
     fun searchByGenres(genres: String?) {
         dataSourceFactory.searchMovies(genres, true)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        dataSourceFactory.onClear()
+    }
 }

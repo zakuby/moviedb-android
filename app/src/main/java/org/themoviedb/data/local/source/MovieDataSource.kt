@@ -82,4 +82,7 @@ class MovieDataSource constructor(
     fun getInitialLoading(): LiveData<Boolean> = initialLoading
     fun getInitialEmpty(): LiveData<Boolean> = initialEmpty
     fun getErrorResponse(): LiveData<ErrorResponse> = errorResponse
+    fun onClear() {
+        if (!compositeDisposable.isDisposed) compositeDisposable.clear()
+    }
 }

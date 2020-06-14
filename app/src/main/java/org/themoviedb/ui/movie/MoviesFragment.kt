@@ -89,6 +89,10 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
             }
             findViewById<MaterialButton>(R.id.btn_add_apply).setOnClickListener {
                 bottomSheetDialog.dismiss()
+                binding.searchView.apply {
+                    setQuery("", false)
+                    isIconified = true
+                }
                 viewModel.searchByGenres(genreAdapter.getCheckedGenres())
             }
         }

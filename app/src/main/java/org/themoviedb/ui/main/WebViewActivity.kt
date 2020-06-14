@@ -31,6 +31,10 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
         toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.webView.apply {
             settings.javaScriptEnabled = true
+            settings.loadWithOverviewMode = true
+            settings.useWideViewPort = true
+            settings.builtInZoomControls = true
+            settings.displayZoomControls = false
             webViewClient = CustomWebViewClient()
             loadUrl(url)
         }

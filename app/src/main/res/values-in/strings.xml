@@ -42,4 +42,6 @@
     <string name="movie_detail_genre">Kategori</string>
     <string name="dlg_bottom_filter_title">Filter dengan Kategori</string>
     <string name="button_add_apply">Terapkan Filter</string>
+    <string name="review_read_full">Baca Ulasan Lengkap</string>
+    <string name="movie_detail_reviews">Ulasan</string>
 </resources>

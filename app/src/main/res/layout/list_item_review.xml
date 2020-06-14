@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="org.themoviedb.data.local.models.Review" />
+
+        <variable
+            name="adapter"
+            type="org.themoviedb.ui.base.BasePagedListAdapter" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> adapter.onItemClick(item)}"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:clipToPadding="false"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:id="@+id/review_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ellipsize="end"
+                android:fontFamily="@string/roboto_black"
+                android:maxLines="2"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="@{item.name}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                tools:text="A review by You" />
+
+
+
+            <TextView
+                android:id="@+id/review_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/review_title"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:maxLines="7"
+                android:minLines="7"
+                android:text="@{item.content}"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:lineSpacingExtra="3sp"
+                tools:text="First of all, I love the animation style in this film. The animation in this film is styled to look like an actual comic book. I think this approach for this kind of film was an excellent choice because we’ve all seen the usual kind of animation but nothing like this. To tie in with the animation I need to talk about the action scenes in this film. These tie in with the animation because of the way the directors styled the action shots is to look like something in a comic panel. Most people don’t know who Miles Morales is and after this film, you’ll want to learn more about him because of how they made him so relatable in this film. He acts like a typical teen in this situation compared to other versions of Spider-Man. Other versions kind of just acted like they always knew how to use their powers when Miles struggles with his. Miles isn’t the only relatable character film all of them are. The creators of this film did a “Marvel”ous job at making each character in this film somebody at least one person in the audience can relate to. All of the voice actors did a great job in their respected roles but it would’ve been nice to have a returning voice to at least one of the Spider-Man." />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/review_desc"
+                android:layout_marginTop="10dp"
+                android:background="@color/athens_gray" />
+
+            <TextView
+                android:id="@+id/read_more_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@string/roboto_regular"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/review_read_full"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

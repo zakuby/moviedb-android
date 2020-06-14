@@ -3,10 +3,7 @@ package org.themoviedb.data.remote.service
 import io.reactivex.Single
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.models.TvShow
-import org.themoviedb.data.remote.response.GenreListResponse
-import org.themoviedb.data.remote.response.MovieCreditsResponse
-import org.themoviedb.data.remote.response.MovieListResponse
-import org.themoviedb.data.remote.response.TvShowListResponse
+import org.themoviedb.data.remote.response.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -74,4 +71,16 @@ interface TheMovieDbServices {
     fun getTvShowCredits(
         @Path("id") id: Int
     ): Single<MovieCreditsResponse>
+
+    @GET("movie/{id}/reviews")
+    fun getMovieReviews(
+        @Path("id") id: Int,
+        @Query("page") page: Int = 1
+    ): Single<ReviewResponse>
+
+    @GET("tv/{id}/reviews")
+    fun getTvShowReviews(
+        @Path("id") id: Int,
+        @Query("page") page: Int = 1
+    ): Single<ReviewResponse>
 }

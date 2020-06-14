@@ -54,4 +54,6 @@
     <string name="movie_detail_genre">Genre</string>
     <string name="dlg_bottom_filter_title">Filter by Genre</string>
     <string name="button_add_apply">Apply Filter</string>
+    <string name="review_read_full">Read Full Review</string>
+    <string name="movie_detail_reviews">Reviews</string>
 </resources>
