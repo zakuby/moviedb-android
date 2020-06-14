@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="org.themoviedb.data.local.models.Genre" />
+
+        <variable
+            name="adapter"
+            type="org.themoviedb.adapters.BottomFilterGenreListAdapter" />
+
+    </data>
+
+    <androidx.appcompat.widget.AppCompatCheckedTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="?android:attr/listChoiceIndicatorMultiple"
+        android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+        android:drawableEnd="@null"
+        android:drawableRight="@null"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:onClick="@{() -> adapter.onCheck(item)}"
+        android:text="@{item.name}"
+        android:checked="@{item.checked}"
+        tools:checked="true"
+        tools:text="Comedy">
+
+    </androidx.appcompat.widget.AppCompatCheckedTextView>
+</layout>

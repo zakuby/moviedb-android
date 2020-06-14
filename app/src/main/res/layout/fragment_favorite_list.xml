@@ -50,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="@string/empty_favorite_description"/>
+                android:text="@string/empty_favorite_description"
+                android:gravity="center_horizontal" />
 
 
             <com.google.android.material.button.MaterialButton

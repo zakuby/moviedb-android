@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import org.themoviedb.R
 import org.themoviedb.data.local.models.Movie
 import org.themoviedb.data.local.room.FavoriteDatabase
+import org.themoviedb.utils.BASE_IMAGE_URL
 
 class FavoriteWidgetService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory =
@@ -49,7 +50,7 @@ class FavoriteWidgetFactory constructor(
 
         try {
             val bitmap = Picasso.get()
-                .load("https://image.tmdb.org/t/p/original/${widgetItem.backgroundImage}")
+                .load("$BASE_IMAGE_URL${widgetItem.backgroundImage}")
                 .resizeDimen(R.dimen.widget_width, R.dimen.widget_height)
                 .get()
             views.setImageViewBitmap(R.id.widget_image, bitmap)

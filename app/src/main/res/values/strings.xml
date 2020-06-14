@@ -52,4 +52,6 @@
     <string name="btn_launch_movie_db">Launch Movie DB</string>
     <string name="widget_empty">Favorite Movie is Empty</string>
     <string name="movie_detail_genre">Genre</string>
+    <string name="dlg_bottom_filter_title">Filter by Genre</string>
+    <string name="button_add_apply">Apply Filter</string>
 </resources>
