@@ -47,7 +47,8 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:text="@{item.name}"
-                tools:text="Joaquin Phoenix" />
+                tools:text="Joaquin Phoenix"
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,7 +63,8 @@
                 android:textSize="10sp"
                 android:text="@{item.character}"
                 tools:ignore="SmallSp"
-                tools:text="Arthur Fleck / Joker" />
+                tools:text="Arthur Fleck / Joker"
+                android:gravity="center_horizontal" />
 
 
         </LinearLayout>

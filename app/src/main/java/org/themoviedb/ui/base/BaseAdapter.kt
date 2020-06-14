@@ -11,7 +11,7 @@ abstract class BaseAdapter<T>(
     val onClick: (T) -> Unit = {}
 ) : RecyclerView.Adapter<BaseAdapter<T>.ViewHolder>() {
 
-    private var items: MutableList<T> = mutableListOf()
+    protected var items: MutableList<T> = mutableListOf()
 
     protected abstract val getLayoutIdRes: Int
 

@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.themoviedb.data.local.models.Movie
+import org.themoviedb.data.local.source.MovieDataSource.SourceType.*
 import org.themoviedb.data.remote.response.ErrorResponse
 import org.themoviedb.data.remote.response.ErrorResponseHandler
 import org.themoviedb.data.remote.service.TheMovieDbServices
@@ -17,8 +18,15 @@ import org.themoviedb.utils.ext.disposedBy
 class MovieDataSource constructor(
     private val service: TheMovieDbServices,
     private val errorResponseHandler: ErrorResponseHandler,
-    private val keyword: String? = ""
+    private val sourceType: SourceType = DEFAULT,
+    private val keywords: String = ""
 ) : PageKeyedDataSource<Int, Movie>() {
+
+    enum class SourceType {
+        BY_SEARCH_QUERY,
+        BY_GENRES,
+        DEFAULT
+    }
 
     private val initialLoading = MutableLiveData<Boolean>()
 
@@ -29,7 +37,11 @@ class MovieDataSource constructor(
     private val compositeDisposable = CompositeDisposable()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Movie>) {
-        val movieServices = if (keyword.isNullOrEmpty()) service.getPopularMovies() else service.searchMovies(keyword = keyword)
+        val movieServices = when (sourceType) {
+            BY_SEARCH_QUERY -> service.searchMovies(keyword = keywords)
+            BY_GENRES -> service.searchByGenres(genres = keywords)
+            DEFAULT -> service.getPopularMovies()
+        }
         movieServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { initialLoading.postValue(true) }
@@ -50,7 +62,11 @@ class MovieDataSource constructor(
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val movieServices = if (keyword.isNullOrEmpty()) service.getPopularMovies(page = params.key) else service.searchMovies(page = params.key, keyword = keyword)
+        val movieServices = when (sourceType) {
+            BY_SEARCH_QUERY -> service.searchMovies(page = params.key, keyword = keywords)
+            BY_GENRES -> service.searchByGenres(page = params.key, genres = keywords)
+            DEFAULT -> service.getPopularMovies(page = params.key)
+        }
         movieServices.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

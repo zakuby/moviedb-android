@@ -1,14 +1,22 @@
 package org.themoviedb.ui.movie
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.dlg_bottom_filter.*
 import org.themoviedb.R
+import org.themoviedb.adapters.BottomFilterGenreListAdapter
 import org.themoviedb.adapters.MovieListAdapter
+import org.themoviedb.data.local.models.Genre
 import org.themoviedb.databinding.FragmentMoviesBinding
 import org.themoviedb.ui.base.BaseFragment
 import org.themoviedb.ui.main.BottomNavigationFragment
@@ -25,6 +33,8 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
     private val parent by lazy { requireParentFragment().parentFragment as BottomNavigationFragment }
 
     private val adapter by lazy { MovieListAdapter { movie -> parent.navigateToDetail(movie) } }
+
+    private val genreAdapter by lazy { BottomFilterGenreListAdapter() }
 
     private fun retryLoadMovie() = viewModel.retryLoadMovies()
 
@@ -59,10 +69,30 @@ class MoviesFragment : BaseFragment<FragmentMoviesBinding>(R.layout.fragment_mov
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = this@MoviesFragment.adapter
             }
+            btnFilter.setOnClickListener { showBottomFilter() }
         }
     }
 
     private fun subscribeUI() {
         observe(viewModel.movies, adapter::submitList)
+        observe(viewModel.movieGenres, this::setButtonFilterListener)
+    }
+
+    private fun setButtonFilterListener(genres: List<Genre>) = genreAdapter.loadItems(genres)
+
+    private fun showBottomFilter() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.dlg_bottom_filter, bottom_sheet_container).apply {
+            findViewById<RecyclerView>(R.id.recycler_view_genre).apply {
+                layoutManager = GridLayoutManager(requireContext(), 2)
+                adapter = this@MoviesFragment.genreAdapter
+            }
+            findViewById<MaterialButton>(R.id.btn_add_apply).setOnClickListener {
+                bottomSheetDialog.dismiss()
+                viewModel.searchByGenres(genreAdapter.getCheckedGenres())
+            }
+        }
+        bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog.show()
     }
 }

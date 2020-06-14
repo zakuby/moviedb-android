@@ -40,4 +40,6 @@
     <string name="btn_launch_movie_db">Buka Movie DB</string>
     <string name="widget_empty">Film Favorit kosong</string>
     <string name="movie_detail_genre">Kategori</string>
+    <string name="dlg_bottom_filter_title">Filter dengan Kategori</string>
+    <string name="button_add_apply">Terapkan Filter</string>
 </resources>

@@ -7,6 +7,7 @@ const val PROVIDER_AUTHORITY = "org.themoviedb.data.local.provider"
 const val MOVIE_DATABASE = "TheMovieDb.db"
 
 const val MOVIE_DATA = "movie"
+const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/"
 
 const val NOTIFICATION_CHANNEL_ID = "notify-moviedb"
 const val NOTIFICATION_ID = 322

@@ -16,7 +16,7 @@ import java.util.*
 fun loadImageUrl(imgView: ImageView, url: String?) {
     if (url.isNullOrBlank()) return
     Picasso.get()
-        .load("https://image.tmdb.org/t/p/original/$url")
+        .load("$BASE_IMAGE_URL$url")
         .placeholder(R.color.athens_gray)
         .fit()
         .centerCrop()
