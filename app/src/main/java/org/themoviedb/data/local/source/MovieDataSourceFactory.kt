@@ -40,6 +40,4 @@ class MovieDataSourceFactory @Inject constructor(
     fun getKeywords(): String = if (sourceType == SourceType.BY_SEARCH_QUERY) keywords ?: "" else ""
 
     fun getDataSource(): LiveData<MovieDataSource> = dataSourceLiveData
-
-    fun onClear() = dataSource.onClear()
 }

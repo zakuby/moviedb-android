@@ -56,4 +56,5 @@
     <string name="button_add_apply">Apply Filter</string>
     <string name="review_read_full">Read Full Review</string>
     <string name="movie_detail_reviews">Reviews</string>
+    <string name="movie_detail_videos" translatable="false">Videos</string>
 </resources>

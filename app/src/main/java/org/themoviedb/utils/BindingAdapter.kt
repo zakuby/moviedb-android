@@ -23,6 +23,17 @@ fun loadImageUrl(imgView: ImageView, url: String?) {
         .into(imgView)
 }
 
+@BindingAdapter("loadImgYoutubeUrl")
+fun loadImgYoutubeUrl(imgView: ImageView, url: String?) {
+    if (url.isNullOrBlank()) return
+    Picasso.get()
+        .load(url)
+        .placeholder(R.color.athens_gray)
+        .fit()
+        .centerCrop()
+        .into(imgView)
+}
+
 @BindingAdapter("isShimmer")
 fun isShimmerStart(shimmerView: ShimmerFrameLayout, isShimmer: Boolean) {
     shimmerView.apply { if (isShimmer) startShimmer() else stopShimmer() }

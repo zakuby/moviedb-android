@@ -31,6 +31,8 @@ class DetailViewModel @Inject constructor(
 
     private val casts = MutableLiveData<List<Cast>>()
     fun getMovieCasts(): LiveData<List<Cast>> = casts
+    private val videos = MutableLiveData<List<Video>>()
+    fun getDetailVideos(): LiveData<List<Video>> = videos
     private val genres = MutableLiveData<List<Genre>>()
     fun getDetailGenre(): LiveData<List<Genre>> = genres
 
@@ -49,6 +51,7 @@ class DetailViewModel @Inject constructor(
 
     val movieFavoriteLoading = ObservableBoolean(true)
     val detailCastLoading = ObservableBoolean(false)
+    val detailVideosLoading = ObservableBoolean(false)
     lateinit var detailReviewLoading: LiveData<Boolean>
 
     sealed class FavoriteAction(val type: String) {
@@ -60,6 +63,7 @@ class DetailViewModel @Inject constructor(
     fun getFavoriteButtonAction(): LiveData<FavoriteAction> = favoriteAction
 
     val isErrorCast = ObservableBoolean(false)
+    val isErrorVideo = ObservableBoolean(false)
 
     lateinit var isErrorReview: LiveData<Boolean>
 
@@ -78,6 +82,7 @@ class DetailViewModel @Inject constructor(
             .doAfterTerminate {
                 finishLoading()
                 fetchMovieCasts(id)
+                fetchDetailVideos(id)
                 fetchReviews(id)
             }
             .subscribeBy(onSuccess = { detail ->
@@ -109,6 +114,28 @@ class DetailViewModel @Inject constructor(
                     }
                 }, onError = { error ->
                     isErrorCast.set(true)
+                    Crashlytics.logException(error)
+                }
+            ).disposedBy(compositeDisposable)
+    }
+
+    private fun fetchDetailVideos(id: Int) {
+        val fetchCredits =
+            if (isMovie) service.getMovieVideos(id) else service.getTvShowVideos(id)
+
+        fetchCredits.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { detailVideosLoading.set(true) }
+            .doAfterTerminate { detailVideosLoading.set(false) }
+            .subscribeBy(
+                onSuccess = { resp ->
+                    if (resp.results.isNullOrEmpty()) isErrorVideo.set(true)
+                    else {
+                        isErrorVideo.set(false)
+                        videos.postValue(resp.results)
+                    }
+                }, onError = { error ->
+                    isErrorVideo.set(true)
                     Crashlytics.logException(error)
                 }
             ).disposedBy(compositeDisposable)

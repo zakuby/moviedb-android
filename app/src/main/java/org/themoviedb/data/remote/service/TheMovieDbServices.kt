@@ -72,6 +72,16 @@ interface TheMovieDbServices {
         @Path("id") id: Int
     ): Single<MovieCreditsResponse>
 
+    @GET("movie/{id}/videos")
+    fun getMovieVideos(
+        @Path("id") id: Int
+    ): Single<DetailVideoResponse>
+
+    @GET("tv/{id}/videos")
+    fun getTvShowVideos(
+        @Path("id") id: Int
+    ): Single<DetailVideoResponse>
+
     @GET("movie/{id}/reviews")
     fun getMovieReviews(
         @Path("id") id: Int,
