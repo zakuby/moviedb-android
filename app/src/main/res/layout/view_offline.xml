@@ -26,7 +26,8 @@
             android:textAlignment="center"
             android:text="@{model.message}"
             tools:text="@string/error_no_internet_connection"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:gravity="center_horizontal" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/retry_button"

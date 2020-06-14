@@ -20,7 +20,7 @@ class TvShowViewModel @Inject constructor(
     val initialEmpty: LiveData<Boolean>
     val errorResponse: LiveData<ErrorResponse>
     val tvShows: LiveData<PagedList<TvShow>>
-    val searchQuery = ObservableField<String>(dataSourceFactory.getKeywords())
+    val searchQuery = ObservableField(dataSourceFactory.getKeywords())
 
     init {
         val config = PagedList.Config.Builder()
