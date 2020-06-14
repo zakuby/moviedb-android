@@ -65,7 +65,6 @@ class DetailViewModel @Inject constructor(
     val isErrorCast = ObservableBoolean(false)
     val isErrorVideo = ObservableBoolean(false)
 
-
     lateinit var isErrorReview: LiveData<Boolean>
 
     fun setMovieDetail(id: Int, isMovie: Boolean) {

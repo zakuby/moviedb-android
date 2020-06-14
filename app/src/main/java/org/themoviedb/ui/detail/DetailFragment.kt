@@ -27,7 +27,6 @@ import org.themoviedb.utils.CustomDialog
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
 
-
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
     @Inject
@@ -140,7 +139,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         startActivity(i)
     }
 
-    private fun openYoutube(key: String){
+    private fun openYoutube(key: String) {
         val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$key"))
         val webIntent = Intent(
             Intent.ACTION_VIEW,
