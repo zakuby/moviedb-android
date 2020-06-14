@@ -41,5 +41,4 @@ class MovieDataSourceFactory @Inject constructor(
 
     fun getDataSource(): LiveData<MovieDataSource> = dataSourceLiveData
 
-    fun onClear() = dataSource.onClear()
 }

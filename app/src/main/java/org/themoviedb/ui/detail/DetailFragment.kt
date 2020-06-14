@@ -1,6 +1,8 @@
 package org.themoviedb.ui.detail
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
@@ -12,16 +14,19 @@ import org.themoviedb.R
 import org.themoviedb.adapters.DetailGenreListAdapter
 import org.themoviedb.adapters.DetailListCastAdapter
 import org.themoviedb.adapters.DetailReviewListAdapter
+import org.themoviedb.adapters.DetailVideoListAdapter
 import org.themoviedb.data.local.models.Review
 import org.themoviedb.data.local.provider.FavoritesProvider
 import org.themoviedb.databinding.FragmentDetailBinding
 import org.themoviedb.ui.base.BaseFragment
-import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.*
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.ActionFavoriteAdded
+import org.themoviedb.ui.detail.DetailViewModel.FavoriteAction.ActionFavoriteRemoved
 import org.themoviedb.ui.main.MainActivity
 import org.themoviedb.ui.main.WebViewActivity
 import org.themoviedb.utils.CustomDialog
 import org.themoviedb.utils.ext.observe
 import javax.inject.Inject
+
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
@@ -40,6 +45,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailId: Int by lazy { movieArgs.id }
 
     private val castAdapter by lazy { DetailListCastAdapter() }
+
+    private val videoAdapter by lazy { DetailVideoListAdapter(this::openYoutube) }
 
     private val genreAdapter by lazy { DetailGenreListAdapter() }
 
@@ -64,6 +71,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     false
                 )
                 adapter = castAdapter
+            }
+            recyclerViewVideo.apply {
+                layoutManager = LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = videoAdapter
             }
             recyclerViewGenre.apply {
                 layoutManager = LinearLayoutManager(
@@ -92,6 +107,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun subscribeUI() {
         observe(viewModel.getDetailGenre(), genreAdapter::loadItems)
         observe(viewModel.getMovieCasts(), castAdapter::loadItems)
+        observe(viewModel.getDetailVideos(), videoAdapter::loadItems)
         observe(viewModel.onReviewLiveDataReady, {
             observe(viewModel.getDetailReview(), reviewAdapter::submitList)
             observe(viewModel.isErrorReview, { isError ->
@@ -122,5 +138,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             putExtra("title", "Review Detail by ${review.author}")
         }
         startActivity(i)
+    }
+
+    private fun openYoutube(key: String){
+        val appIntent = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:$key"))
+        val webIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("http://www.youtube.com/watch?v=$id")
+        )
+        try {
+            requireContext().startActivity(appIntent)
+        } catch (ex: ActivityNotFoundException) {
+            requireContext().startActivity(webIntent)
+        }
     }
 }
